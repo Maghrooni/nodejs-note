@@ -1,0 +1,23 @@
+{
+  "name": "notes",
+  "version": "1.0.0",
+  "description": "sample nodejs app for learning nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maghrooni/nodejs-note.git"
+  },
+  "keywords": [
+    "nodejs",
+    "note"
+  ],
+  "author": "Maghrooni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maghrooni/nodejs-note/issues"
+  },
+  "homepage": "https://github.com/Maghrooni/nodejs-note#readme"
+}
