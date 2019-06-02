@@ -1,13 +1,19 @@
 import express = require('express')
+import configs from './config'
 
 var app = express();
 
-app.get('/works', function (req, res) {
-    res.send('Works !');
-});
+import userRoutes from './routes/userRoutes';
+import defaultRoutes from './routes';
 
-app.get('/info', function (req, res) {
-    console.dir(req);
+app.use('/', defaultRoutes);
+app.use('/api/user/', userRoutes);
+
+app.use(function (req, res, next) {
+    if (configs.global.logging) {
+        console.log(`Logger  - Url : ${req.url}`);
+    }
+    next();
 });
 
 export default app;
