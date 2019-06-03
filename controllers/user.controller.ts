@@ -26,6 +26,7 @@ export class userController {
     @Get('/users/:id')
     @OnUndefined(statusCodes.notFound)
     getOne(@Param('id') id: Number) {
+        //todo return found user with id
         console.log(`will find user with this ID ${id}`);
     }
 
@@ -36,5 +37,9 @@ export class userController {
         const newUser = new userModel(user.name, user.username, user.email, user.password);
         return newUser;
     }
+
+
+
+
 
 }

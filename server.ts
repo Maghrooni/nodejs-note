@@ -1,12 +1,18 @@
 import express = require('express')
 import configs from './config'
 import {useExpressServer} from 'routing-controllers';
+import "reflect-metadata";
 
 const app = express();
 
-import userRoutes from './routes/userRoutes';
+import userRoutes from './routes/user.route';
 import defaultRoutes from './routes';
+import {userController} from "./controllers/user.controller";
 
+
+useExpressServer(app, {
+    controllers: [userController]
+});
 
 app.use('/', defaultRoutes);
 app.use('/api/user/', userRoutes);

@@ -10,4 +10,4 @@ router.post('/login');
 router.put('/profile');
 router.delete('/profile');
 exports.default = router;
-//# sourceMappingURL=userRoutes.js.map
+//# sourceMappingURL=user.route.js.map

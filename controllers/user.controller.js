@@ -24,6 +24,7 @@ var userController = /** @class */ (function () {
         return this.someUserData;
     };
     userController.prototype.getOne = function (id) {
+        //todo return found user with id
         console.log("will find user with this ID " + id);
     };
     userController.prototype.add = function (user) {
