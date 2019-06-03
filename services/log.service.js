@@ -30,7 +30,7 @@ var NoteService = /** @class */ (function (_super) {
             return note;
         })
             .catch(function (err) {
-            return _this.errorHandler.error(err);
+            return _this.errorHandler.throwError(err);
         });
         //todo add log of added note
     };

@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 // app.use('/api/user/', userRoutes);
 
 app.use(function (req, res, next) {
-    if (configs.global.logging) {
+    if (configs.global.logUrls) {
         console.log(`Logger  - Url : ${req.url}`);
     }
     next();

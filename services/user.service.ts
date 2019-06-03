@@ -1,4 +1,5 @@
 import {BaseService} from "./base.service";
+import {logPriorities} from "../config/log";
 
 let UserRepository = require('../repositories/user.repository');
 
@@ -20,7 +21,7 @@ class UserService extends BaseService {
                 return user;
             })
             .catch(err => {
-                return this.errorHandler.error(err);
+                return this.errorHandler.throwError(err);
             });
         //todo add log of registered user
 
@@ -41,11 +42,13 @@ class UserService extends BaseService {
                     //todo set session ?
                     return found;
                 } catch (e) {
-                    return this.errorHandler.error(e);
+                    return this.errorHandler.throwError(e, {
+                        title: 'Login Failed', priority: logPriorities.high, data: {e}
+                    });
                 }
             })
             .catch(err => {
-                return this.errorHandler.error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 }

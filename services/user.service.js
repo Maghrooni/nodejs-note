@@ -31,7 +31,7 @@ var UserService = /** @class */ (function (_super) {
             return user;
         })
             .catch(function (err) {
-            return _this.errorHandler.error(err);
+            return _this.errorHandler.throwError(err);
         });
         //todo add log of registered user
     };
@@ -49,11 +49,13 @@ var UserService = /** @class */ (function (_super) {
                 return found;
             }
             catch (e) {
-                return _this.errorHandler.error(e);
+                return _this.errorHandler.throwError(e, {
+                    title: 'Login Failed', priority: 3 /* high */, data: { e: e }
+                });
             }
         })
             .catch(function (err) {
-            return _this.errorHandler.error(err);
+            return _this.errorHandler.throwError(err);
         });
     };
     return UserService;

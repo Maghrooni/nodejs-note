@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 // app.use('/', defaultRoutes);
 // app.use('/api/user/', userRoutes);
 app.use(function (req, res, next) {
-    if (config_1.default.global.logging) {
+    if (config_1.default.global.logUrls) {
         console.log("Logger  - Url : " + req.url);
     }
     next();
