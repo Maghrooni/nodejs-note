@@ -9,7 +9,7 @@ const configs = {
 export const enum itemStatuses {
     deleted = 0,
     active = 1,
-    inactive = 2
+    inactive = 2,
 }
 
 export const enum statusCodes {

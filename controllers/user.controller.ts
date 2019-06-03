@@ -20,7 +20,10 @@ export class userController {
 
     @Get('/users')
     getAll() {
-        return this.someUserData;
+        return this.someUserData.filter(function (users) {
+            delete users.password;
+            return true;
+        });
     }
 
     @Get('/users/:id')

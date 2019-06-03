@@ -21,7 +21,10 @@ var userController = /** @class */ (function () {
         ];
     }
     userController.prototype.getAll = function () {
-        return this.someUserData;
+        return this.someUserData.filter(function (users) {
+            delete users.password;
+            return true;
+        });
     };
     userController.prototype.getById = function (id) {
         //todo return found user with id
