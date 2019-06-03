@@ -6,11 +6,15 @@ let ErrorHandler = require('../services/errorHandler.service');
 
 class NoteService extends BaseService {
 
+    constructor(){
+        super();
+        this.repository = NoteRepository;
+    }
     //todo fix user type
     add(note: any) {
         //todo validate
         //todo transactions ?
-        return NoteRepository
+        return this.repository
             .add(note)
             .then(() => {
                 return note;

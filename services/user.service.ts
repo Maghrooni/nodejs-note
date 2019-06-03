@@ -6,12 +6,17 @@ let ErrorHandler = require('../services/errorHandler.service');
 
 class UserService extends BaseService {
 
+    constructor() {
+        super();
+        this.repository = UserRepository;
+    }
+
     //todo fix user type
     register(user: any) {
         //todo validate user data
         //todo register user
         //todo use transactions ?
-        return UserRepository
+        return this.repository
             .add(user)
             .then(() => {
                 return user;
@@ -24,7 +29,7 @@ class UserService extends BaseService {
     }
 
     login(user: any) {
-        return UserRepository
+        return this.repository
             .getByUserPass(
                 user.username,
                 user.password

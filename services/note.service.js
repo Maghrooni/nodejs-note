@@ -16,13 +16,15 @@ var ErrorHandler = require('../services/errorHandler.service');
 var NoteService = /** @class */ (function (_super) {
     __extends(NoteService, _super);
     function NoteService() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super.call(this) || this;
+        _this.repository = NoteRepository;
+        return _this;
     }
     //todo fix user type
     NoteService.prototype.add = function (note) {
         //todo validate
         //todo transactions ?
-        return NoteRepository
+        return this.repository
             .add(note)
             .then(function () {
             return note;

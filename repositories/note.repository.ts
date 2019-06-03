@@ -10,7 +10,14 @@ class NoteRepository extends BaseRepository {
 
     //todo use promise
     getAll() {
-        return Note.find({}).select('title');
+        return Note
+            .find({})
+            .then(()=>{
+
+            })
+            .catch(err => {
+                return err;
+            });
     }
 
     getByField(field: String, value: Number | String) {
@@ -28,8 +35,8 @@ class NoteRepository extends BaseRepository {
     add(note: Note) {
         return Note
             .create(note)
-            .then(() => {
-                return note;
+            .then((created) => {
+                return created;
             })
             .catch(err => {
                 //todo move to error handler

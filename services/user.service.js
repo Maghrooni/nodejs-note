@@ -16,14 +16,16 @@ var ErrorHandler = require('../services/errorHandler.service');
 var UserService = /** @class */ (function (_super) {
     __extends(UserService, _super);
     function UserService() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super.call(this) || this;
+        _this.repository = UserRepository;
+        return _this;
     }
     //todo fix user type
     UserService.prototype.register = function (user) {
         //todo validate user data
         //todo register user
         //todo use transactions ?
-        return UserRepository
+        return this.repository
             .add(user)
             .then(function () {
             return user;
@@ -34,7 +36,7 @@ var UserService = /** @class */ (function (_super) {
         //todo add log of registered user
     };
     UserService.prototype.login = function (user) {
-        return UserRepository
+        return this.repository
             .getByUserPass(user.username, user.password)
             .then(function (found) {
             try {

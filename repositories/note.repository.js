@@ -19,7 +19,13 @@ var NoteRepository = /** @class */ (function (_super) {
     }
     //todo use promise
     NoteRepository.prototype.getAll = function () {
-        return note_model_1.Note.find({}).select('title');
+        return note_model_1.Note
+            .find({})
+            .then(function () {
+        })
+            .catch(function (err) {
+            return err;
+        });
     };
     NoteRepository.prototype.getByField = function (field, value) {
         return note_model_1.Note.find({ field: value });
@@ -32,8 +38,8 @@ var NoteRepository = /** @class */ (function (_super) {
     NoteRepository.prototype.add = function (note) {
         return note_model_1.Note
             .create(note)
-            .then(function () {
-            return note;
+            .then(function (created) {
+            return created;
         })
             .catch(function (err) {
             //todo move to error handler
