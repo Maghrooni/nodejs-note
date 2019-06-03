@@ -14,7 +14,7 @@ import {NoteController} from "./controllers/note.controller";
 
 
 useExpressServer(app, {
-    controllers: [UserController, NoteController]
+    controllers: [__dirname + "/controllers/*.js"]
 });
 
 app.use(bodyParser.json());
