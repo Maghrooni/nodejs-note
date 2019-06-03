@@ -8,34 +8,35 @@ let UserService = require('../services/user.service')
 
 export class UserController {
 
-    constructor() {
+    private static _path = '/users';
 
+    constructor() {
     }
 
-    @Get('/users')
+    @Get(UserController._path)
     getAll() {
         return UserRepository.getAll();
     }
 
-    @Get('/users/:id')
+    @Get(`${UserController._path}/:id`)
     @OnUndefined(statusCodes.notFound)
     getById(@Param('id') id: Number) {
         return UserRepository.getById(id);
     }
 
-    @Get('/users/:username')
+    @Get(`${UserController._path}/:username`)
     @OnUndefined(statusCodes.notFound)
     getByUsername(@Param('username') username: String) {
         return UserRepository.getByField('username', username);
     }
 
-    @Post('/users')
+    @Post(UserController._path)
     add(@Body() user: any) {
         //todo change any to User
         return UserService.register(user);
     }
 
-    @Put('/users/:id')
+    @Put(`${UserController._path}/:id`)
     update(@Param('id') id: Number, @Body() user: any) {
         //todo find user by Id , validate input data
         //todo check if logged in user has permission to update data
@@ -43,7 +44,7 @@ export class UserController {
         console.log(`user data for ID ${id} will be updated !`);
     }
 
-    @Delete('/users/:id')
+    @Delete(`${UserController._path}/:id`)
     delete(@Param('id') id: Number) {
         return UserRepository.delete(id);
     }

@@ -15,6 +15,7 @@ var UserService = require('../services/user.service');
 var UserController = /** @class */ (function () {
     function UserController() {
     }
+    UserController_1 = UserController;
     UserController.prototype.getAll = function () {
         return UserRepository.getAll();
     };
@@ -37,35 +38,37 @@ var UserController = /** @class */ (function () {
     UserController.prototype.delete = function (id) {
         return UserRepository.delete(id);
     };
+    UserController._path = '/users';
     __decorate([
-        routing_controllers_1.Get('/users')
+        routing_controllers_1.Get(UserController_1._path)
     ], UserController.prototype, "getAll", null);
     __decorate([
-        routing_controllers_1.Get('/users/:id'),
+        routing_controllers_1.Get(UserController_1._path + "/:id"),
         routing_controllers_1.OnUndefined(404 /* notFound */),
         __param(0, routing_controllers_1.Param('id'))
     ], UserController.prototype, "getById", null);
     __decorate([
-        routing_controllers_1.Get('/users/:username'),
+        routing_controllers_1.Get(UserController_1._path + "/:username"),
         routing_controllers_1.OnUndefined(404 /* notFound */),
         __param(0, routing_controllers_1.Param('username'))
     ], UserController.prototype, "getByUsername", null);
     __decorate([
-        routing_controllers_1.Post('/users'),
+        routing_controllers_1.Post(UserController_1._path),
         __param(0, routing_controllers_1.Body())
     ], UserController.prototype, "add", null);
     __decorate([
-        routing_controllers_1.Put('/users/:id'),
+        routing_controllers_1.Put(UserController_1._path + "/:id"),
         __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body())
     ], UserController.prototype, "update", null);
     __decorate([
-        routing_controllers_1.Delete('/users/:id'),
+        routing_controllers_1.Delete(UserController_1._path + "/:id"),
         __param(0, routing_controllers_1.Param('id'))
     ], UserController.prototype, "delete", null);
-    UserController = __decorate([
+    UserController = UserController_1 = __decorate([
         routing_controllers_1.JsonController()
     ], UserController);
     return UserController;
+    var UserController_1;
 }());
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map

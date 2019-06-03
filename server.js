@@ -11,8 +11,9 @@ dbConnection_1.dbConnect();
 // import userRoutes from './routes/user.route';
 // import defaultRoutes from './routes';
 var user_controller_1 = require("./controllers/user.controller");
+var note_controller_1 = require("./controllers/note.controller");
 routing_controllers_1.useExpressServer(app, {
-    controllers: [user_controller_1.UserController]
+    controllers: [user_controller_1.UserController, note_controller_1.NoteController]
 });
 app.use(bodyParser.json());
 // app.use('/', defaultRoutes);
