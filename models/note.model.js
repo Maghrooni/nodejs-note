@@ -1,17 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var noteModel = /** @class */ (function () {
-    function noteModel(title, userId, type, color, status, id) {
-        if (type === void 0) { type = 1 /* general */; }
-        if (status === void 0) { status = 1 /* active */; }
-        this.id = id;
-        this.title = title;
-        this.userId = userId;
-        this.type = type;
-        this.status = status;
-        this.color = color;
-    }
-    return noteModel;
-}());
-exports.default = noteModel;
+var mongoose_1 = require("mongoose");
+var validation_1 = require("../config/validation");
+var noteSchema = new mongoose_1.Schema({
+    title: { type: String, required: true, min: validation_1.default.user.min },
+    userId: { type: Number, required: true },
+    color: String,
+    type: { type: Number, default: 1 /* general */ },
+    status: { type: Number, default: 1 /* active */ },
+}, { timestamps: true });
+exports.Note = mongoose_1.model('Note', noteSchema);
 //# sourceMappingURL=note.model.js.map

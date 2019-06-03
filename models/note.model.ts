@@ -1,21 +1,26 @@
 import {itemStatuses} from '../config';
+import {Schema, model, Document} from 'mongoose';
 import {noteTypes} from "../config/note";
+import validationConfig from '../config/validation';
 
-export default class noteModel {
-    id?: number;
-    title: String;
-    userId: Number;
-    type: Number;
-    color: String;
-    status: Number;
-
-    constructor(title: String, userId: Number, type: Number = noteTypes.general, color: String, status: Number = itemStatuses.active, id?: number) {
-        this.id = id;
-        this.title = title;
-        this.userId = userId;
-        this.type = type;
-        this.status = status;
-        this.color = color;
-    }
-
+export interface iNote {
+    id?: string | number;
+    title: String,
+    userId: Number,
+    type: Number,
+    color: String,
+    status: Number
 }
+
+export interface iNoteDocument extends Document, iNote {
+}
+
+let noteSchema = new Schema({
+    title: {type: String, required: true, min: validationConfig.user.min},
+    userId: {type: Number, required: true},
+    color: String,
+    type: {type: Number, default: noteTypes.general},
+    status: {type: Number, default: itemStatuses.active},
+}, {timestamps: true});
+
+export let Note = model<iNoteDocument>('Note', noteSchema);

@@ -1,0 +1,38 @@
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var base_service_1 = require("./base.service");
+var NoteRepository = require('../repositories/note.repository');
+var ErrorHandler = require('../services/errorHandler.service');
+var NoteService = /** @class */ (function (_super) {
+    __extends(NoteService, _super);
+    function NoteService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    //todo fix user type
+    NoteService.prototype.add = function (note) {
+        //todo validate
+        //todo transactions ?
+        return NoteRepository
+            .add(note)
+            .then(function () {
+            return note;
+        })
+            .catch(function (err) {
+            return ErrorHandler.error(err);
+        });
+        //todo add log of added note
+    };
+    return NoteService;
+}(base_service_1.BaseService));
+module.exports = new NoteService();
+//# sourceMappingURL=note.service.js.map
