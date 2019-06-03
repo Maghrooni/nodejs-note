@@ -5,7 +5,11 @@ var configs = {
     hostName: 'localhost',
     global: {
         logging: false,
-    }
+    },
+    database: {
+        ip: '127.0.0.1',
+        dbName: 'note'
+    },
 };
 exports.default = configs;
 //# sourceMappingURL=index.js.map

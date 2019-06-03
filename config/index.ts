@@ -3,7 +3,11 @@ const configs = {
     hostName: 'localhost',
     global: {
         logging: false,
-    }
+    },
+    database: {
+        ip: '127.0.0.1',
+        dbName: 'note'
+    },
 };
 
 export const enum itemStatuses {
