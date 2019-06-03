@@ -2,10 +2,11 @@ import express = require('express')
 import configs from './config'
 import {useExpressServer} from 'routing-controllers';
 
-var app = express();
+const app = express();
 
 import userRoutes from './routes/userRoutes';
 import defaultRoutes from './routes';
+
 
 app.use('/', defaultRoutes);
 app.use('/api/user/', userRoutes);
