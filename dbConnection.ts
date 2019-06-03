@@ -13,7 +13,7 @@ export function dbConnect() {
     return mongoose
         .connect(`mongodb://${configs.database.ip}/${configs.database.dbName}`,{ useNewUrlParser: true })
         .then(()=>{
-            console.log('mongo ssss !');
+            // console.log('mongo !');
         })
         .catch((err) => {
             console.log(`DB Error: ${err}`);

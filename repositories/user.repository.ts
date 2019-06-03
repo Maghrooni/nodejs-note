@@ -2,7 +2,7 @@ import {User} from '../models/user.model'
 import {BaseRepository} from "./base.repository";
 
 
-export default class UserRepository extends BaseRepository {
+class UserRepository extends BaseRepository {
 
     constructor() {
         super();
@@ -10,7 +10,7 @@ export default class UserRepository extends BaseRepository {
 
     //todo use promise
     getAll() {
-        return User.find({});
+        return User.find({}).select('name email');
     }
 
     getByField(field: String, value: Number | String) {
@@ -23,6 +23,14 @@ export default class UserRepository extends BaseRepository {
 
     add(user: User) {
         User.create(user);
+        return user;
+    }
+
+    delete(id: Number) {
+        //todo check is removed or not, promise ?
+        return User.remove({id: id});
     }
 
 }
+
+module.exports = new UserRepository();

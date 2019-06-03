@@ -10,34 +10,22 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var routing_controllers_1 = require("routing-controllers");
-var user_model_1 = require("../models/user.model");
+var UserRepository = require('../repositories/user.repository');
 var UserController = /** @class */ (function () {
     function UserController() {
-        this.someUserData = [
-            new user_model_1.default('mehdi', 'maghrooni', 'maghrooni@gmail.com', 989898),
-            new user_model_1.default('meiti', 'maghrooni', 'maghrooni1@gmail.com', 989898),
-            new user_model_1.default('mehti', 'maghrooni', 'maghrooni2@gmail.com', 989898),
-        ];
     }
     UserController.prototype.getAll = function () {
-        return this.someUserData.filter(function (users) {
-            delete users.password;
-            return true;
-        });
+        return UserRepository.getAll();
     };
     UserController.prototype.getById = function (id) {
-        //todo return found user with id
-        console.log("will find user with this ID " + id);
+        return UserRepository.getById(id);
     };
     UserController.prototype.getByUsername = function (username) {
-        //todo return found user with username
-        console.log("will find user with this Username " + username);
+        return UserRepository.getByField('username', username);
     };
     UserController.prototype.add = function (user) {
-        console.log(user);
-        //todo validation on user service
-        var newUser = new user_model_1.default(user.name, user.username, user.email, user.password);
-        return newUser;
+        //todo move to User Services
+        return UserRepository.add(user);
     };
     UserController.prototype.update = function (id, user) {
         //todo find user by Id , validate input data
@@ -46,8 +34,7 @@ var UserController = /** @class */ (function () {
         console.log("user data for ID " + id + " will be updated !");
     };
     UserController.prototype.delete = function (id) {
-        //todo remove user
-        console.log("user with ID " + id + " will be removed !");
+        return UserRepository.delete(id);
     };
     __decorate([
         routing_controllers_1.Get('/users')
