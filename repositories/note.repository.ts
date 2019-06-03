@@ -12,8 +12,8 @@ class NoteRepository extends BaseRepository {
     getAll() {
         return Note
             .find({})
-            .then(()=>{
-
+            .then((found) => {
+                return found;
             })
             .catch(err => {
                 return err;
@@ -21,7 +21,14 @@ class NoteRepository extends BaseRepository {
     }
 
     getByField(field: String, value: Number | String) {
-        return Note.find({field: value});
+        return Note
+            .find({field: value})
+            .then((found) => {
+                return found;
+            })
+            .catch(err => {
+                return err;
+            });
     }
 
     getByUsername(username: String) {

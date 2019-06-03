@@ -15,22 +15,59 @@ var base_repository_1 = require("./base.repository");
 var UserRepository = /** @class */ (function (_super) {
     __extends(UserRepository, _super);
     function UserRepository() {
-        return _super.call(this) || this;
+        var _this = _super.call(this) || this;
+        _this.excludeFields = '-password';
+        return _this;
     }
     //todo use promise
     UserRepository.prototype.getAll = function () {
-        return user_model_1.User.find({}).select('name email');
+        return user_model_1.User
+            .find({ status: 1 /* active */ })
+            .select(this.excludeFields)
+            .then(function (found) {
+            // return this.getOnlyDocumentFields(found);
+            return found;
+        })
+            .catch(function (err) {
+            return err;
+        });
     };
     UserRepository.prototype.getByField = function (field, value) {
-        return user_model_1.User.find({ field: value });
+        return user_model_1.User
+            .find({ field: value })
+            .select(this.excludeFields)
+            .then(function (found) {
+            // return this.getOnlyDocumentFields(found);
+            return found;
+        })
+            .catch(function (err) {
+            return err;
+        });
     };
     UserRepository.prototype.getByUserPass = function (username, password) {
-        return user_model_1.User.findOne({
+        return user_model_1.User
+            .findOne({
             username: username,
-            password: password
+            password: password,
+            status: 1 /* active */
+        })
+            .select(this.excludeFields)
+            .then(function (found) {
+            return found;
+        })
+            .catch(function (err) {
+            return err;
         });
     };
     UserRepository.prototype.getById = function (id) {
+        return user_model_1.User
+            .findById(id)
+            .then(function (found) {
+            return found;
+        })
+            .catch(function (err) {
+            return err;
+        });
     };
     UserRepository.prototype.add = function (user) {
         return user_model_1.User

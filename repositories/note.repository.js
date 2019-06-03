@@ -21,14 +21,22 @@ var NoteRepository = /** @class */ (function (_super) {
     NoteRepository.prototype.getAll = function () {
         return note_model_1.Note
             .find({})
-            .then(function () {
+            .then(function (found) {
+            return found;
         })
             .catch(function (err) {
             return err;
         });
     };
     NoteRepository.prototype.getByField = function (field, value) {
-        return note_model_1.Note.find({ field: value });
+        return note_model_1.Note
+            .find({ field: value })
+            .then(function (found) {
+            return found;
+        })
+            .catch(function (err) {
+            return err;
+        });
     };
     NoteRepository.prototype.getByUsername = function (username) {
         //todo get user notes with username

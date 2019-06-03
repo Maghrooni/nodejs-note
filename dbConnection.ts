@@ -1,5 +1,5 @@
 import mongoose = require("mongoose");
-import configs from './config';
+import {configs, isProductionEnv} from './config';
 
 // mongoose.connection
 //     .on('connected', function () {
@@ -10,9 +10,13 @@ import configs from './config';
 //     });
 
 export function dbConnect() {
+    let options = {useNewUrlParser: true};
+    if (isProductionEnv()) {
+        options = {...options, autoIndex: false};
+    }
     return mongoose
-        .connect(`mongodb://${configs.database.ip}/${configs.database.dbName}`,{ useNewUrlParser: true })
-        .then(()=>{
+        .connect(`mongodb://${configs.database.ip}/${configs.database.dbName}`, options)
+        .then(() => {
             // console.log('mongo !');
         })
         .catch((err) => {
