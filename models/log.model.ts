@@ -1,21 +1,27 @@
 import {itemStatuses} from '../config';
-import {logTypes} from "../config/log";
+import {logTypes, logPriorities} from "../config/log";
+import {Schema, model, Document} from 'mongoose';
 
-export default class noteModel {
-    id?: number;
-    title: String;
-    userId: Number;
-    type: Number;
-    data: Object;
-    status: Number;
-
-    constructor(title: String, userId: Number, type: Number = logTypes.general, data: Object, status: Number = itemStatuses.active, id?: number) {
-        this.id = id;
-        this.title = title;
-        this.userId = userId;
-        this.type = type;
-        this.status = status;
-        this.data = data;
-    }
-
+export interface iLog {
+    id?: number | string,
+    title: String,
+    userId?: Number,
+    type: Number,
+    priority: Number,
+    data: Object,
+    status: Number
 }
+
+export interface iLogDocument extends Document, iLog {
+}
+
+let noteSchema = new Schema({
+    title: {type: String, required: true},
+    userId: {type: Number},
+    type: {type: Number, default: logTypes.general},
+    priority: {type: Number, default: logPriorities.low},
+    data: {type: Array},
+    status: {type: Number, default: itemStatuses.active},
+}, {timestamps: true});
+
+export let Log = model<iLogDocument>('Log', noteSchema);

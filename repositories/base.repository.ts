@@ -1,4 +1,8 @@
-export class BaseRepository {
+interface iRepository {
+
+}
+
+export class BaseRepository implements iRepository {
 
     constructor() {
 
