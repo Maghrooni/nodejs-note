@@ -11,19 +11,16 @@ var LogRepository = require('../repositories/log.repository');
 var LogController = /** @class */ (function () {
     function LogController() {
     }
-    LogController_1 = LogController;
     LogController.prototype.getAll = function () {
         return LogRepository.getAll();
     };
-    LogController._path = '/logs';
     __decorate([
-        routing_controllers_1.Get(LogController_1._path)
+        routing_controllers_1.Get()
     ], LogController.prototype, "getAll", null);
-    LogController = LogController_1 = __decorate([
-        routing_controllers_1.JsonController()
+    LogController = __decorate([
+        routing_controllers_1.JsonController('/logs')
     ], LogController);
     return LogController;
-    var LogController_1;
 }());
 exports.LogController = LogController;
 //# sourceMappingURL=log.controller.js.map

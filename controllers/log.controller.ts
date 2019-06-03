@@ -3,16 +3,14 @@ import {statusCodes} from "../config";
 
 let LogRepository = require('../repositories/log.repository');
 
-@JsonController()
+@JsonController('/logs')
 
 export class LogController {
-
-    private static _path = '/logs';
 
     constructor() {
     }
 
-    @Get(LogController._path)
+    @Get()
     getAll() {
         return LogRepository.getAll();
     }

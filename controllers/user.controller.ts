@@ -5,45 +5,44 @@ import {User} from "../models/user.model";
 let UserRepository = require('../repositories/user.repository');
 let UserService = require('../services/user.service')
 
-@JsonController()
+@JsonController('/users')
 
 export class UserController {
 
-    private static _path = '/users';
 
     constructor() {
     }
 
-    @Get(UserController._path)
+    @Get()
     getAll() {
         return UserRepository.getAll();
     }
 
-    @Get(`${UserController._path}/:id`)
+    @Get('/:id')
     @OnUndefined(statusCodes.notFound)
     getById(@Param('id') id: Number) {
         return UserRepository.getById(id);
     }
 
-    @Get(`${UserController._path}/:username`)
+    @Get(`/:username`)
     @OnUndefined(statusCodes.notFound)
     getByUsername(@Param('username') username: String) {
         return UserRepository.getByField('username', username);
     }
 
-    @Post(UserController._path)
+    @Post()
     add(@Body() user: any) {
         //todo change any to User
         return UserService.register(user);
     }
 
-    @Post(`${UserController._path}/login`)
+    @Post(`/login`)
     login(@Body() user: any) {
         //todo change any to User
         return UserService.login(user);
     }
 
-    @Put(`${UserController._path}/:id`)
+    @Put(`/:id`)
     update(@Param('id') id: Number, @Body() user: any) {
         //todo find user by Id , validate input data
         //todo check if logged in user has permission to update data
@@ -51,7 +50,7 @@ export class UserController {
         console.log(`user data for ID ${id} will be updated !`);
     }
 
-    @Delete(`${UserController._path}/:id`)
+    @Delete(`/:id`)
     delete(@Param('id') id: Number) {
         return UserRepository.delete(id);
     }
