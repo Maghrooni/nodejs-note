@@ -17,7 +17,7 @@ useExpressServer(app, {
     controllers: [__dirname + "/controllers/*.js"]
 });
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 // app.use('/', defaultRoutes);
 // app.use('/api/user/', userRoutes);
 
