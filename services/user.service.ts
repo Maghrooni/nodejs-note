@@ -22,6 +22,29 @@ class UserService extends BaseService {
         //todo add log of registered user
 
     }
+
+    login(user: any) {
+        return UserRepository
+            .getByUserPass(
+                user.username,
+                user.password
+            )
+            .then((found) => {
+                try {
+                    if (!found) {
+                        //todo support multilingual messages
+                        throw new Error('user not found')
+                    }
+                    //todo set session ?
+                    return found;
+                } catch (e) {
+                    return ErrorHandler.error(e);
+                }
+            })
+            .catch(err => {
+                return ErrorHandler.error(err);
+            });
+    }
 }
 
 module.exports = new UserService();

@@ -24,6 +24,12 @@ var UserRepository = /** @class */ (function (_super) {
     UserRepository.prototype.getByField = function (field, value) {
         return user_model_1.User.find({ field: value });
     };
+    UserRepository.prototype.getByUserPass = function (username, password) {
+        return user_model_1.User.findOne({
+            username: username,
+            password: password
+        });
+    };
     UserRepository.prototype.getById = function (id) {
     };
     UserRepository.prototype.add = function (user) {

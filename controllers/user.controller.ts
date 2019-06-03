@@ -1,5 +1,6 @@
 import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete} from "routing-controllers";
 import {statusCodes} from "../config";
+import {User} from "../models/user.model";
 
 let UserRepository = require('../repositories/user.repository');
 let UserService = require('../services/user.service')
@@ -34,6 +35,12 @@ export class UserController {
     add(@Body() user: any) {
         //todo change any to User
         return UserService.register(user);
+    }
+
+    @Post(`${UserController._path}/login`)
+    login(@Body() user: any) {
+        //todo change any to User
+        return UserService.login(user);
     }
 
     @Put(`${UserController._path}/:id`)

@@ -29,6 +29,10 @@ var UserController = /** @class */ (function () {
         //todo change any to User
         return UserService.register(user);
     };
+    UserController.prototype.login = function (user) {
+        //todo change any to User
+        return UserService.login(user);
+    };
     UserController.prototype.update = function (id, user) {
         //todo find user by Id , validate input data
         //todo check if logged in user has permission to update data
@@ -56,6 +60,10 @@ var UserController = /** @class */ (function () {
         routing_controllers_1.Post(UserController_1._path),
         __param(0, routing_controllers_1.Body())
     ], UserController.prototype, "add", null);
+    __decorate([
+        routing_controllers_1.Post(UserController_1._path + "/login"),
+        __param(0, routing_controllers_1.Body())
+    ], UserController.prototype, "login", null);
     __decorate([
         routing_controllers_1.Put(UserController_1._path + "/:id"),
         __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body())

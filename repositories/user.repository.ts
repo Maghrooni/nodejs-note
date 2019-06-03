@@ -17,6 +17,13 @@ class UserRepository extends BaseRepository {
         return User.find({field: value});
     }
 
+    getByUserPass(username: String, password: (Number | String)) {
+        return User.findOne({
+            username: username,
+            password: password
+        });
+    }
+
     getById(id: Number) {
 
     }

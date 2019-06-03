@@ -33,6 +33,26 @@ var UserService = /** @class */ (function (_super) {
         });
         //todo add log of registered user
     };
+    UserService.prototype.login = function (user) {
+        return UserRepository
+            .getByUserPass(user.username, user.password)
+            .then(function (found) {
+            try {
+                if (!found) {
+                    //todo support multilingual messages
+                    throw new Error('user not found');
+                }
+                //todo set session ?
+                return found;
+            }
+            catch (e) {
+                return ErrorHandler.error(e);
+            }
+        })
+            .catch(function (err) {
+            return ErrorHandler.error(err);
+        });
+    };
     return UserService;
 }(base_service_1.BaseService));
 module.exports = new UserService();
