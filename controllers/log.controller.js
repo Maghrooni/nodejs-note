@@ -6,21 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var routing_controllers_1 = require("routing-controllers");
-var LogRepository = require('../repositories/log.repository');
-var LogController = /** @class */ (function () {
-    function LogController() {
+const routing_controllers_1 = require("routing-controllers");
+let LogRepository = require('../repositories/log.repository');
+let LogController = class LogController {
+    constructor() {
     }
-    LogController.prototype.getAll = function () {
+    getAll() {
         return LogRepository.getAll();
-    };
-    __decorate([
-        routing_controllers_1.Get()
-    ], LogController.prototype, "getAll", null);
-    LogController = __decorate([
-        routing_controllers_1.JsonController('/logs')
-    ], LogController);
-    return LogController;
-}());
+    }
+};
+__decorate([
+    routing_controllers_1.Get()
+], LogController.prototype, "getAll", null);
+LogController = __decorate([
+    routing_controllers_1.JsonController('/logs')
+], LogController);
 exports.LogController = LogController;
 //# sourceMappingURL=log.controller.js.map

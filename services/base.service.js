@@ -1,11 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ErrorHandler = require('../services/errorHandler.service');
-var BaseService = /** @class */ (function () {
-    function BaseService() {
+let ErrorHandler = require('../services/errorHandler.service');
+class BaseService {
+    constructor() {
         this.errorHandler = ErrorHandler;
     }
-    return BaseService;
-}());
+}
 exports.BaseService = BaseService;
 //# sourceMappingURL=base.service.js.map

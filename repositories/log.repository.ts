@@ -1,5 +1,6 @@
 import {iLog, Log} from '../models/log.model'
 import {BaseRepository} from "./base.repository";
+import {User} from "../models/user.model";
 
 
 class LogRepository extends BaseRepository {
@@ -21,11 +22,25 @@ class LogRepository extends BaseRepository {
     }
 
     getByField(field: String, value: Number | String) {
-        return Log.find({field: value});
+        return Log
+            .find({field: value})
+            .then((found) => {
+                return found;
+            })
+            .catch(err => {
+                return err;
+            });
     }
 
-    getById(id: Number) {
-
+    getById(id: string) {
+        return Log
+            .findById(id)
+            .then((found) => {
+                return found;
+            })
+            .catch(err => {
+                return err;
+            });
     }
 
     add(log: iLog) {

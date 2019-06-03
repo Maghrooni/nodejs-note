@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var validationConfig = {
+const validationConfig = {
     user: {
         min: 3,
         password: {

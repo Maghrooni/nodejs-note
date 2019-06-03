@@ -1,5 +1,6 @@
 import {iNote, Note} from '../models/note.model'
 import {BaseRepository} from "./base.repository";
+import {User} from "../models/user.model";
 
 
 class NoteRepository extends BaseRepository {
@@ -35,8 +36,15 @@ class NoteRepository extends BaseRepository {
         //todo get user notes with username
     }
 
-    getById(id: Number) {
-
+    getById(id: string) {
+        return User
+            .findById(id)
+            .then((found) => {
+                return found;
+            })
+            .catch(err => {
+                return err;
+            });
     }
 
     add(note: iNote) {

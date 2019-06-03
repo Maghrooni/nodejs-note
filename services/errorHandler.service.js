@@ -1,20 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var config_1 = require("../config");
-var LogService = require('../services/log.service');
-var ErrorHandlerService = /** @class */ (function () {
-    function ErrorHandlerService() {
+const config_1 = require("../config");
+let LogService = require('../services/log.service');
+class ErrorHandlerService {
+    constructor() {
     }
-    ErrorHandlerService.prototype.throwError = function (msg, log) {
+    throwError(msg, log) {
         if (log && config_1.default.global.saveLogs) {
             LogService.add(log);
         }
-        throw new Error("" + msg);
-    };
-    ErrorHandlerService.prototype.consoleError = function (msg) {
+        throw new Error(`${msg}`);
+    }
+    consoleError(msg) {
         return console.log(msg);
-    };
-    return ErrorHandlerService;
-}());
+    }
+}
 module.exports = new ErrorHandlerService();
 //# sourceMappingURL=errorHandler.service.js.map

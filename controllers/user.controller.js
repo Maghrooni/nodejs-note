@@ -9,71 +9,70 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var routing_controllers_1 = require("routing-controllers");
-var UserRepository = require('../repositories/user.repository');
-var UserService = require('../services/user.service');
-var UserController = /** @class */ (function () {
-    function UserController() {
+const routing_controllers_1 = require("routing-controllers");
+let UserRepository = require('../repositories/user.repository');
+let UserService = require('../services/user.service');
+let UserController = class UserController {
+    constructor() {
     }
-    UserController.prototype.getAll = function () {
+    getAll() {
         return UserRepository.getAll();
-    };
-    UserController.prototype.getById = function (id) {
+    }
+    getById(id) {
         return UserRepository.getById(id);
-    };
-    UserController.prototype.getByUsername = function (username) {
+    }
+    getByUsername(username) {
         return UserRepository.getByField('username', username);
-    };
-    UserController.prototype.add = function (user) {
+    }
+    add(user) {
         //todo change any to User
         return UserService.register(user);
-    };
-    UserController.prototype.login = function (user) {
+    }
+    login(user) {
         //todo change any to User
         return UserService.login(user);
-    };
-    UserController.prototype.update = function (id, user) {
+    }
+    update(id, user) {
         //todo find user by Id , validate input data
         //todo check if logged in user has permission to update data
         //todo update user data
-        console.log("user data for ID " + id + " will be updated !");
-    };
-    UserController.prototype.delete = function (id) {
+        console.log(`user data for ID ${id} will be updated !`);
+    }
+    delete(id) {
         return UserRepository.delete(id);
-    };
-    __decorate([
-        routing_controllers_1.Get()
-    ], UserController.prototype, "getAll", null);
-    __decorate([
-        routing_controllers_1.Get('/:id'),
-        routing_controllers_1.OnUndefined(404 /* notFound */),
-        __param(0, routing_controllers_1.Param('id'))
-    ], UserController.prototype, "getById", null);
-    __decorate([
-        routing_controllers_1.Get("/:username"),
-        routing_controllers_1.OnUndefined(404 /* notFound */),
-        __param(0, routing_controllers_1.Param('username'))
-    ], UserController.prototype, "getByUsername", null);
-    __decorate([
-        routing_controllers_1.Post(),
-        __param(0, routing_controllers_1.Body())
-    ], UserController.prototype, "add", null);
-    __decorate([
-        routing_controllers_1.Post("/login"),
-        __param(0, routing_controllers_1.Body())
-    ], UserController.prototype, "login", null);
-    __decorate([
-        routing_controllers_1.Put("/:id"),
-        __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body())
-    ], UserController.prototype, "update", null);
-    __decorate([
-        routing_controllers_1.Delete("/:id"),
-        __param(0, routing_controllers_1.Param('id'))
-    ], UserController.prototype, "delete", null);
-    UserController = __decorate([
-        routing_controllers_1.JsonController('/users')
-    ], UserController);
-    return UserController;
-}());
+    }
+};
+__decorate([
+    routing_controllers_1.Get()
+], UserController.prototype, "getAll", null);
+__decorate([
+    routing_controllers_1.Get('/:id'),
+    routing_controllers_1.OnUndefined(404 /* notFound */),
+    __param(0, routing_controllers_1.Param('id'))
+], UserController.prototype, "getById", null);
+__decorate([
+    routing_controllers_1.Get(`/:username`),
+    routing_controllers_1.OnUndefined(404 /* notFound */),
+    __param(0, routing_controllers_1.Param('username'))
+], UserController.prototype, "getByUsername", null);
+__decorate([
+    routing_controllers_1.Post(),
+    __param(0, routing_controllers_1.Body())
+], UserController.prototype, "add", null);
+__decorate([
+    routing_controllers_1.Post(`/login`),
+    __param(0, routing_controllers_1.Body())
+], UserController.prototype, "login", null);
+__decorate([
+    routing_controllers_1.Put(`/:id`),
+    __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body())
+], UserController.prototype, "update", null);
+__decorate([
+    routing_controllers_1.Delete(`/:id`),
+    __param(0, routing_controllers_1.Param('id'))
+], UserController.prototype, "delete", null);
+UserController = __decorate([
+    routing_controllers_1.JsonController('/users')
+], UserController);
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map

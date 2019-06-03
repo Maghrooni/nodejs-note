@@ -1,45 +1,31 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var base_service_1 = require("./base.service");
-var UserRepository = require('../repositories/user.repository');
-var UserService = /** @class */ (function (_super) {
-    __extends(UserService, _super);
-    function UserService() {
-        var _this = _super.call(this) || this;
-        _this.repository = UserRepository;
-        return _this;
+const base_service_1 = require("./base.service");
+let UserRepository = require('../repositories/user.repository');
+class UserService extends base_service_1.BaseService {
+    constructor() {
+        super();
+        this.repository = UserRepository;
     }
     //todo fix user type
-    UserService.prototype.register = function (user) {
-        var _this = this;
+    register(user) {
         //todo validate user data
         //todo register user
         //todo use transactions ?
         return this.repository
             .add(user)
-            .then(function () {
+            .then(() => {
             return user;
         })
-            .catch(function (err) {
-            return _this.errorHandler.throwError(err);
+            .catch(err => {
+            return this.errorHandler.throwError(err);
         });
         //todo add log of registered user
-    };
-    UserService.prototype.login = function (user) {
-        var _this = this;
+    }
+    login(user) {
         return this.repository
             .getByUserPass(user.username, user.password)
-            .then(function (found) {
+            .then((found) => {
             try {
                 if (!found) {
                     //todo support multilingual messages
@@ -49,7 +35,7 @@ var UserService = /** @class */ (function (_super) {
                 return found;
             }
             catch (e) {
-                return _this.errorHandler.throwError(e, {
+                return this.errorHandler.throwError(e, {
                     title: 'Login Failed', priority: 3 /* high */, data: {
                         error: e,
                         user: user
@@ -57,11 +43,10 @@ var UserService = /** @class */ (function (_super) {
                 });
             }
         })
-            .catch(function (err) {
-            return _this.errorHandler.throwError(err);
+            .catch(err => {
+            return this.errorHandler.throwError(err);
         });
-    };
-    return UserService;
-}(base_service_1.BaseService));
+    }
+}
 module.exports = new UserService();
 //# sourceMappingURL=user.service.js.map

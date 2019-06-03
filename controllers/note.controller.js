@@ -9,64 +9,62 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var routing_controllers_1 = require("routing-controllers");
-var NoteRepository = require('../repositories/note.repository');
-var NoteService = require('../services/note.service');
-var NoteController = /** @class */ (function () {
-    function NoteController() {
+const routing_controllers_1 = require("routing-controllers");
+let NoteRepository = require('../repositories/note.repository');
+let NoteService = require('../services/note.service');
+let NoteController = NoteController_1 = class NoteController {
+    constructor() {
     }
-    NoteController_1 = NoteController;
-    NoteController.prototype.getAll = function () {
+    getAll() {
         return NoteRepository.getAll();
-    };
-    NoteController.prototype.getById = function (id) {
+    }
+    getById(id) {
         return NoteRepository.getById(id);
-    };
-    NoteController.prototype.getByUsername = function (username) {
+    }
+    getByUsername(username) {
         return NoteRepository.getByUsername(username);
-    };
-    NoteController.prototype.add = function (user) {
+    }
+    add(user) {
         return NoteService.add(user);
-    };
-    NoteController.prototype.update = function (id, user) {
+    }
+    update(id, user) {
         //todo validate input data
         //todo update user data
-        console.log("note data for ID " + id + " will be updated !");
-    };
-    NoteController.prototype.delete = function (id) {
+        console.log(`note data for ID ${id} will be updated !`);
+    }
+    delete(id) {
         return NoteService.delete(id);
-    };
-    NoteController._path = '/notes';
-    __decorate([
-        routing_controllers_1.Get(NoteController_1._path)
-    ], NoteController.prototype, "getAll", null);
-    __decorate([
-        routing_controllers_1.Get(NoteController_1._path + "/:id"),
-        routing_controllers_1.OnUndefined(404 /* notFound */),
-        __param(0, routing_controllers_1.Param('id'))
-    ], NoteController.prototype, "getById", null);
-    __decorate([
-        routing_controllers_1.Get(NoteController_1._path + "/:username"),
-        routing_controllers_1.OnUndefined(404 /* notFound */),
-        __param(0, routing_controllers_1.Param('username'))
-    ], NoteController.prototype, "getByUsername", null);
-    __decorate([
-        routing_controllers_1.Post(NoteController_1._path),
-        __param(0, routing_controllers_1.Body())
-    ], NoteController.prototype, "add", null);
-    __decorate([
-        routing_controllers_1.Put(NoteController_1._path + "/:id"),
-        __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body())
-    ], NoteController.prototype, "update", null);
-    __decorate([
-        routing_controllers_1.Delete(NoteController_1._path + "/:id"),
-        __param(0, routing_controllers_1.Param('id'))
-    ], NoteController.prototype, "delete", null);
-    NoteController = NoteController_1 = __decorate([
-        routing_controllers_1.JsonController()
-    ], NoteController);
-    return NoteController;
-    var NoteController_1;
-}());
+    }
+};
+NoteController._path = '/notes';
+__decorate([
+    routing_controllers_1.Get(NoteController_1._path)
+], NoteController.prototype, "getAll", null);
+__decorate([
+    routing_controllers_1.Get(`${NoteController_1._path}/:id`),
+    routing_controllers_1.OnUndefined(404 /* notFound */),
+    __param(0, routing_controllers_1.Param('id'))
+], NoteController.prototype, "getById", null);
+__decorate([
+    routing_controllers_1.Get(`${NoteController_1._path}/:username`),
+    routing_controllers_1.OnUndefined(404 /* notFound */),
+    __param(0, routing_controllers_1.Param('username'))
+], NoteController.prototype, "getByUsername", null);
+__decorate([
+    routing_controllers_1.Post(NoteController_1._path),
+    __param(0, routing_controllers_1.Body())
+], NoteController.prototype, "add", null);
+__decorate([
+    routing_controllers_1.Put(`${NoteController_1._path}/:id`),
+    __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body())
+], NoteController.prototype, "update", null);
+__decorate([
+    routing_controllers_1.Delete(`${NoteController_1._path}/:id`),
+    __param(0, routing_controllers_1.Param('id'))
+], NoteController.prototype, "delete", null);
+NoteController = NoteController_1 = __decorate([
+    routing_controllers_1.JsonController()
+], NoteController);
 exports.NoteController = NoteController;
+var NoteController_1;
 //# sourceMappingURL=note.controller.js.map

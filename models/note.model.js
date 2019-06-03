@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = require("mongoose");
-var validation_1 = require("../config/validation");
-var noteSchema = new mongoose_1.Schema({
+const mongoose_1 = require("mongoose");
+const validation_1 = require("../config/validation");
+let noteSchema = new mongoose_1.Schema({
     title: { type: String, required: true, min: validation_1.default.user.min },
     userId: { type: Number, required: true },
     color: String,
