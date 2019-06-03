@@ -39,7 +39,6 @@ var UserRepository = /** @class */ (function (_super) {
             return user;
         })
             .catch(function (err) {
-            //todo move to error handler
             return err;
         });
     };

@@ -11,12 +11,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var base_service_1 = require("./base.service");
-var NoteRepository = require('../repositories/note.repository');
+var LogRepository = require('../repositories/log.repository');
 var NoteService = /** @class */ (function (_super) {
     __extends(NoteService, _super);
     function NoteService() {
         var _this = _super.call(this) || this;
-        _this.repository = NoteRepository;
+        _this.repository = LogRepository;
         return _this;
     }
     //todo fix user type
@@ -37,4 +37,4 @@ var NoteService = /** @class */ (function (_super) {
     return NoteService;
 }(base_service_1.BaseService));
 module.exports = new NoteService();
-//# sourceMappingURL=note.service.js.map
+//# sourceMappingURL=log.service.js.map

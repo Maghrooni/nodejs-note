@@ -1,8 +1,6 @@
 import {BaseService} from "./base.service";
 
 let UserRepository = require('../repositories/user.repository');
-let ErrorHandler = require('../services/errorHandler.service');
-
 
 class UserService extends BaseService {
 
@@ -22,7 +20,7 @@ class UserService extends BaseService {
                 return user;
             })
             .catch(err => {
-                return ErrorHandler.error(err);
+                return this.errorHandler.error(err);
             });
         //todo add log of registered user
 
@@ -43,11 +41,11 @@ class UserService extends BaseService {
                     //todo set session ?
                     return found;
                 } catch (e) {
-                    return ErrorHandler.error(e);
+                    return this.errorHandler.error(e);
                 }
             })
             .catch(err => {
-                return ErrorHandler.error(err);
+                return this.errorHandler.error(err);
             });
     }
 }

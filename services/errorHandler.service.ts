@@ -1,13 +1,9 @@
-import {BaseService} from "./base.service";
-import {json} from "body-parser";
+class ErrorHandlerService {
 
-class ErrorHandlerService extends BaseService {
-
-    private returnResponse() {
-
+    constructor() {
     }
 
-    error(msg: String) {
+    throwError(msg: String) {
         //todo log errors
         throw new Error(`Failed >>> ${msg}`);
     }

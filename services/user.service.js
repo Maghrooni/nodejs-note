@@ -12,7 +12,6 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var base_service_1 = require("./base.service");
 var UserRepository = require('../repositories/user.repository');
-var ErrorHandler = require('../services/errorHandler.service');
 var UserService = /** @class */ (function (_super) {
     __extends(UserService, _super);
     function UserService() {
@@ -22,6 +21,7 @@ var UserService = /** @class */ (function (_super) {
     }
     //todo fix user type
     UserService.prototype.register = function (user) {
+        var _this = this;
         //todo validate user data
         //todo register user
         //todo use transactions ?
@@ -31,11 +31,12 @@ var UserService = /** @class */ (function (_super) {
             return user;
         })
             .catch(function (err) {
-            return ErrorHandler.error(err);
+            return _this.errorHandler.error(err);
         });
         //todo add log of registered user
     };
     UserService.prototype.login = function (user) {
+        var _this = this;
         return this.repository
             .getByUserPass(user.username, user.password)
             .then(function (found) {
@@ -48,11 +49,11 @@ var UserService = /** @class */ (function (_super) {
                 return found;
             }
             catch (e) {
-                return ErrorHandler.error(e);
+                return _this.errorHandler.error(e);
             }
         })
             .catch(function (err) {
-            return ErrorHandler.error(err);
+            return _this.errorHandler.error(err);
         });
     };
     return UserService;

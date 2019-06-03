@@ -1,12 +1,12 @@
 import {BaseService} from "./base.service";
 
-let NoteRepository = require('../repositories/note.repository');
+let LogRepository = require('../repositories/log.repository');
 
 class NoteService extends BaseService {
 
     constructor(){
         super();
-        this.repository = NoteRepository;
+        this.repository = LogRepository;
     }
     //todo fix user type
     add(note: any) {

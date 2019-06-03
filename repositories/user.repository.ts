@@ -35,7 +35,6 @@ class UserRepository extends BaseRepository {
                 return user;
             })
             .catch(err => {
-                //todo move to error handler
                 return err;
             });
     }
