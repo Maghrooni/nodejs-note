@@ -11,73 +11,73 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var routing_controllers_1 = require("routing-controllers");
 var user_model_1 = require("../models/user.model");
-var userController = /** @class */ (function () {
-    function userController() {
+var UserController = /** @class */ (function () {
+    function UserController() {
         this.someUserData = [
             new user_model_1.default('mehdi', 'maghrooni', 'maghrooni@gmail.com', 989898),
             new user_model_1.default('meiti', 'maghrooni', 'maghrooni1@gmail.com', 989898),
             new user_model_1.default('mehti', 'maghrooni', 'maghrooni2@gmail.com', 989898),
         ];
     }
-    userController.prototype.getAll = function () {
+    UserController.prototype.getAll = function () {
         return this.someUserData.filter(function (users) {
             delete users.password;
             return true;
         });
     };
-    userController.prototype.getById = function (id) {
+    UserController.prototype.getById = function (id) {
         //todo return found user with id
         console.log("will find user with this ID " + id);
     };
-    userController.prototype.getByUsername = function (username) {
+    UserController.prototype.getByUsername = function (username) {
         //todo return found user with username
         console.log("will find user with this Username " + username);
     };
-    userController.prototype.add = function (user) {
+    UserController.prototype.add = function (user) {
         console.log(user);
         //todo validation on user service
         var newUser = new user_model_1.default(user.name, user.username, user.email, user.password);
         return newUser;
     };
-    userController.prototype.update = function (id, user) {
+    UserController.prototype.update = function (id, user) {
         //todo find user by Id , validate input data
         //todo check if logged in user has permission to update data
         //todo update user data
         console.log("user data for ID " + id + " will be updated !");
     };
-    userController.prototype.delete = function (id) {
+    UserController.prototype.delete = function (id) {
         //todo remove user
         console.log("user with ID " + id + " will be removed !");
     };
     __decorate([
         routing_controllers_1.Get('/users')
-    ], userController.prototype, "getAll", null);
+    ], UserController.prototype, "getAll", null);
     __decorate([
         routing_controllers_1.Get('/users/:id'),
         routing_controllers_1.OnUndefined(404 /* notFound */),
         __param(0, routing_controllers_1.Param('id'))
-    ], userController.prototype, "getById", null);
+    ], UserController.prototype, "getById", null);
     __decorate([
         routing_controllers_1.Get('/users/:username'),
         routing_controllers_1.OnUndefined(404 /* notFound */),
         __param(0, routing_controllers_1.Param('username'))
-    ], userController.prototype, "getByUsername", null);
+    ], UserController.prototype, "getByUsername", null);
     __decorate([
         routing_controllers_1.Post('/users'),
         __param(0, routing_controllers_1.Body())
-    ], userController.prototype, "add", null);
+    ], UserController.prototype, "add", null);
     __decorate([
         routing_controllers_1.Put('/users/:id'),
         __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body())
-    ], userController.prototype, "update", null);
+    ], UserController.prototype, "update", null);
     __decorate([
         routing_controllers_1.Delete('/users/:id'),
         __param(0, routing_controllers_1.Param('id'))
-    ], userController.prototype, "delete", null);
-    userController = __decorate([
+    ], UserController.prototype, "delete", null);
+    UserController = __decorate([
         routing_controllers_1.JsonController()
-    ], userController);
-    return userController;
+    ], UserController);
+    return UserController;
 }());
-exports.userController = userController;
+exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map

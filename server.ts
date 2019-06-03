@@ -9,11 +9,11 @@ const app = express();
 dbConnect();
 // import userRoutes from './routes/user.route';
 // import defaultRoutes from './routes';
-import {userController} from "./controllers/user.controller";
+import {UserController} from "./controllers/user.controller";
 
 
 useExpressServer(app, {
-    controllers: [userController]
+    controllers: [UserController]
 });
 
 app.use(bodyParser.json());

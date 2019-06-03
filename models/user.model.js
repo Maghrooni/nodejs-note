@@ -9,24 +9,31 @@ var userSchema = new mongoose_1.Schema({
     password: { type: String, min: validation_1.default.user.password.min, required: true },
     status: { type: Number, default: 1 /* active */ },
 }, { timestamps: true });
-var userModel = /** @class */ (function () {
-    function userModel(name, username, email, password, status, id) {
-        if (status === void 0) { status = 1 /* active */; }
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.status = status;
-        this.password = password; //todo hash password
-    }
-    //todo move to repository
-    userModel.prototype.getUsername = function () {
-        return this.username;
-    };
-    userModel.prototype.getName = function () {
-        return this.name;
-    };
-    return userModel;
-}());
-exports.default = userModel;
+exports.User = mongoose_1.model('User', userSchema);
+//todo move to repository
+// export default class userModel {
+//     id?: number;
+//     username: String;
+//     name: String;
+//     email: String;
+//     status: Number;
+//     password: (String | Number);
+//
+//     constructor(name: String, username: String, email: String, password: String | Number, status: Number = itemStatuses.active, id?: number) {
+//         this.id = id;
+//         this.name = name;
+//         this.username = username;
+//         this.email = email;
+//         this.status = status;
+//         this.password = password; //todo hash password
+//     }
+//
+//     getUsername() {
+//         return this.username;
+//     }
+//
+//     getName() {
+//         return this.name;
+//     }
+// }
 //# sourceMappingURL=user.model.js.map

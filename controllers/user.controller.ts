@@ -4,7 +4,7 @@ import {statusCodes} from "../config";
 
 @JsonController()
 
-export class userController {
+export class UserController {
 
     someUserData: userModel[];
 
