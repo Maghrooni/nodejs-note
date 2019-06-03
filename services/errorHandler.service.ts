@@ -12,7 +12,7 @@ class ErrorHandlerService {
         if (log && configs.global.saveLogs) {
             LogService.add(log);
         }
-        throw new Error(`Failed >>> ${msg}`);
+        throw new Error(`${msg}`);
     }
 
     consoleError(msg: String) {

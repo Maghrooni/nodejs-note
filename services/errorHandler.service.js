@@ -9,7 +9,7 @@ var ErrorHandlerService = /** @class */ (function () {
         if (log && config_1.default.global.saveLogs) {
             LogService.add(log);
         }
-        throw new Error("Failed >>> " + msg);
+        throw new Error("" + msg);
     };
     ErrorHandlerService.prototype.consoleError = function (msg) {
         return console.log(msg);

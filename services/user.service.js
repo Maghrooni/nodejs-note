@@ -50,7 +50,10 @@ var UserService = /** @class */ (function (_super) {
             }
             catch (e) {
                 return _this.errorHandler.throwError(e, {
-                    title: 'Login Failed', priority: 3 /* high */, data: { e: e }
+                    title: 'Login Failed', priority: 3 /* high */, data: {
+                        error: e,
+                        user: user
+                    }
                 });
             }
         })

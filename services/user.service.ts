@@ -43,7 +43,10 @@ class UserService extends BaseService {
                     return found;
                 } catch (e) {
                     return this.errorHandler.throwError(e, {
-                        title: 'Login Failed', priority: logPriorities.high, data: {e}
+                        title: 'Login Failed', priority: logPriorities.high, data: {
+                            error: e,
+                            user: user
+                        }
                     });
                 }
             })

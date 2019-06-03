@@ -39,7 +39,6 @@ class NoteRepository extends BaseRepository {
                 return created;
             })
             .catch(err => {
-                //todo move to error handler
                 return err;
             });
     }
