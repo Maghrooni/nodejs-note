@@ -13,7 +13,6 @@ var routing_controllers_1 = require("routing-controllers");
 var user_model_1 = require("../models/user.model");
 var userController = /** @class */ (function () {
     function userController() {
-        console.log('user controller constructed');
         this.someUserData = [
             new user_model_1.default('mehdi', 'maghrooni', 'maghrooni@gmail.com', 989898),
             new user_model_1.default('meiti', 'maghrooni', 'maghrooni1@gmail.com', 989898),
@@ -35,6 +34,7 @@ var userController = /** @class */ (function () {
         console.log("will find user with this Username " + username);
     };
     userController.prototype.add = function (user) {
+        console.log(user);
         //todo validation on user service
         var newUser = new user_model_1.default(user.name, user.username, user.email, user.password);
         return newUser;

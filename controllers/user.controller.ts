@@ -9,7 +9,6 @@ export class userController {
     someUserData: userModel[];
 
     constructor() {
-        console.log('user controller constructed');
         this.someUserData = [
             new userModel('mehdi', 'maghrooni', 'maghrooni@gmail.com', 989898),
             new userModel('meiti', 'maghrooni', 'maghrooni1@gmail.com', 989898),
@@ -43,6 +42,7 @@ export class userController {
 
     @Post('/users')
     add(@Body() user: userModel) {
+        console.log(user);
         //todo validation on user service
         const newUser = new userModel(user.name, user.username, user.email, user.password);
         return newUser;

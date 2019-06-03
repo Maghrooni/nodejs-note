@@ -4,7 +4,7 @@ var configs = {
     localPort: 1500,
     hostName: 'localhost',
     global: {
-        logging: true,
+        logging: false,
     }
 };
 exports.default = configs;

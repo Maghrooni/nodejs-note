@@ -1,12 +1,13 @@
 import express = require('express')
 import configs from './config'
 import {useExpressServer} from 'routing-controllers';
-import "reflect-metadata";
+import 'reflect-metadata';
+import bodyParser = require('body-parser');
 
 const app = express();
 
-import userRoutes from './routes/user.route';
-import defaultRoutes from './routes';
+// import userRoutes from './routes/user.route';
+// import defaultRoutes from './routes';
 import {userController} from "./controllers/user.controller";
 
 
@@ -14,8 +15,9 @@ useExpressServer(app, {
     controllers: [userController]
 });
 
-app.use('/', defaultRoutes);
-app.use('/api/user/', userRoutes);
+app.use(bodyParser.json());
+// app.use('/', defaultRoutes);
+// app.use('/api/user/', userRoutes);
 
 app.use(function (req, res, next) {
     if (configs.global.logging) {
