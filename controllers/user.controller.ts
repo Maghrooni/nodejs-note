@@ -6,7 +6,7 @@ import {statusCodes} from "../config";
 
 export class userController {
 
-    someUserData: user[];
+    someUserData: userModel[];
 
     constructor() {
         console.log('user controller constructed');
