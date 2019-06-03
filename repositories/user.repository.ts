@@ -1,4 +1,4 @@
-import {User} from '../models/user.model'
+import {iUser, User} from '../models/user.model'
 import {BaseRepository} from "./base.repository";
 
 
@@ -28,7 +28,7 @@ class UserRepository extends BaseRepository {
 
     }
 
-    add(user: User) {
+    add(user: iUser) {
         return User
             .create(user)
             .then(() => {

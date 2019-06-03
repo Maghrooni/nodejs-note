@@ -1,27 +1,16 @@
 import {iLog} from "../models/log.model";
 import configs from "../config";
 
-let LogRepository = require('../repositories/log.repository');
+let LogService = require('../services/log.service');
 
 class ErrorHandlerService {
 
     constructor() {
     }
 
-    addLog(log: iLog) {
-        LogRepository
-            .add(log)
-            .then(() => {
-                return log;
-            })
-            .catch(err => {
-                this.consoleError('cant save log!');
-            })
-    }
-
     throwError(msg: String, log: iLog) {
         if (log && configs.global.saveLogs) {
-            this.addLog(log);
+            LogService.add(log);
         }
         throw new Error(`Failed >>> ${msg}`);
     }

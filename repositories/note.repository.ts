@@ -1,4 +1,4 @@
-import {Note} from '../models/note.model'
+import {iNote, Note} from '../models/note.model'
 import {BaseRepository} from "./base.repository";
 
 
@@ -32,7 +32,7 @@ class NoteRepository extends BaseRepository {
 
     }
 
-    add(note: Note) {
+    add(note: iNote) {
         return Note
             .create(note)
             .then((created) => {

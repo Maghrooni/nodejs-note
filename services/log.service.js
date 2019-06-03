@@ -1,40 +1,22 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var base_service_1 = require("./base.service");
 var LogRepository = require('../repositories/log.repository');
-var NoteService = /** @class */ (function (_super) {
-    __extends(NoteService, _super);
-    function NoteService() {
-        var _this = _super.call(this) || this;
-        _this.repository = LogRepository;
-        return _this;
+var ErrorHandler = require('./errorHandler.service');
+var LogService = /** @class */ (function () {
+    function LogService() {
+        this.repository = LogRepository;
     }
-    //todo fix user type
-    NoteService.prototype.add = function (note) {
-        var _this = this;
-        //todo validate
-        //todo transactions ?
+    LogService.prototype.add = function (log) {
         return this.repository
-            .add(note)
+            .add(log)
             .then(function () {
-            return note;
+            return log;
         })
             .catch(function (err) {
-            return _this.errorHandler.throwError(err);
+            return ErrorHandler.consoleError(err);
         });
-        //todo add log of added note
     };
-    return NoteService;
-}(base_service_1.BaseService));
-module.exports = new NoteService();
+    return LogService;
+}());
+module.exports = new LogService();
 //# sourceMappingURL=log.service.js.map

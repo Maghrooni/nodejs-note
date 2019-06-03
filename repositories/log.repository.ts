@@ -1,4 +1,4 @@
-import {Log} from '../models/log.model'
+import {iLog, Log} from '../models/log.model'
 import {BaseRepository} from "./base.repository";
 
 
@@ -28,7 +28,7 @@ class LogRepository extends BaseRepository {
 
     }
 
-    add(log: Log) {
+    add(log: iLog) {
         return Log
             .create(log)
             .then((created) => {

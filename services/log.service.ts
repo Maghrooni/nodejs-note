@@ -1,28 +1,27 @@
 import {BaseService} from "./base.service";
+import {iLog} from "../models/log.model";
 
 let LogRepository = require('../repositories/log.repository');
+let ErrorHandler = require('./errorHandler.service');
 
-class NoteService extends BaseService {
+class LogService {
 
-    constructor(){
-        super();
+    repository;
+
+    constructor() {
         this.repository = LogRepository;
     }
-    //todo fix user type
-    add(note: any) {
-        //todo validate
-        //todo transactions ?
+
+    add(log: iLog) {
         return this.repository
-            .add(note)
+            .add(log)
             .then(() => {
-                return note;
+                return log;
             })
             .catch(err => {
-                return this.errorHandler.throwError(err);
+                return ErrorHandler.consoleError(err);
             });
-        //todo add log of added note
-
     }
 }
 
-module.exports = new NoteService();
+module.exports = new LogService();
