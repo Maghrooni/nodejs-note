@@ -27,8 +27,15 @@ var UserRepository = /** @class */ (function (_super) {
     UserRepository.prototype.getById = function (id) {
     };
     UserRepository.prototype.add = function (user) {
-        user_model_1.User.create(user);
-        return user;
+        return user_model_1.User
+            .create(user)
+            .then(function () {
+            return user;
+        })
+            .catch(function (err) {
+            //todo move to error handler
+            return err;
+        });
     };
     UserRepository.prototype.delete = function (id) {
         //todo check is removed or not, promise ?

@@ -22,8 +22,15 @@ class UserRepository extends BaseRepository {
     }
 
     add(user: User) {
-        User.create(user);
-        return user;
+        return User
+            .create(user)
+            .then(() => {
+                return user;
+            })
+            .catch(err => {
+                //todo move to error handler
+                return err;
+            });
     }
 
     delete(id: Number) {

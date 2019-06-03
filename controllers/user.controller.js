@@ -11,6 +11,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var routing_controllers_1 = require("routing-controllers");
 var UserRepository = require('../repositories/user.repository');
+var UserService = require('../services/user.service');
 var UserController = /** @class */ (function () {
     function UserController() {
     }
@@ -24,8 +25,8 @@ var UserController = /** @class */ (function () {
         return UserRepository.getByField('username', username);
     };
     UserController.prototype.add = function (user) {
-        //todo move to User Services
-        return UserRepository.add(user);
+        //todo change any to User
+        return UserService.register(user);
     };
     UserController.prototype.update = function (id, user) {
         //todo find user by Id , validate input data

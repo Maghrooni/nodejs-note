@@ -2,6 +2,7 @@ import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete} from "
 import {statusCodes} from "../config";
 
 let UserRepository = require('../repositories/user.repository');
+let UserService = require('../services/user.service')
 
 @JsonController()
 
@@ -29,9 +30,9 @@ export class UserController {
     }
 
     @Post('/users')
-    add(@Body() user: userModel) {
-        //todo move to User Services
-        return UserRepository.add(user);
+    add(@Body() user: any) {
+        //todo change any to User
+        return UserService.register(user);
     }
 
     @Put('/users/:id')
