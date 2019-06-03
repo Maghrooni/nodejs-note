@@ -7,11 +7,11 @@ class UserService extends base_service_1.BaseService {
         super();
         this.repository = UserRepository;
     }
-    //todo fix user type
     register(user) {
         //todo validate user data
-        //todo register user
         //todo use transactions ?
+        //todo session
+        //todo check autologin config
         return this.repository
             .add(user)
             .then(() => {

@@ -11,7 +11,6 @@ class UserRepository extends BaseRepository {
         super();
     }
 
-    //todo use promise
     getAll() {
         return User
             .find({status: itemStatuses.active})
@@ -25,7 +24,7 @@ class UserRepository extends BaseRepository {
             });
     }
 
-    getByField(field: String, value: Number | String) {
+    getByField(field: string, value: number | string) {
         return User
             .find({field: value})
             .select(this.excludeFields)
@@ -38,7 +37,7 @@ class UserRepository extends BaseRepository {
             });
     }
 
-    getByUserPass(username: String, password: (Number | String)) {
+    getByUserPass(username: string, password: (number | string)) {
         return User
             .findOne({
                 username: username,

@@ -7,7 +7,6 @@ class UserRepository extends base_repository_1.BaseRepository {
         super();
         this.excludeFields = '-password';
     }
-    //todo use promise
     getAll() {
         return user_model_1.User
             .find({ status: 1 /* active */ })

@@ -6,7 +6,6 @@ class LogRepository extends base_repository_1.BaseRepository {
     constructor() {
         super();
     }
-    //todo use promise
     getAll() {
         return log_model_1.Log
             .find({})

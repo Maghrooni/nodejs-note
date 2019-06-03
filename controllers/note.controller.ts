@@ -20,13 +20,13 @@ export class NoteController {
 
     @Get(`${NoteController._path}/:id`)
     @OnUndefined(statusCodes.notFound)
-    getById(@Param('id') id: Number) {
+    getById(@Param('id') id: number) {
         return NoteRepository.getById(id);
     }
 
     @Get(`${NoteController._path}/:username`)
     @OnUndefined(statusCodes.notFound)
-    getByUsername(@Param('username') username: String) {
+    getByUsername(@Param('username') username: string) {
         return NoteRepository.getByUsername(username);
     }
 
@@ -36,14 +36,14 @@ export class NoteController {
     }
 
     @Put(`${NoteController._path}/:id`)
-    update(@Param('id') id: Number, @Body() user: any) {
+    update(@Param('id') id: number, @Body() user: any) {
         //todo validate input data
         //todo update user data
         console.log(`note data for ID ${id} will be updated !`);
     }
 
     @Delete(`${NoteController._path}/:id`)
-    delete(@Param('id') id: Number) {
+    delete(@Param('id') id: number) {
         return NoteService.delete(id);
     }
 

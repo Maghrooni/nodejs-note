@@ -1,4 +1,5 @@
 import {BaseService} from "./base.service";
+import {iNote} from "../models/note.model";
 
 let NoteRepository = require('../repositories/note.repository');
 
@@ -8,8 +9,7 @@ class NoteService extends BaseService {
         super();
         this.repository = NoteRepository;
     }
-    //todo fix user type
-    add(note: any) {
+    add(note: iNote) {
         //todo validate
         //todo transactions ?
         return this.repository

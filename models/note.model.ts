@@ -5,11 +5,11 @@ import validationConfig from '../config/validation';
 
 export interface iNote {
     id?: string | number;
-    title: String,
-    userId: Number,
-    type: Number,
-    color: String,
-    status: Number
+    title: string,
+    userId: number,
+    type: number,
+    color: string,
+    status: number
 }
 
 export interface iNoteDocument extends Document, iNote {

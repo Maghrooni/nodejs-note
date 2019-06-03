@@ -4,11 +4,11 @@ import validationConfig from '../config/validation';
 
 export interface iUser {
     id?: string | number;
-    username: String,
-    name: String,
-    email: String,
-    status: Number,
-    password: (String | Number)
+    username: string,
+    name: string,
+    email: string,
+    status: number,
+    password: (string | number)
 }
 
 export interface iUserDocument extends Document, iUser {

@@ -7,7 +7,6 @@ class NoteService extends base_service_1.BaseService {
         super();
         this.repository = NoteRepository;
     }
-    //todo fix user type
     add(note) {
         //todo validate
         //todo transactions ?

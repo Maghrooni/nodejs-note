@@ -8,14 +8,14 @@ class ErrorHandlerService {
     constructor() {
     }
 
-    throwError(msg: String, log: iLog) {
+    throwError(msg: string, log: iLog) {
         if (log && configs.global.saveLogs) {
             LogService.add(log);
         }
         throw new Error(`${msg}`);
     }
 
-    consoleError(msg: String) {
+    consoleError(msg: string) {
         return console.log(msg);
     }
 

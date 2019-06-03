@@ -4,12 +4,12 @@ import {Schema, model, Document} from 'mongoose';
 
 export interface iLog {
     id?: number | string,
-    title: String,
-    userId?: Number,
-    type: Number,
-    priority: Number,
-    data: Object,
-    status: Number
+    title: string,
+    userId?: number,
+    type: number,
+    priority: number,
+    data: object,
+    status: number
 }
 
 export interface iLogDocument extends Document, iLog {

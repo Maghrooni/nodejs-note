@@ -1,6 +1,6 @@
 import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete} from "routing-controllers";
 import {statusCodes} from "../config";
-import {User} from "../models/user.model";
+import {iUser, User} from "../models/user.model";
 
 let UserRepository = require('../repositories/user.repository');
 let UserService = require('../services/user.service')
@@ -20,13 +20,13 @@ export class UserController {
 
     @Get('/:id')
     @OnUndefined(statusCodes.notFound)
-    getById(@Param('id') id: Number) {
+    getById(@Param('id') id: string) {
         return UserRepository.getById(id);
     }
 
     @Get(`/:username`)
     @OnUndefined(statusCodes.notFound)
-    getByUsername(@Param('username') username: String) {
+    getByUsername(@Param('username') username: string) {
         return UserRepository.getByField('username', username);
     }
 
@@ -43,7 +43,7 @@ export class UserController {
     }
 
     @Put(`/:id`)
-    update(@Param('id') id: Number, @Body() user: any) {
+    update(@Param('id') id: string, @Body() user: iUser) {
         //todo find user by Id , validate input data
         //todo check if logged in user has permission to update data
         //todo update user data
@@ -51,7 +51,7 @@ export class UserController {
     }
 
     @Delete(`/:id`)
-    delete(@Param('id') id: Number) {
+    delete(@Param('id') id: string) {
         return UserRepository.delete(id);
     }
 

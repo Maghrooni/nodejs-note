@@ -7,7 +7,6 @@ class NoteRepository extends base_repository_1.BaseRepository {
     constructor() {
         super();
     }
-    //todo use promise
     getAll() {
         return note_model_1.Note
             .find({})

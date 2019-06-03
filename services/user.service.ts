@@ -1,5 +1,6 @@
 import {BaseService} from "./base.service";
 import {logPriorities} from "../config/log";
+import {iUser} from "../models/user.model";
 
 let UserRepository = require('../repositories/user.repository');
 
@@ -10,11 +11,11 @@ class UserService extends BaseService {
         this.repository = UserRepository;
     }
 
-    //todo fix user type
-    register(user: any) {
+    register(user: iUser) {
         //todo validate user data
-        //todo register user
         //todo use transactions ?
+        //todo session
+        //todo check autologin config
         return this.repository
             .add(user)
             .then(() => {
@@ -27,7 +28,7 @@ class UserService extends BaseService {
 
     }
 
-    login(user: any) {
+    login(user: iUser) {
         return this.repository
             .getByUserPass(
                 user.username,

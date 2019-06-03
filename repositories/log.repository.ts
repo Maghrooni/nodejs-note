@@ -9,7 +9,6 @@ class LogRepository extends BaseRepository {
         super();
     }
 
-    //todo use promise
     getAll() {
         return Log
             .find({})
@@ -21,7 +20,7 @@ class LogRepository extends BaseRepository {
             });
     }
 
-    getByField(field: String, value: Number | String) {
+    getByField(field: string, value: number | string) {
         return Log
             .find({field: value})
             .then((found) => {
@@ -54,7 +53,7 @@ class LogRepository extends BaseRepository {
             });
     }
 
-    delete(id: Number) {
+    delete(id: string) {
         //todo check is removed or not, promise ?
         return Log.remove({id: id});
     }
