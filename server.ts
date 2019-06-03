@@ -1,5 +1,6 @@
 import express = require('express')
 import configs from './config'
+import {useExpressServer} from 'routing-controllers';
 
 var app = express();
 

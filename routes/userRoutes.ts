@@ -1,7 +1,7 @@
 import {Router} from 'express'
-import controller from '../controllers/userController';
+import controller from '../controllers/user.controller';
 
-var router = Router();
+const router = Router();
 
 router.get('/all');
 router.get('/profile/:username');

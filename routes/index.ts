@@ -1,6 +1,6 @@
 import {Router, Request, Response} from 'express';
 
-var router = Router();
+const router = Router();
 
 router.get('/works', function (req: Request, res: Response) {
     res.send(`Works : \n ${res.statusCode} | ${req.headers}`);
