@@ -71,6 +71,7 @@ describe('UserRegistration', function () {
                 if (err) {
                     return done(err);
                 }
+                should(response.body.username).equal('maghrooni');
                 done();
             });
     });
@@ -83,6 +84,7 @@ describe('UserRegistration', function () {
                 if (err) {
                     return done(err);
                 }
+                should(response.body.username).equal('maghrooni');
                 done();
             });
     });
@@ -176,6 +178,32 @@ describe('UserRegistration', function () {
                 }
                 done();
             });
+    });
+
+    it('updateUserData', function (done) {
+        request(app)
+            .get('/users/maghrooni')
+            .expect(statusCodes.ok)
+            .end((err, response) => {
+                if (err) {
+                    return done(err);
+                }
+                should(response.body._id).be.a.String();
+                request(app)
+                    .put(`/users/${response.body._id}`)
+                    .send({
+                        username: 'maghrooniupdated',
+                    })
+                    .expect(statusCodes.ok)
+                    .end((err, response) => {
+                        if (err) {
+                            return done(err);
+                        }
+                        done();
+                    });
+            });
+
+
     });
 
 });

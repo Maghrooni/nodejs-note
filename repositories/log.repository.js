@@ -38,7 +38,7 @@ class LogRepository extends base_repository_1.BaseRepository {
     }
     delete(id) {
         //todo check is removed or not, promise ?
-        return log_model_1.Log.remove({ id: id });
+        return log_model_1.Log.remove({ _id: id });
     }
 }
 module.exports = new LogRepository();

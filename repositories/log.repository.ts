@@ -44,7 +44,7 @@ class LogRepository extends BaseRepository {
 
     delete(id: string) {
         //todo check is removed or not, promise ?
-        return Log.remove({id: id});
+        return Log.remove({_id: id});
     }
 
 }
