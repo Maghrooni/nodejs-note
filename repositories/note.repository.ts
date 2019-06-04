@@ -20,17 +20,6 @@ class NoteRepository extends BaseRepository {
             });
     }
 
-    getByField(field: string, value: number | string) {
-        return Note
-            .find({field: value})
-            .then((doc) => {
-                return doc;
-            })
-            .catch(err => {
-                return err;
-            });
-    }
-
     getByUsername(username: string) {
         //todo get user notes with username
     }

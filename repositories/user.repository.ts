@@ -23,9 +23,9 @@ class UserRepository extends BaseRepository {
             });
     }
 
-    getByField(field: string, value: number | string) {
+    getByUsername(username: string) {
         return User
-            .find({field: value})
+            .findOne({username: username})
             .select(this.excludeFields)
             .then((doc) => {
                 return doc;

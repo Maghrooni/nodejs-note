@@ -18,9 +18,9 @@ class UserRepository extends base_repository_1.BaseRepository {
             return err;
         });
     }
-    getByField(field, value) {
+    getByUsername(username) {
         return user_model_1.User
-            .find({ field: value })
+            .findOne({ username: username })
             .select(this.excludeFields)
             .then((doc) => {
             return doc;

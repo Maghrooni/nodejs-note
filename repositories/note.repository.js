@@ -17,16 +17,6 @@ class NoteRepository extends base_repository_1.BaseRepository {
             return err;
         });
     }
-    getByField(field, value) {
-        return note_model_1.Note
-            .find({ field: value })
-            .then((doc) => {
-            return doc;
-        })
-            .catch(err => {
-            return err;
-        });
-    }
     getByUsername(username) {
         //todo get user notes with username
     }

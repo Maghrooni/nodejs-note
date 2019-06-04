@@ -16,16 +16,6 @@ class LogRepository extends base_repository_1.BaseRepository {
             return err;
         });
     }
-    getByField(field, value) {
-        return log_model_1.Log
-            .find({ field: value })
-            .then((found) => {
-            return found;
-        })
-            .catch(err => {
-            return err;
-        });
-    }
     getById(id) {
         return log_model_1.Log
             .findById(id)

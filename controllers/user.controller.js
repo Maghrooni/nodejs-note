@@ -15,14 +15,25 @@ let UserService = require('../services/user.service');
 let UserController = class UserController {
     constructor() {
     }
-    getAll() {
-        return UserRepository.getAll();
+    getAll(response) {
+        return UserRepository
+            .getAll()
+            .then((docs) => {
+            response.send(docs);
+        })
+            .catch(err => {
+            response.status(500 /* serverError */).send(err);
+        });
     }
-    getById(id) {
-        return UserRepository.getById(id);
-    }
-    getByUsername(username) {
-        return UserRepository.getByField('username', username);
+    getByUsername(username, response) {
+        return UserRepository
+            .getByUsername(username)
+            .then((doc) => {
+            response.send(doc);
+        })
+            .catch(err => {
+            response.status(500 /* serverError */).send(err);
+        });
     }
     add(user, response) {
         return UserService
@@ -34,9 +45,15 @@ let UserController = class UserController {
             response.status(500 /* serverError */).send(err);
         });
     }
-    login(user) {
-        //todo change any to User
-        return UserService.login(user);
+    login(user, response) {
+        return UserService
+            .login(user)
+            .then((res) => {
+            response.send(res);
+        })
+            .catch(err => {
+            response.status(500 /* serverError */).send(err);
+        });
     }
     update(id, user) {
         //todo find user by Id , validate input data
@@ -49,17 +66,13 @@ let UserController = class UserController {
     }
 };
 __decorate([
-    routing_controllers_1.Get()
+    routing_controllers_1.Get(),
+    __param(0, routing_controllers_1.Res())
 ], UserController.prototype, "getAll", null);
-__decorate([
-    routing_controllers_1.Get('/:id'),
-    routing_controllers_1.OnUndefined(404 /* notFound */),
-    __param(0, routing_controllers_1.Param('id'))
-], UserController.prototype, "getById", null);
 __decorate([
     routing_controllers_1.Get(`/:username`),
     routing_controllers_1.OnUndefined(404 /* notFound */),
-    __param(0, routing_controllers_1.Param('username'))
+    __param(0, routing_controllers_1.Param('username')), __param(1, routing_controllers_1.Res())
 ], UserController.prototype, "getByUsername", null);
 __decorate([
     routing_controllers_1.Post(),
@@ -67,7 +80,7 @@ __decorate([
 ], UserController.prototype, "add", null);
 __decorate([
     routing_controllers_1.Post(`/login`),
-    __param(0, routing_controllers_1.Body())
+    __param(0, routing_controllers_1.Body()), __param(1, routing_controllers_1.Res())
 ], UserController.prototype, "login", null);
 __decorate([
     routing_controllers_1.Put(`/:id`),

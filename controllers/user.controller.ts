@@ -14,20 +14,28 @@ export class UserController {
     }
 
     @Get()
-    getAll() {
-        return UserRepository.getAll();
-    }
-
-    @Get('/:id')
-    @OnUndefined(statusCodes.notFound)
-    getById(@Param('id') id: string) {
-        return UserRepository.getById(id);
+    getAll(@Res() response: any) {
+        return UserRepository
+            .getAll()
+            .then((docs) => {
+                response.send(docs);
+            })
+            .catch(err => {
+                response.status(statusCodes.serverError).send(err);
+            });
     }
 
     @Get(`/:username`)
     @OnUndefined(statusCodes.notFound)
-    getByUsername(@Param('username') username: string) {
-        return UserRepository.getByField('username', username);
+    getByUsername(@Param('username') username: string, @Res() response: any) {
+        return UserRepository
+            .getByUsername(username)
+            .then((doc) => {
+                response.send(doc);
+            })
+            .catch(err => {
+                response.status(statusCodes.serverError).send(err);
+            });
     }
 
     @Post()
@@ -43,9 +51,15 @@ export class UserController {
     }
 
     @Post(`/login`)
-    login(@Body() user: any) {
-        //todo change any to User
-        return UserService.login(user);
+    login(@Body() user: any, @Res() response: any) {
+        return UserService
+            .login(user)
+            .then((res) => {
+                response.send(res);
+            })
+            .catch(err => {
+                response.status(statusCodes.serverError).send(err);
+            });
     }
 
     @Put(`/:id`)

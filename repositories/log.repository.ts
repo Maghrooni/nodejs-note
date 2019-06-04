@@ -20,17 +20,6 @@ class LogRepository extends BaseRepository {
             });
     }
 
-    getByField(field: string, value: number | string) {
-        return Log
-            .find({field: value})
-            .then((found) => {
-                return found;
-            })
-            .catch(err => {
-                return err;
-            });
-    }
-
     getById(id: string) {
         return Log
             .findById(id)
