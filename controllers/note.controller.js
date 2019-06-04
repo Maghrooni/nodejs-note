@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var NoteController_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 let NoteRepository = require('../repositories/note.repository');
@@ -66,5 +67,4 @@ NoteController = NoteController_1 = __decorate([
     routing_controllers_1.JsonController()
 ], NoteController);
 exports.NoteController = NoteController;
-var NoteController_1;
 //# sourceMappingURL=note.controller.js.map
