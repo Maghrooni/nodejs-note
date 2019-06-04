@@ -45,9 +45,9 @@ let UserController = class UserController {
             return response.status(400 /* validationError */).send({ message: 'registration failed' });
         });
     }
-    login(user, response) {
+    login(user, request, response) {
         return UserService
-            .login(user)
+            .login(user, request)
             .then(res => {
             return response.send(res);
         })
@@ -85,7 +85,7 @@ __decorate([
 ], UserController.prototype, "add", null);
 __decorate([
     routing_controllers_1.Post(`/login`),
-    __param(0, routing_controllers_1.Body()), __param(1, routing_controllers_1.Res())
+    __param(0, routing_controllers_1.Body()), __param(1, routing_controllers_1.Req()), __param(2, routing_controllers_1.Res())
 ], UserController.prototype, "login", null);
 __decorate([
     routing_controllers_1.Put(`/:id`),

@@ -9,6 +9,8 @@ let userSchema = new mongoose_1.Schema({
     email: { type: String, unique: true, required: true, trim: true },
     password: { type: String, min: validation_1.default.user.password.min, required: true },
     status: { type: Number, default: 1 /* active */ },
+    lastLogin: { type: Date },
+    lastLoginIp: { type: String }
 }, { timestamps: true });
 userSchema.plugin(uniqueValidator);
 exports.User = mongoose_1.model('User', userSchema);

@@ -9,7 +9,6 @@ class UserService extends base_service_1.BaseService {
         this.repository = UserRepository;
     }
     register(user) {
-        //todo validate user data
         //todo use transactions ?
         //todo session or use tokens
         //todo check autologin config
@@ -30,11 +29,10 @@ class UserService extends base_service_1.BaseService {
             throw Error(err);
         });
     }
-    login(user) {
+    login(user, request) {
         return this.repository
             .getByUserPass(user.username, user.password)
             .then((doc) => {
-            //todo set last login time on user
             if (!doc) {
                 LogService.add({
                     title: 'Login Failed', priority: 3 /* high */, data: {
@@ -44,6 +42,10 @@ class UserService extends base_service_1.BaseService {
                 });
                 throw Error('login failed');
             }
+            this.repository.update(doc._id, {
+                lastLogin: new Date(),
+                lastLoginIp: request.headers['x-forwarded-for'] || request.connection.remoteAddress
+            });
             return doc;
         })
             .catch(err => {
@@ -62,6 +64,12 @@ class UserService extends base_service_1.BaseService {
             .catch(err => {
             throw Error(err);
         });
+    }
+    remove(id) {
+        //todo check document exists !
+        //todo get document
+        //todo remove notes
+        //todo remove user
     }
 }
 module.exports = new UserService();

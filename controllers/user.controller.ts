@@ -1,4 +1,4 @@
-import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete, Res} from "routing-controllers";
+import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete, Res, Req} from "routing-controllers";
 import {statusCodes} from "../config";
 import {iUser} from "../models/user.model";
 
@@ -51,9 +51,9 @@ export class UserController {
     }
 
     @Post(`/login`)
-    login(@Body() user: any, @Res() response: any) {
+    login(@Body() user: any, @Req() request: any, @Res() response: any) {
         return UserService
-            .login(user)
+            .login(user, request)
             .then(res => {
                 return response.send(res);
             })

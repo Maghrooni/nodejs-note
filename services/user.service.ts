@@ -1,7 +1,6 @@
 import {BaseService} from "./base.service";
 import {logPriorities} from "../config/log";
 import {iUser} from "../models/user.model";
-import {rejects} from "assert";
 
 let LogService = require('./log.service');
 
@@ -15,7 +14,6 @@ class UserService extends BaseService {
     }
 
     register(user: iUser) {
-        //todo validate user data
         //todo use transactions ?
         //todo session or use tokens
         //todo check autologin config
@@ -37,14 +35,13 @@ class UserService extends BaseService {
             });
     }
 
-    login(user: iUser) {
+    login(user: iUser, request: any) {
         return this.repository
             .getByUserPass(
                 user.username,
                 user.password
             )
             .then((doc) => {
-                //todo set last login time on user
                 if (!doc) {
                     LogService.add({
                         title: 'Login Failed', priority: logPriorities.high, data: {
@@ -54,6 +51,10 @@ class UserService extends BaseService {
                     });
                     throw Error('login failed');
                 }
+                this.repository.update(doc._id, {
+                    lastLogin: new Date(),
+                    lastLoginIp: request.headers['x-forwarded-for'] || request.connection.remoteAddress
+                });
                 return doc;
             })
             .catch(err => {
@@ -73,6 +74,13 @@ class UserService extends BaseService {
             .catch(err => {
                 throw Error(err);
             });
+    }
+
+    remove(id: string) {
+        //todo check document exists !
+        //todo get document
+        //todo remove notes
+        //todo remove user
     }
 }
 

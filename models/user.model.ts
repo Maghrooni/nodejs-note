@@ -22,6 +22,8 @@ let userSchema = new Schema({
     email: {type: String, unique: true, required: true, trim: true},
     password: {type: String, min: validationConfig.user.password.min, required: true},
     status: {type: Number, default: itemStatuses.active},
+    lastLogin: {type: Date},
+    lastLoginIp: {type: String}
 }, {timestamps: true});
 
 userSchema.plugin(uniqueValidator);
