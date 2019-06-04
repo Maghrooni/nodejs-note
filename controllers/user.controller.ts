@@ -43,10 +43,10 @@ export class UserController {
         return UserService
             .register(user)
             .then((registered) => {
-                response.send(registered);
+                return response.send(registered);
             })
             .catch(err => {
-                response.status(statusCodes.serverError).send(err);
+                return response.status(statusCodes.serverError).send('registration failed');
             });
     }
 

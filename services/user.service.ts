@@ -22,10 +22,13 @@ class UserService extends BaseService {
         return this.repository
             .add(user)
             .then((doc) => {
+                if(doc.errors){
+                    throw Error(doc.errors.message);
+                }
                 return doc;
             })
             .catch(err => {
-                return err;
+                throw Error(err);
             });
         //todo add log of registered user
 
@@ -39,8 +42,8 @@ class UserService extends BaseService {
             )
             .then((doc) => {
                 //todo set last login time on user
-                if(!doc){
-                    return Promise.reject('incorrect login');
+                if (!doc) {
+                    throw Error('login failed');
                 }
                 return doc;
             })

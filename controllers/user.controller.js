@@ -39,10 +39,10 @@ let UserController = class UserController {
         return UserService
             .register(user)
             .then((registered) => {
-            response.send(registered);
+            return response.send(registered);
         })
             .catch(err => {
-            response.status(500 /* serverError */).send(err);
+            return response.status(500 /* serverError */).send('registration failed');
         });
     }
     login(user, response) {

@@ -68,9 +68,8 @@ describe('UserRegistration', function () {
                 name: 'Mehdi',
                 password: 123456
             })
-            .expect(200)
+            .expect(500)
             .end(function (err, response) {
-                console.log(response);
                 if (err) {
                     return done(err);
                 }
