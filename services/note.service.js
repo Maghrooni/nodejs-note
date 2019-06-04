@@ -8,7 +8,6 @@ class NoteService extends base_service_1.BaseService {
         this.repository = NoteRepository;
     }
     add(note) {
-        //todo validate
         //todo transactions ?
         return this.repository
             .add(note)
@@ -19,6 +18,19 @@ class NoteService extends base_service_1.BaseService {
             throw Error(err);
         });
         //todo add log of added note
+    }
+    update(id, updates) {
+        return this.repository
+            .update(id, updates)
+            .then(updated => {
+            if (updated.nModified <= 0) {
+                throw Error('');
+            }
+            return updated;
+        })
+            .catch(err => {
+            throw Error(err);
+        });
     }
 }
 module.exports = new NoteService();

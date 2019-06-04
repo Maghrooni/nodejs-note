@@ -11,7 +11,7 @@ class UserRepository extends base_repository_1.BaseRepository {
         return user_model_1.User
             .find({ status: 1 /* active */ })
             .select(this.excludeFields)
-            .then((docs) => {
+            .then(docs => {
             return docs;
         })
             .catch(err => {
@@ -22,7 +22,7 @@ class UserRepository extends base_repository_1.BaseRepository {
         return user_model_1.User
             .findOne({ username: username })
             .select(this.excludeFields)
-            .then((doc) => {
+            .then(doc => {
             if (!doc) {
                 throw Error('');
             }
@@ -40,7 +40,7 @@ class UserRepository extends base_repository_1.BaseRepository {
             status: 1 /* active */
         })
             .select(this.excludeFields)
-            .then((doc) => {
+            .then(doc => {
             return doc;
         })
             .catch(err => {
@@ -50,7 +50,7 @@ class UserRepository extends base_repository_1.BaseRepository {
     getById(id) {
         return user_model_1.User
             .findById(id)
-            .then((doc) => {
+            .then(doc => {
             return doc;
         })
             .catch(err => {
@@ -60,7 +60,7 @@ class UserRepository extends base_repository_1.BaseRepository {
     add(user) {
         return user_model_1.User
             .create(user)
-            .then((doc) => {
+            .then(doc => {
             return doc;
         })
             .catch(err => {
@@ -69,7 +69,17 @@ class UserRepository extends base_repository_1.BaseRepository {
     }
     delete(id) {
         //todo check is removed or not, promise ?
-        return user_model_1.User.remove({ id: id });
+        return user_model_1.User.findOneAndRemove({ _id: id });
+    }
+    update(id, updates) {
+        return user_model_1.User
+            .updateOne({ _id: id }, updates)
+            .then(doc => {
+            return doc;
+        })
+            .catch(err => {
+            throw Error(err);
+        });
     }
 }
 module.exports = new UserRepository();

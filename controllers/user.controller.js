@@ -18,7 +18,7 @@ let UserController = class UserController {
     getAll(response) {
         return UserRepository
             .getAll()
-            .then((docs) => {
+            .then(docs => {
             return response.send(docs);
         })
             .catch(err => {
@@ -28,7 +28,7 @@ let UserController = class UserController {
     getByUsername(username, response) {
         return UserRepository
             .getByUsername(username)
-            .then((doc) => {
+            .then(doc => {
             return response.send(doc);
         })
             .catch(err => {
@@ -38,7 +38,7 @@ let UserController = class UserController {
     add(user, response) {
         return UserService
             .register(user)
-            .then((registered) => {
+            .then(registered => {
             return response.send(registered);
         })
             .catch(err => {
@@ -48,18 +48,23 @@ let UserController = class UserController {
     login(user, response) {
         return UserService
             .login(user)
-            .then((res) => {
+            .then(res => {
             return response.send(res);
         })
             .catch(err => {
             return response.status(401 /* unauthorized */).send({ message: 'login failed' });
         });
     }
-    update(id, user) {
-        //todo find user by Id , validate input data
+    update(id, user, response) {
         //todo check if logged in user has permission to update data
-        //todo update user data
-        console.log(`user data for ID ${id} will be updated !`);
+        return UserService
+            .update(id, user)
+            .then(() => {
+            return response.send({ message: 'updated' });
+        })
+            .catch(err => {
+            return response.status(400 /* validationError */).send({ message: 'update failed' });
+        });
     }
     delete(id) {
         return UserRepository.delete(id);
@@ -84,7 +89,7 @@ __decorate([
 ], UserController.prototype, "login", null);
 __decorate([
     routing_controllers_1.Put(`/:id`),
-    __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body())
+    __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body()), __param(2, routing_controllers_1.Res())
 ], UserController.prototype, "update", null);
 __decorate([
     routing_controllers_1.Delete(`/:id`),

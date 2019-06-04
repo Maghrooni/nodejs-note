@@ -15,7 +15,7 @@ class UserRepository extends BaseRepository {
         return User
             .find({status: itemStatuses.active})
             .select(this.excludeFields)
-            .then((docs) => {
+            .then(docs => {
                 return docs;
             })
             .catch(err => {
@@ -27,8 +27,8 @@ class UserRepository extends BaseRepository {
         return User
             .findOne({username: username})
             .select(this.excludeFields)
-            .then((doc) => {
-                if(!doc){
+            .then(doc => {
+                if (!doc) {
                     throw Error('');
                 }
                 return doc;
@@ -46,7 +46,7 @@ class UserRepository extends BaseRepository {
                 status: itemStatuses.active
             })
             .select(this.excludeFields)
-            .then((doc) => {
+            .then(doc => {
                 return doc;
             })
             .catch(err => {
@@ -57,7 +57,7 @@ class UserRepository extends BaseRepository {
     getById(id: string) {
         return User
             .findById(id)
-            .then((doc) => {
+            .then(doc => {
                 return doc;
             })
             .catch(err => {
@@ -68,7 +68,7 @@ class UserRepository extends BaseRepository {
     add(user: iUser) {
         return User
             .create(user)
-            .then((doc) => {
+            .then(doc => {
                 return doc;
             })
             .catch(err => {
@@ -78,7 +78,18 @@ class UserRepository extends BaseRepository {
 
     delete(id: string) {
         //todo check is removed or not, promise ?
-        return User.remove({id: id});
+        return User.findOneAndRemove({_id: id});
+    }
+
+    update(id: string, updates: object) {
+        return User
+            .updateOne({_id: id}, updates)
+            .then(doc => {
+                return doc;
+            })
+            .catch(err => {
+                throw Error(err);
+            });
     }
 
 }

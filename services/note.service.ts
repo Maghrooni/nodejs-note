@@ -10,7 +10,6 @@ class NoteService extends BaseService {
         this.repository = NoteRepository;
     }
     add(note: iNote) {
-        //todo validate
         //todo transactions ?
         return this.repository
             .add(note)
@@ -22,6 +21,20 @@ class NoteService extends BaseService {
             });
         //todo add log of added note
 
+    }
+
+    update(id: string, updates: object) {
+        return this.repository
+            .update(id, updates)
+            .then(updated => {
+                if (updated.nModified <= 0) {
+                    throw Error('');
+                }
+                return updated;
+            })
+            .catch(err => {
+                throw Error(err);
+            });
     }
 }
 

@@ -42,7 +42,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
     }
     delete(id) {
         //todo check is removed or not, promise ?
-        return note_model_1.Note.remove({ id: id });
+        return note_model_1.Note.remove({ _id: id });
     }
     deleteUserNotes(userId) {
         return note_model_1.Note.remove({ userId: userId });

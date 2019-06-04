@@ -45,9 +45,9 @@ let NoteController = class NoteController {
             response.status(500 /* serverError */).send(err);
         });
     }
-    add(user, response) {
+    add(note, response) {
         return NoteService
-            .add(user)
+            .add(note)
             .then((doc) => {
             response.send(doc);
         })
@@ -55,10 +55,15 @@ let NoteController = class NoteController {
             response.status(500 /* serverError */).send(err);
         });
     }
-    update(id, user, response) {
-        //todo validate input data
-        //todo update user data
-        console.log(`note data for ID ${id} will be updated !`);
+    update(id, note, response) {
+        return NoteService
+            .update(id, note)
+            .then(() => {
+            return response.send({ message: 'updated' });
+        })
+            .catch(err => {
+            return response.status(400 /* validationError */).send({ message: 'update failed' });
+        });
     }
     delete(id) {
         return NoteService.delete(id);

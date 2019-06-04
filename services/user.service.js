@@ -50,6 +50,19 @@ class UserService extends base_service_1.BaseService {
             throw Error(err);
         });
     }
+    update(id, updates) {
+        return this.repository
+            .update(id, updates)
+            .then(updated => {
+            if (updated.nModified <= 0) {
+                throw Error('');
+            }
+            return updated;
+        })
+            .catch(err => {
+            throw Error(err);
+        });
+    }
 }
 module.exports = new UserService();
 //# sourceMappingURL=user.service.js.map

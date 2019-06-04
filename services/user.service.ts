@@ -60,6 +60,20 @@ class UserService extends BaseService {
                 throw Error(err);
             });
     }
+
+    update(id: string, updates: object) {
+        return this.repository
+            .update(id, updates)
+            .then(updated => {
+                if (updated.nModified <= 0) {
+                    throw Error('');
+                }
+                return updated;
+            })
+            .catch(err => {
+                throw Error(err);
+            });
+    }
 }
 
 module.exports = new UserService();

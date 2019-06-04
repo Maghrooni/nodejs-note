@@ -1,5 +1,7 @@
 import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete, Res} from "routing-controllers";
 import {statusCodes} from "../config";
+import {noteTypes} from "../config/note";
+import {iNote} from "../models/note.model";
 
 let NoteRepository = require('../repositories/note.repository');
 let NoteService = require('../services/note.service')
@@ -50,9 +52,9 @@ export class NoteController {
     }
 
     @Post()
-    add(@Body() user: any, @Res() response: any) {
+    add(@Body() note: iNote, @Res() response: any) {
         return NoteService
-            .add(user)
+            .add(note)
             .then((doc) => {
                 response.send(doc);
             })
@@ -62,10 +64,15 @@ export class NoteController {
     }
 
     @Put('/:id')
-    update(@Param('id') id: string, @Body() user: any, @Res() response: any) {
-        //todo validate input data
-        //todo update user data
-        console.log(`note data for ID ${id} will be updated !`);
+    update(@Param('id') id: string, @Body() note: iNote, @Res() response: any) {
+        return NoteService
+            .update(id, note)
+            .then(() => {
+                return response.send({message: 'updated'});
+            })
+            .catch(err => {
+                return response.status(statusCodes.validationError).send({message: 'update failed'});
+            });
     }
 
     @Delete('/:id')

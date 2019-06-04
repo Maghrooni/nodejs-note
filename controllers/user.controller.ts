@@ -17,7 +17,7 @@ export class UserController {
     getAll(@Res() response: any) {
         return UserRepository
             .getAll()
-            .then((docs) => {
+            .then(docs => {
                 return response.send(docs);
             })
             .catch(err => {
@@ -30,11 +30,11 @@ export class UserController {
     getByUsername(@Param('username') username: string, @Res() response: any) {
         return UserRepository
             .getByUsername(username)
-            .then((doc) => {
+            .then(doc => {
                 return response.send(doc);
             })
             .catch(err => {
-                return response.status(statusCodes.notFound).send({message : 'user not found'});
+                return response.status(statusCodes.notFound).send({message: 'user not found'});
             });
     }
 
@@ -42,7 +42,7 @@ export class UserController {
     add(@Body({required: true}) user: iUser, @Res() response: any) {
         return UserService
             .register(user)
-            .then((registered) => {
+            .then(registered => {
                 return response.send(registered);
             })
             .catch(err => {
@@ -54,7 +54,7 @@ export class UserController {
     login(@Body() user: any, @Res() response: any) {
         return UserService
             .login(user)
-            .then((res) => {
+            .then(res => {
                 return response.send(res);
             })
             .catch(err => {
@@ -63,11 +63,16 @@ export class UserController {
     }
 
     @Put(`/:id`)
-    update(@Param('id') id: string, @Body() user: iUser) {
-        //todo find user by Id , validate input data
+    update(@Param('id') id: string, @Body() user: iUser, @Res() response: any) {
         //todo check if logged in user has permission to update data
-        //todo update user data
-        console.log(`user data for ID ${id} will be updated !`);
+        return UserService
+            .update(id, user)
+            .then(() => {
+                return response.send({message: 'updated'});
+            })
+            .catch(err => {
+                return response.status(statusCodes.validationError).send({message: 'update failed'});
+            });
     }
 
     @Delete(`/:id`)

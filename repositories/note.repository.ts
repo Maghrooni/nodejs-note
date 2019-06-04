@@ -48,7 +48,7 @@ class NoteRepository extends BaseRepository {
 
     delete(id: string) {
         //todo check is removed or not, promise ?
-        return Note.remove({id: id});
+        return Note.remove({_id: id});
     }
 
     deleteUserNotes(userId: string){
