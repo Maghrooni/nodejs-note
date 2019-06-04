@@ -1,5 +1,7 @@
 import {itemStatuses} from '../config';
 import {Schema, model, Document} from 'mongoose';
+
+let uniqueValidator = require('mongoose-unique-validator');
 import validationConfig from '../config/validation';
 
 export interface iUser {
@@ -22,6 +24,6 @@ let userSchema = new Schema({
     status: {type: Number, default: itemStatuses.active},
 }, {timestamps: true});
 
-//todo add email and username unique validations
+userSchema.plugin(uniqueValidator);
 
 export let User = model<iUserDocument>('User', userSchema);

@@ -29,6 +29,24 @@ describe('UserRegistration', function () {
             });
     });
 
+    it('duplicateUserCheck', function (done) {
+        request(app)
+            .post('/users')
+            .send({
+                name: 'Mehdi',
+                username: 'maghrooni',
+                email: 'maghrooni@gmail.com',
+                password: 123456
+            })
+            .expect(statusCodes.validationError)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+    });
+
     it('normalLogin', function (done) {
         request(app)
             .post('/users/login')
