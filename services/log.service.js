@@ -9,8 +9,8 @@ class LogService {
     add(log) {
         return this.repository
             .add(log)
-            .then(() => {
-            return log;
+            .then((doc) => {
+            return doc;
         })
             .catch(err => {
             return ErrorHandler.consoleError(err);

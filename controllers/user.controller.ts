@@ -1,4 +1,4 @@
-import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete} from "routing-controllers";
+import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete, Res} from "routing-controllers";
 import {statusCodes} from "../config";
 import {iUser, User} from "../models/user.model";
 
@@ -31,9 +31,15 @@ export class UserController {
     }
 
     @Post()
-    add(@Body() user: any) {
-        //todo change any to User
-        return UserService.register(user);
+    add(@Body({required: true}) user: iUser, @Res() response: any) {
+        return UserService
+            .register(user)
+            .then((registered) => {
+                response.send(registered);
+            })
+            .catch(err => {
+                response.status(statusCodes.serverError).send(err);
+            });
     }
 
     @Post(`/login`)

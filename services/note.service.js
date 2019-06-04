@@ -12,8 +12,8 @@ class NoteService extends base_service_1.BaseService {
         //todo transactions ?
         return this.repository
             .add(note)
-            .then(() => {
-            return note;
+            .then((doc) => {
+            return doc;
         })
             .catch(err => {
             return this.errorHandler.throwError(err);

@@ -8,7 +8,7 @@ configs.environment = environments.test;
 
 describe('UserRegistration', function () {
     before('cleanup database', function (done) {
-        testDbConnect(done, false);
+        testDbConnect(done, true);
     });
 
     it('normalRegistration', function (done) {

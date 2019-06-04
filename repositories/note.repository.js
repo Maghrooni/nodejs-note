@@ -10,8 +10,8 @@ class NoteRepository extends base_repository_1.BaseRepository {
     getAll() {
         return note_model_1.Note
             .find({})
-            .then((found) => {
-            return found;
+            .then((doc) => {
+            return doc;
         })
             .catch(err => {
             return err;
@@ -20,8 +20,8 @@ class NoteRepository extends base_repository_1.BaseRepository {
     getByField(field, value) {
         return note_model_1.Note
             .find({ field: value })
-            .then((found) => {
-            return found;
+            .then((doc) => {
+            return doc;
         })
             .catch(err => {
             return err;
@@ -33,8 +33,8 @@ class NoteRepository extends base_repository_1.BaseRepository {
     getById(id) {
         return user_model_1.User
             .findById(id)
-            .then((found) => {
-            return found;
+            .then((doc) => {
+            return doc;
         })
             .catch(err => {
             return err;
@@ -43,8 +43,8 @@ class NoteRepository extends base_repository_1.BaseRepository {
     add(note) {
         return note_model_1.Note
             .create(note)
-            .then((created) => {
-            return created;
+            .then((doc) => {
+            return doc;
         })
             .catch(err => {
             return err;

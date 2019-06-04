@@ -2,6 +2,8 @@ import {BaseService} from "./base.service";
 import {logPriorities} from "../config/log";
 import {iUser} from "../models/user.model";
 
+let LogService = require('./log.service');
+
 let UserRepository = require('../repositories/user.repository');
 
 class UserService extends BaseService {
@@ -18,11 +20,11 @@ class UserService extends BaseService {
         //todo check autologin config
         return this.repository
             .add(user)
-            .then(() => {
-                return user;
+            .then((doc) => {
+                return doc;
             })
             .catch(err => {
-                return this.errorHandler.throwError(err);
+                return err;
             });
         //todo add log of registered user
 
@@ -34,24 +36,17 @@ class UserService extends BaseService {
                 user.username,
                 user.password
             )
-            .then((found) => {
-                try {
-                    if (!found) {
-                        //todo support multilingual messages
-                        throw new Error('user not found')
-                    }
-                    //todo set session ?
-                    return found;
-                } catch (e) {
-                    return this.errorHandler.throwError(e, {
-                        title: 'Login Failed', priority: logPriorities.high, data: {
-                            error: e,
-                            user: user
-                        }
-                    });
-                }
+            .then((doc) => {
+                //todo set last login time on user
+                return doc;
             })
             .catch(err => {
+                LogService.add({
+                    title: 'Login Failed', priority: logPriorities.high, data: {
+                        error: e,
+                        user: user
+                    }
+                });
                 return this.errorHandler.throwError(err);
             });
     }

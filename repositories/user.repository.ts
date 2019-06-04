@@ -15,9 +15,8 @@ class UserRepository extends BaseRepository {
         return User
             .find({status: itemStatuses.active})
             .select(this.excludeFields)
-            .then((found) => {
-                // return this.getOnlyDocumentFields(found);
-                return found;
+            .then((docs) => {
+                return docs;
             })
             .catch(err => {
                 return err;
@@ -28,9 +27,8 @@ class UserRepository extends BaseRepository {
         return User
             .find({field: value})
             .select(this.excludeFields)
-            .then((found) => {
-                // return this.getOnlyDocumentFields(found);
-                return found;
+            .then((doc) => {
+                return doc;
             })
             .catch(err => {
                 return err;
@@ -45,8 +43,8 @@ class UserRepository extends BaseRepository {
                 status: itemStatuses.active
             })
             .select(this.excludeFields)
-            .then((found) => {
-                return found;
+            .then((doc) => {
+                return doc;
             })
             .catch(err => {
                 return err;
@@ -56,8 +54,8 @@ class UserRepository extends BaseRepository {
     getById(id: string) {
         return User
             .findById(id)
-            .then((found) => {
-                return found;
+            .then((doc) => {
+                return doc;
             })
             .catch(err => {
                 return err;
@@ -67,8 +65,8 @@ class UserRepository extends BaseRepository {
     add(user: iUser) {
         return User
             .create(user)
-            .then(() => {
-                return user;
+            .then((doc) => {
+                return doc;
             })
             .catch(err => {
                 return err;

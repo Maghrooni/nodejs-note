@@ -11,9 +11,8 @@ class UserRepository extends base_repository_1.BaseRepository {
         return user_model_1.User
             .find({ status: 1 /* active */ })
             .select(this.excludeFields)
-            .then((found) => {
-            // return this.getOnlyDocumentFields(found);
-            return found;
+            .then((docs) => {
+            return docs;
         })
             .catch(err => {
             return err;
@@ -23,9 +22,8 @@ class UserRepository extends base_repository_1.BaseRepository {
         return user_model_1.User
             .find({ field: value })
             .select(this.excludeFields)
-            .then((found) => {
-            // return this.getOnlyDocumentFields(found);
-            return found;
+            .then((doc) => {
+            return doc;
         })
             .catch(err => {
             return err;
@@ -39,8 +37,8 @@ class UserRepository extends base_repository_1.BaseRepository {
             status: 1 /* active */
         })
             .select(this.excludeFields)
-            .then((found) => {
-            return found;
+            .then((doc) => {
+            return doc;
         })
             .catch(err => {
             return err;
@@ -49,8 +47,8 @@ class UserRepository extends base_repository_1.BaseRepository {
     getById(id) {
         return user_model_1.User
             .findById(id)
-            .then((found) => {
-            return found;
+            .then((doc) => {
+            return doc;
         })
             .catch(err => {
             return err;
@@ -59,8 +57,8 @@ class UserRepository extends base_repository_1.BaseRepository {
     add(user) {
         return user_model_1.User
             .create(user)
-            .then(() => {
-            return user;
+            .then((doc) => {
+            return doc;
         })
             .catch(err => {
             return err;

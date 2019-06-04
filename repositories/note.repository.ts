@@ -12,8 +12,8 @@ class NoteRepository extends BaseRepository {
     getAll() {
         return Note
             .find({})
-            .then((found) => {
-                return found;
+            .then((doc) => {
+                return doc;
             })
             .catch(err => {
                 return err;
@@ -23,8 +23,8 @@ class NoteRepository extends BaseRepository {
     getByField(field: string, value: number | string) {
         return Note
             .find({field: value})
-            .then((found) => {
-                return found;
+            .then((doc) => {
+                return doc;
             })
             .catch(err => {
                 return err;
@@ -38,8 +38,8 @@ class NoteRepository extends BaseRepository {
     getById(id: string) {
         return User
             .findById(id)
-            .then((found) => {
-                return found;
+            .then((doc) => {
+                return doc;
             })
             .catch(err => {
                 return err;
@@ -49,8 +49,8 @@ class NoteRepository extends BaseRepository {
     add(note: iNote) {
         return Note
             .create(note)
-            .then((created) => {
-                return created;
+            .then((doc) => {
+                return doc;
             })
             .catch(err => {
                 return err;

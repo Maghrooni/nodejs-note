@@ -4,7 +4,7 @@
   "description": "sample nodejs app for learning nodejs",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/mocha/bin/_mocha --recursive",
+    "test": "set NODE_ENV=test && node node_modules/mocha/bin/_mocha --recursive",
     "start": "nodemon ./bin/www.js"
   },
   "repository": {

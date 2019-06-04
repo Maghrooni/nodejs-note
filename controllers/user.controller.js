@@ -24,9 +24,15 @@ let UserController = class UserController {
     getByUsername(username) {
         return UserRepository.getByField('username', username);
     }
-    add(user) {
-        //todo change any to User
-        return UserService.register(user);
+    add(user, response) {
+        return UserService
+            .register(user)
+            .then((registered) => {
+            response.send(registered);
+        })
+            .catch(err => {
+            response.status(500 /* serverError */).send(err);
+        });
     }
     login(user) {
         //todo change any to User
@@ -57,7 +63,7 @@ __decorate([
 ], UserController.prototype, "getByUsername", null);
 __decorate([
     routing_controllers_1.Post(),
-    __param(0, routing_controllers_1.Body())
+    __param(0, routing_controllers_1.Body({ required: true })), __param(1, routing_controllers_1.Res())
 ], UserController.prototype, "add", null);
 __decorate([
     routing_controllers_1.Post(`/login`),

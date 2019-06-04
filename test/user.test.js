@@ -7,7 +7,7 @@ const server_1 = require("../server");
 config_1.configs.environment = config_1.environments.test;
 describe('UserRegistration', function () {
     before('cleanup database', function (done) {
-        dbConnection_1.testDbConnect(done, false);
+        dbConnection_1.testDbConnect(done, true);
     });
     it('normalRegistration', function (done) {
         request(server_1.default)
