@@ -8,7 +8,7 @@ configs.environment = environments.test;
 
 describe('UserRegistration', function () {
     before('cleanup database', function (done) {
-        testDbConnect(done);
+        testDbConnect(done, false);
     });
 
     it('normalRegistration', function (done) {
@@ -28,4 +28,37 @@ describe('UserRegistration', function () {
                 done();
             });
     });
+
+    it('normalLogin', function (done) {
+        request(app)
+            .post('/users/login')
+            .send({
+                username: 'maghrooni',
+                password: 123456
+            })
+            .expect(200)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it('incorrectLogin', function (done) {
+        request(app)
+            .post('/users/login')
+            .send({
+                username: 'maghrooni',
+                password: 333333
+            })
+            .expect(500)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+    });
+
 });

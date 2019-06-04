@@ -7,7 +7,7 @@ const server_1 = require("../server");
 config_1.configs.environment = config_1.environments.test;
 describe('UserRegistration', function () {
     before('cleanup database', function (done) {
-        dbConnection_1.testDbConnect(done);
+        dbConnection_1.testDbConnect(done, false);
     });
     it('normalRegistration', function (done) {
         request(server_1.default)
@@ -19,6 +19,36 @@ describe('UserRegistration', function () {
             password: 123456
         })
             .expect(200)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('normalLogin', function (done) {
+        request(server_1.default)
+            .post('/users/login')
+            .send({
+            username: 'maghrooni',
+            password: 123456
+        })
+            .expect(200)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('incorrectLogin', function (done) {
+        request(server_1.default)
+            .post('/users/login')
+            .send({
+            username: 'maghrooni',
+            password: 333333
+        })
+            .expect(500)
             .end(function (err, response) {
             if (err) {
                 return done(err);

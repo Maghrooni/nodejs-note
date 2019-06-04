@@ -9,5 +9,6 @@ let userSchema = new mongoose_1.Schema({
     password: { type: String, min: validation_1.default.user.password.min, required: true },
     status: { type: Number, default: 1 /* active */ },
 }, { timestamps: true });
+//todo add email and username unique validations
 exports.User = mongoose_1.model('User', userSchema);
 //# sourceMappingURL=user.model.js.map

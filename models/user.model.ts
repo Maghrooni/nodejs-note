@@ -22,4 +22,6 @@ let userSchema = new Schema({
     status: {type: Number, default: itemStatuses.active},
 }, {timestamps: true});
 
+//todo add email and username unique validations
+
 export let User = model<iUserDocument>('User', userSchema);
