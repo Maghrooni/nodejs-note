@@ -1,5 +1,5 @@
 import should = require('should');
-import {configs, environments, statusCodes} from '../config';
+import {configs, environments, itemStatuses, statusCodes} from '../config';
 import {testDbConnect} from "../dbConnection";
 import request = require('supertest');
 import app from '../server';
@@ -11,7 +11,7 @@ describe('UserRegistration', function () {
         testDbConnect(done, true);
     });
 
-    it('normalRegistration', function (done) {
+    it('registerANewUser', function (done) {
         request(app)
             .post('/users')
             .send({
@@ -29,19 +29,19 @@ describe('UserRegistration', function () {
             });
     });
 
-    it('RegisterWithoutBodyData', function (done) {
-        request(app)
-            .post('/users')
-            .expect(statusCodes.validationError)
-            .end(function (err, response) {
-                if (err) {
-                    return done(err);
-                }
-                done();
-            });
-    });
+    // it('dontAllowRegisteringWithoutBodyData', function (done) {
+    //     request(app)
+    //         .post('/users')
+    //         .expect(statusCodes.validationError)
+    //         .end(function (err, response) {
+    //             if (err) {
+    //                 return done(err);
+    //             }
+    //             done();
+    //         });
+    // });
 
-    it('duplicateUserCheck', function (done) {
+    it('uniqueValidationCheckOnRegistration', function (done) {
         request(app)
             .post('/users')
             .send({
@@ -59,7 +59,7 @@ describe('UserRegistration', function () {
             });
     });
 
-    it('normalLogin', function (done) {
+    it('loginUserWithValidData', function (done) {
         request(app)
             .post('/users/login')
             .send({
@@ -75,7 +75,7 @@ describe('UserRegistration', function () {
             });
     });
 
-    it('profileView', function (done) {
+    it('userProfileViewWithUsername', function (done) {
         request(app)
             .get('/users/maghrooni')
             .expect(statusCodes.ok)
@@ -113,7 +113,7 @@ describe('UserRegistration', function () {
             });
     });
 
-    it('incorrectProfileView', function (done) {
+    it('invalidUserProfileView', function (done) {
         request(app)
             .get('/users/maghrooni22')
             .expect(statusCodes.notFound)
@@ -125,7 +125,28 @@ describe('UserRegistration', function () {
             });
     });
 
-    it('incorrectLogin', function (done) {
+    it('setStatusToInactiveAndCheckProfileIsNotShown', function (done) {
+        request(app)
+            .post('/users')
+            .send({
+                name: 'inactiveUser',
+                username: 'username',
+                email: 'someemail@gmail.com',
+                password: 123456,
+                status: itemStatuses.inactive
+            });
+        request(app)
+            .get('/users/username')
+            .expect(statusCodes.notFound)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it('dontAllowInvalidLoginCredentials', function (done) {
         request(app)
             .post('/users/login')
             .send({
@@ -141,7 +162,7 @@ describe('UserRegistration', function () {
             });
     });
 
-    it('incompleteRegistration', function (done) {
+    it('requiredFieldsCheckOnRegistration', function (done) {
         request(app)
             .post('/users')
             .send({

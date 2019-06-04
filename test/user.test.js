@@ -10,7 +10,7 @@ describe('UserRegistration', function () {
     before('cleanup database', function (done) {
         dbConnection_1.testDbConnect(done, true);
     });
-    it('normalRegistration', function (done) {
+    it('registerANewUser', function (done) {
         request(server_1.default)
             .post('/users')
             .send({
@@ -27,18 +27,18 @@ describe('UserRegistration', function () {
             done();
         });
     });
-    it('RegisterWithoutBodyData', function (done) {
-        request(server_1.default)
-            .post('/users')
-            .expect(400 /* validationError */)
-            .end(function (err, response) {
-            if (err) {
-                return done(err);
-            }
-            done();
-        });
-    });
-    it('duplicateUserCheck', function (done) {
+    // it('dontAllowRegisteringWithoutBodyData', function (done) {
+    //     request(app)
+    //         .post('/users')
+    //         .expect(statusCodes.validationError)
+    //         .end(function (err, response) {
+    //             if (err) {
+    //                 return done(err);
+    //             }
+    //             done();
+    //         });
+    // });
+    it('uniqueValidationCheckOnRegistration', function (done) {
         request(server_1.default)
             .post('/users')
             .send({
@@ -55,7 +55,7 @@ describe('UserRegistration', function () {
             done();
         });
     });
-    it('normalLogin', function (done) {
+    it('loginUserWithValidData', function (done) {
         request(server_1.default)
             .post('/users/login')
             .send({
@@ -70,7 +70,7 @@ describe('UserRegistration', function () {
             done();
         });
     });
-    it('profileView', function (done) {
+    it('userProfileViewWithUsername', function (done) {
         request(server_1.default)
             .get('/users/maghrooni')
             .expect(200 /* ok */)
@@ -105,7 +105,7 @@ describe('UserRegistration', function () {
             done();
         });
     });
-    it('incorrectProfileView', function (done) {
+    it('invalidUserProfileView', function (done) {
         request(server_1.default)
             .get('/users/maghrooni22')
             .expect(404 /* notFound */)
@@ -116,7 +116,27 @@ describe('UserRegistration', function () {
             done();
         });
     });
-    it('incorrectLogin', function (done) {
+    it('setStatusToInactiveAndCheckProfileIsNotShown', function (done) {
+        request(server_1.default)
+            .post('/users')
+            .send({
+            name: 'inactiveUser',
+            username: 'username',
+            email: 'someemail@gmail.com',
+            password: 123456,
+            status: 2 /* inactive */
+        });
+        request(server_1.default)
+            .get('/users/username')
+            .expect(404 /* notFound */)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('dontAllowInvalidLoginCredentials', function (done) {
         request(server_1.default)
             .post('/users/login')
             .send({
@@ -131,7 +151,7 @@ describe('UserRegistration', function () {
             done();
         });
     });
-    it('incompleteRegistration', function (done) {
+    it('requiredFieldsCheckOnRegistration', function (done) {
         request(server_1.default)
             .post('/users')
             .send({
