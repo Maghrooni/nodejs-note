@@ -1,5 +1,5 @@
 import should = require('should');
-import {configs, environments} from '../config';
+import {configs, environments, statusCodes} from '../config';
 import {testDbConnect} from "../dbConnection";
 import request = require('supertest');
 import app from '../server';
@@ -20,7 +20,7 @@ describe('UserRegistration', function () {
                 email: 'maghrooni@gmail.com',
                 password: 123456
             })
-            .expect(200)
+            .expect(statusCodes.ok)
             .end(function (err, response) {
                 if (err) {
                     return done(err);
@@ -36,7 +36,7 @@ describe('UserRegistration', function () {
                 username: 'maghrooni',
                 password: 123456
             })
-            .expect(200)
+            .expect(statusCodes.ok)
             .end(function (err, response) {
                 if (err) {
                     return done(err);
@@ -52,7 +52,7 @@ describe('UserRegistration', function () {
                 username: 'maghrooni',
                 password: 333333
             })
-            .expect(500)
+            .expect(statusCodes.unauthorized)
             .end(function (err, response) {
                 if (err) {
                     return done(err);
@@ -68,7 +68,7 @@ describe('UserRegistration', function () {
                 name: 'Mehdi',
                 password: 123456
             })
-            .expect(500)
+            .expect(statusCodes.validationError)
             .end(function (err, response) {
                 if (err) {
                     return done(err);

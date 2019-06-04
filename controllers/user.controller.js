@@ -42,17 +42,17 @@ let UserController = class UserController {
             return response.send(registered);
         })
             .catch(err => {
-            return response.status(500 /* serverError */).send('registration failed');
+            return response.status(400 /* validationError */).send({ message: 'registration failed' });
         });
     }
     login(user, response) {
         return UserService
             .login(user)
             .then((res) => {
-            response.send(res);
+            return response.send(res);
         })
             .catch(err => {
-            response.status(500 /* serverError */).send({ message: 'login failed' });
+            return response.status(401 /* unauthorized */).send({ message: 'login failed' });
         });
     }
     update(id, user) {

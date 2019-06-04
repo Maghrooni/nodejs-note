@@ -40,8 +40,11 @@ export const enum itemStatuses {
 
 export const enum statusCodes {
     notFound = 404,
+    unauthorized = 401,
+    forbidden = 403,
     validationError = 400,
-    serverError = 500
+    serverError = 500,
+    ok = 200
 }
 
 export default configs;

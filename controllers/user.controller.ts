@@ -46,7 +46,7 @@ export class UserController {
                 return response.send(registered);
             })
             .catch(err => {
-                return response.status(statusCodes.serverError).send('registration failed');
+                return response.status(statusCodes.validationError).send({message: 'registration failed'});
             });
     }
 
@@ -55,10 +55,10 @@ export class UserController {
         return UserService
             .login(user)
             .then((res) => {
-                response.send(res);
+                return response.send(res);
             })
             .catch(err => {
-                response.status(statusCodes.serverError).send({message: 'login failed'});
+                return response.status(statusCodes.unauthorized).send({message: 'login failed'});
             });
     }
 

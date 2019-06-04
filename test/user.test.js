@@ -18,7 +18,7 @@ describe('UserRegistration', function () {
             email: 'maghrooni@gmail.com',
             password: 123456
         })
-            .expect(200)
+            .expect(200 /* ok */)
             .end(function (err, response) {
             if (err) {
                 return done(err);
@@ -33,7 +33,7 @@ describe('UserRegistration', function () {
             username: 'maghrooni',
             password: 123456
         })
-            .expect(200)
+            .expect(200 /* ok */)
             .end(function (err, response) {
             if (err) {
                 return done(err);
@@ -48,7 +48,7 @@ describe('UserRegistration', function () {
             username: 'maghrooni',
             password: 333333
         })
-            .expect(500)
+            .expect(401 /* unauthorized */)
             .end(function (err, response) {
             if (err) {
                 return done(err);
@@ -63,7 +63,7 @@ describe('UserRegistration', function () {
             name: 'Mehdi',
             password: 123456
         })
-            .expect(500)
+            .expect(400 /* validationError */)
             .end(function (err, response) {
             if (err) {
                 return done(err);

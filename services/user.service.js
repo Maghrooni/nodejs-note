@@ -11,7 +11,7 @@ class UserService extends base_service_1.BaseService {
     register(user) {
         //todo validate user data
         //todo use transactions ?
-        //todo session
+        //todo session or use tokens
         //todo check autologin config
         return this.repository
             .add(user)
@@ -19,12 +19,16 @@ class UserService extends base_service_1.BaseService {
             if (doc.errors) {
                 throw Error(doc.errors.message);
             }
+            LogService.add({
+                title: 'New User', priority: 2 /* medium */, data: {
+                    user: doc
+                }
+            });
             return doc;
         })
             .catch(err => {
             throw Error(err);
         });
-        //todo add log of registered user
     }
     login(user) {
         return this.repository
@@ -32,17 +36,17 @@ class UserService extends base_service_1.BaseService {
             .then((doc) => {
             //todo set last login time on user
             if (!doc) {
+                LogService.add({
+                    title: 'Login Failed', priority: 3 /* high */, data: {
+                        error: e,
+                        user: user
+                    }
+                });
                 throw Error('login failed');
             }
             return doc;
         })
             .catch(err => {
-            LogService.add({
-                title: 'Login Failed', priority: 3 /* high */, data: {
-                    error: e,
-                    user: user
-                }
-            });
             throw Error(err);
         });
     }
