@@ -29,6 +29,18 @@ describe('UserRegistration', function () {
             });
     });
 
+    it('RegisterWithoutBodyData', function (done) {
+        request(app)
+            .post('/users')
+            .expect(statusCodes.validationError)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+    });
+
     it('duplicateUserCheck', function (done) {
         request(app)
             .post('/users')
@@ -71,6 +83,32 @@ describe('UserRegistration', function () {
                 if (err) {
                     return done(err);
                 }
+                done();
+            });
+    });
+
+    it('shownUserInformationExcludesPasswordOnProfile', function (done) {
+        request(app)
+            .get('/users/maghrooni')
+            .expect(statusCodes.ok)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                should(response.password).be.undefined();
+                done();
+            });
+    });
+
+    it('shownUserInformationExcludesPasswordOnAll', function (done) {
+        request(app)
+            .get('/users')
+            .expect(statusCodes.ok)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                should(response.password).be.undefined();
                 done();
             });
     });

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const should = require("should");
 const config_1 = require("../config");
 const dbConnection_1 = require("../dbConnection");
 const request = require("supertest");
@@ -19,6 +20,17 @@ describe('UserRegistration', function () {
             password: 123456
         })
             .expect(200 /* ok */)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('RegisterWithoutBodyData', function (done) {
+        request(server_1.default)
+            .post('/users')
+            .expect(400 /* validationError */)
             .end(function (err, response) {
             if (err) {
                 return done(err);
@@ -66,6 +78,30 @@ describe('UserRegistration', function () {
             if (err) {
                 return done(err);
             }
+            done();
+        });
+    });
+    it('shownUserInformationExcludesPasswordOnProfile', function (done) {
+        request(server_1.default)
+            .get('/users/maghrooni')
+            .expect(200 /* ok */)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            should(response.password).be.undefined();
+            done();
+        });
+    });
+    it('shownUserInformationExcludesPasswordOnAll', function (done) {
+        request(server_1.default)
+            .get('/users')
+            .expect(200 /* ok */)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            should(response.password).be.undefined();
             done();
         });
     });
