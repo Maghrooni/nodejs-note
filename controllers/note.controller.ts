@@ -1,49 +1,75 @@
-import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete} from "routing-controllers";
+import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete, Res} from "routing-controllers";
 import {statusCodes} from "../config";
 
 let NoteRepository = require('../repositories/note.repository');
 let NoteService = require('../services/note.service')
 
-@JsonController()
+@JsonController('/notes')
 
 export class NoteController {
-
-    private static _path = '/notes';
 
     constructor() {
     }
 
-    @Get(NoteController._path)
-    getAll() {
-        return NoteRepository.getAll();
+    @Get()
+    getAll(@Res() response: any) {
+        return NoteRepository
+            .getAll()
+            .then((docs) => {
+                response.send(docs);
+            })
+            .catch(err => {
+                response.status(statusCodes.serverError).send(err);
+            });
     }
 
-    @Get(`${NoteController._path}/:id`)
+    @Get('/:id')
     @OnUndefined(statusCodes.notFound)
-    getById(@Param('id') id: number) {
-        return NoteRepository.getById(id);
+    getById(@Param('id') id: string, @Res() response: any) {
+        return NoteRepository
+            .getById(id)
+            .then((doc) => {
+                response.send(doc);
+            })
+            .catch(err => {
+                response.status(statusCodes.serverError).send(err);
+            });
     }
 
-    @Get(`${NoteController._path}/:username`)
+    @Get('/:username')
     @OnUndefined(statusCodes.notFound)
-    getByUsername(@Param('username') username: string) {
-        return NoteRepository.getByUsername(username);
+    getByUsername(@Param('username') username: string, @Res() response: any) {
+        return NoteRepository
+            .getByUsername(username)
+            .then((docs) => {
+                response.send(docs);
+            })
+            .catch(err => {
+                response.status(statusCodes.serverError).send(err);
+            });
     }
 
-    @Post(NoteController._path)
-    add(@Body() user: any) {
-        return NoteService.add(user);
+    @Post()
+    add(@Body() user: any, @Res() response: any) {
+        return NoteService
+            .add(user)
+            .then((doc) => {
+                response.send(doc);
+            })
+            .catch(err => {
+                response.status(statusCodes.serverError).send(err);
+            });
     }
 
-    @Put(`${NoteController._path}/:id`)
-    update(@Param('id') id: number, @Body() user: any) {
+    @Put('/:id')
+    update(@Param('id') id: string, @Body() user: any, @Res() response: any) {
         //todo validate input data
         //todo update user data
         console.log(`note data for ID ${id} will be updated !`);
     }
 
-    @Delete(`${NoteController._path}/:id`)
-    delete(@Param('id') id: number) {
+    @Delete('/:id')
+    delete(@Param('id') id: string) {
         return NoteService.delete(id);
     }
 

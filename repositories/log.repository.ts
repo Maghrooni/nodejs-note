@@ -12,8 +12,8 @@ class LogRepository extends BaseRepository {
     getAll() {
         return Log
             .find({})
-            .then((found) => {
-                return found;
+            .then((docs) => {
+                return docs;
             })
             .catch(err => {
                 return err;
@@ -23,8 +23,8 @@ class LogRepository extends BaseRepository {
     getById(id: string) {
         return Log
             .findById(id)
-            .then((found) => {
-                return found;
+            .then((doc) => {
+                return doc;
             })
             .catch(err => {
                 return err;
@@ -34,8 +34,8 @@ class LogRepository extends BaseRepository {
     add(log: iLog) {
         return Log
             .create(log)
-            .then((created) => {
-                return created;
+            .then((doc) => {
+                return doc;
             })
             .catch(err => {
                 return err;

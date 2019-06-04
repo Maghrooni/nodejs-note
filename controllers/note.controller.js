@@ -12,22 +12,50 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 let NoteRepository = require('../repositories/note.repository');
 let NoteService = require('../services/note.service');
-let NoteController = NoteController_1 = class NoteController {
+let NoteController = class NoteController {
     constructor() {
     }
-    getAll() {
-        return NoteRepository.getAll();
+    getAll(response) {
+        return NoteRepository
+            .getAll()
+            .then((docs) => {
+            response.send(docs);
+        })
+            .catch(err => {
+            response.status(500 /* serverError */).send(err);
+        });
     }
-    getById(id) {
-        return NoteRepository.getById(id);
+    getById(id, response) {
+        return NoteRepository
+            .getById(id)
+            .then((doc) => {
+            response.send(doc);
+        })
+            .catch(err => {
+            response.status(500 /* serverError */).send(err);
+        });
     }
-    getByUsername(username) {
-        return NoteRepository.getByUsername(username);
+    getByUsername(username, response) {
+        return NoteRepository
+            .getByUsername(username)
+            .then((docs) => {
+            response.send(docs);
+        })
+            .catch(err => {
+            response.status(500 /* serverError */).send(err);
+        });
     }
-    add(user) {
-        return NoteService.add(user);
+    add(user, response) {
+        return NoteService
+            .add(user)
+            .then((doc) => {
+            response.send(doc);
+        })
+            .catch(err => {
+            response.status(500 /* serverError */).send(err);
+        });
     }
-    update(id, user) {
+    update(id, user, response) {
         //todo validate input data
         //todo update user data
         console.log(`note data for ID ${id} will be updated !`);
@@ -36,35 +64,34 @@ let NoteController = NoteController_1 = class NoteController {
         return NoteService.delete(id);
     }
 };
-NoteController._path = '/notes';
 __decorate([
-    routing_controllers_1.Get(NoteController_1._path)
+    routing_controllers_1.Get(),
+    __param(0, routing_controllers_1.Res())
 ], NoteController.prototype, "getAll", null);
 __decorate([
-    routing_controllers_1.Get(`${NoteController_1._path}/:id`),
+    routing_controllers_1.Get('/:id'),
     routing_controllers_1.OnUndefined(404 /* notFound */),
-    __param(0, routing_controllers_1.Param('id'))
+    __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Res())
 ], NoteController.prototype, "getById", null);
 __decorate([
-    routing_controllers_1.Get(`${NoteController_1._path}/:username`),
+    routing_controllers_1.Get('/:username'),
     routing_controllers_1.OnUndefined(404 /* notFound */),
-    __param(0, routing_controllers_1.Param('username'))
+    __param(0, routing_controllers_1.Param('username')), __param(1, routing_controllers_1.Res())
 ], NoteController.prototype, "getByUsername", null);
 __decorate([
-    routing_controllers_1.Post(NoteController_1._path),
-    __param(0, routing_controllers_1.Body())
+    routing_controllers_1.Post(),
+    __param(0, routing_controllers_1.Body()), __param(1, routing_controllers_1.Res())
 ], NoteController.prototype, "add", null);
 __decorate([
-    routing_controllers_1.Put(`${NoteController_1._path}/:id`),
-    __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body())
+    routing_controllers_1.Put('/:id'),
+    __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body()), __param(2, routing_controllers_1.Res())
 ], NoteController.prototype, "update", null);
 __decorate([
-    routing_controllers_1.Delete(`${NoteController_1._path}/:id`),
+    routing_controllers_1.Delete('/:id'),
     __param(0, routing_controllers_1.Param('id'))
 ], NoteController.prototype, "delete", null);
-NoteController = NoteController_1 = __decorate([
-    routing_controllers_1.JsonController()
+NoteController = __decorate([
+    routing_controllers_1.JsonController('/notes')
 ], NoteController);
 exports.NoteController = NoteController;
-var NoteController_1;
 //# sourceMappingURL=note.controller.js.map

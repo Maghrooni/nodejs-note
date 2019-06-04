@@ -1,9 +1,9 @@
 import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete, Res} from "routing-controllers";
 import {statusCodes} from "../config";
-import {iUser, User} from "../models/user.model";
+import {iUser} from "../models/user.model";
 
 let UserRepository = require('../repositories/user.repository');
-let UserService = require('../services/user.service')
+let UserService = require('../services/user.service');
 
 @JsonController('/users')
 
