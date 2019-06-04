@@ -14,7 +14,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            return err;
+            throw Error(err);
         });
     }
     getByUsername(username) {
@@ -27,7 +27,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            return err;
+            throw Error(err);
         });
     }
     add(note) {
@@ -37,7 +37,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            return err;
+            throw Error(err);
         });
     }
     delete(id) {

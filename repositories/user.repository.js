@@ -15,7 +15,7 @@ class UserRepository extends base_repository_1.BaseRepository {
             return docs;
         })
             .catch(err => {
-            return err;
+            throw Error(err);
         });
     }
     getByUsername(username) {
@@ -26,7 +26,7 @@ class UserRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            return err;
+            throw Error(err);
         });
     }
     getByUserPass(username, password) {
@@ -41,7 +41,7 @@ class UserRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            return err;
+            throw Error(err);
         });
     }
     getById(id) {
@@ -51,7 +51,7 @@ class UserRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            return err;
+            throw Error(err);
         });
     }
     add(user) {
@@ -61,7 +61,7 @@ class UserRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            return err;
+            throw Error(err);
         });
     }
     delete(id) {

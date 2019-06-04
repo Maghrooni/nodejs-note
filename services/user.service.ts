@@ -22,7 +22,7 @@ class UserService extends BaseService {
         return this.repository
             .add(user)
             .then((doc) => {
-                if(doc.errors){
+                if (doc.errors) {
                     throw Error(doc.errors.message);
                 }
                 return doc;
@@ -54,7 +54,7 @@ class UserService extends BaseService {
                         user: user
                     }
                 });
-                return this.errorHandler.throwError(err);
+                throw Error(err);
             });
     }
 }

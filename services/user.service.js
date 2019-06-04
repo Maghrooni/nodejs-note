@@ -43,7 +43,7 @@ class UserService extends base_service_1.BaseService {
                     user: user
                 }
             });
-            return this.errorHandler.throwError(err);
+            throw Error(err);
         });
     }
 }

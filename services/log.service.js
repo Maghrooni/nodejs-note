@@ -13,7 +13,7 @@ class LogService {
             return doc;
         })
             .catch(err => {
-            return ErrorHandler.consoleError(err);
+            throw Error(err);
         });
     }
 }

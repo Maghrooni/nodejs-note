@@ -16,7 +16,7 @@ class NoteRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                return err;
+                throw Error(err);
             });
     }
 
@@ -31,7 +31,7 @@ class NoteRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                return err;
+                throw Error(err);
             });
     }
 
@@ -42,7 +42,7 @@ class NoteRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                return err;
+                throw Error(err);
             });
     }
 

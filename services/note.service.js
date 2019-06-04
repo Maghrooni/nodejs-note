@@ -16,7 +16,7 @@ class NoteService extends base_service_1.BaseService {
             return doc;
         })
             .catch(err => {
-            return this.errorHandler.throwError(err);
+            throw Error(err);
         });
         //todo add log of added note
     }

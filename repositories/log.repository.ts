@@ -16,7 +16,7 @@ class LogRepository extends BaseRepository {
                 return docs;
             })
             .catch(err => {
-                return err;
+                throw Error(err);
             });
     }
 
@@ -27,7 +27,7 @@ class LogRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                return err;
+                throw Error(err);
             });
     }
 
@@ -38,7 +38,7 @@ class LogRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                return err;
+                throw Error(err);
             });
     }
 

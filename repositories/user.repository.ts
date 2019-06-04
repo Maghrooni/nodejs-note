@@ -19,7 +19,7 @@ class UserRepository extends BaseRepository {
                 return docs;
             })
             .catch(err => {
-                return err;
+                throw Error(err);
             });
     }
 
@@ -31,7 +31,7 @@ class UserRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                return err;
+                throw Error(err);
             });
     }
 
@@ -47,7 +47,7 @@ class UserRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                return err;
+                throw Error(err);
             });
     }
 
@@ -58,7 +58,7 @@ class UserRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                return err;
+                throw Error(err);
             });
     }
 
@@ -69,7 +69,7 @@ class UserRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                return err;
+                throw Error(err);
             });
     }
 
