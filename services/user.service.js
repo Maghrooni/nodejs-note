@@ -28,6 +28,9 @@ class UserService extends base_service_1.BaseService {
             .getByUserPass(user.username, user.password)
             .then((doc) => {
             //todo set last login time on user
+            if (!doc) {
+                return Promise.reject('incorrect login');
+            }
             return doc;
         })
             .catch(err => {

@@ -61,4 +61,21 @@ describe('UserRegistration', function () {
             });
     });
 
+    it('incompleteRegistration', function (done) {
+        request(app)
+            .post('/users')
+            .send({
+                name: 'Mehdi',
+                password: 123456
+            })
+            .expect(200)
+            .end(function (err, response) {
+                console.log(response);
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+    });
+
 });

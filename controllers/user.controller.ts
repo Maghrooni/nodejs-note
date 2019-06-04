@@ -58,7 +58,7 @@ export class UserController {
                 response.send(res);
             })
             .catch(err => {
-                response.status(statusCodes.serverError).send(err);
+                response.status(statusCodes.serverError).send({message: 'login failed'});
             });
     }
 

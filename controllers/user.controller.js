@@ -52,7 +52,7 @@ let UserController = class UserController {
             response.send(res);
         })
             .catch(err => {
-            response.status(500 /* serverError */).send(err);
+            response.status(500 /* serverError */).send({ message: 'login failed' });
         });
     }
     update(id, user) {

@@ -1,6 +1,7 @@
 import {BaseService} from "./base.service";
 import {logPriorities} from "../config/log";
 import {iUser} from "../models/user.model";
+import {rejects} from "assert";
 
 let LogService = require('./log.service');
 
@@ -38,6 +39,9 @@ class UserService extends BaseService {
             )
             .then((doc) => {
                 //todo set last login time on user
+                if(!doc){
+                    return Promise.reject('incorrect login');
+                }
                 return doc;
             })
             .catch(err => {
