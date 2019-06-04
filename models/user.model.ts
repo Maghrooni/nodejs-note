@@ -16,8 +16,8 @@ export interface iUserDocument extends Document, iUser {
 
 let userSchema = new Schema({
     name: {type: String, required: true, min: validationConfig.user.min},
-    username: {type: String, unique: true, required: true},
-    email: {type: String, unique: true, required: true},
+    username: {type: String, unique: true, required: true, trim: true},
+    email: {type: String, unique: true, required: true, trim: true},
     password: {type: String, min: validationConfig.user.password.min, required: true},
     status: {type: Number, default: itemStatuses.active},
 }, {timestamps: true});

@@ -62,6 +62,10 @@ class NoteRepository extends BaseRepository {
         return Note.remove({id: id});
     }
 
+    deleteUserNotes(userId: string){
+        return Note.remove({userId: userId});
+    }
+
 }
 
 module.exports = new NoteRepository();
