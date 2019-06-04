@@ -5,7 +5,7 @@ var environments;
     environments["dev"] = "dev";
     environments["test"] = "test";
     environments["production"] = "production";
-})(environments || (environments = {}));
+})(environments = exports.environments || (exports.environments = {}));
 exports.configs = {
     localPort: 1500,
     hostName: 'localhost',
@@ -16,8 +16,14 @@ exports.configs = {
     },
     database: {
         ip: '127.0.0.1',
-        dbName: 'note'
+        dbName: 'note',
     },
+    test: {
+        database: {
+            ip: '127.0.0.1',
+            dbName: 'test'
+        }
+    }
 };
 function isDevEnv() {
     return exports.configs.environment === environments.dev;

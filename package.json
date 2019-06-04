@@ -4,7 +4,7 @@
   "description": "sample nodejs app for learning nodejs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node node_modules/mocha/bin/_mocha --recursive",
     "start": "nodemon ./bin/www.js"
   },
   "repository": {
@@ -31,5 +31,9 @@
     "routing-controllers": "^0.7.7",
     "should": "^13.2.3",
     "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "@types/should": "^13.0.0"
   }
 }

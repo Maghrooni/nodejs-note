@@ -1,4 +1,4 @@
-enum environments {
+export enum environments {
     dev = 'dev',
     test = 'test',
     production = 'production'
@@ -14,8 +14,14 @@ export const configs = {
     },
     database: {
         ip: '127.0.0.1',
-        dbName: 'note'
+        dbName: 'note',
     },
+    test: {
+        database: {
+            ip: '127.0.0.1',
+            dbName: 'test'
+        }
+    }
 };
 
 export function isDevEnv() {
