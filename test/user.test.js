@@ -41,6 +41,28 @@ describe('UserRegistration', function () {
             done();
         });
     });
+    it('profileView', function (done) {
+        request(server_1.default)
+            .get('/users/maghrooni')
+            .expect(200 /* ok */)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('incorrectProfileView', function (done) {
+        request(server_1.default)
+            .get('/users/maghrooni22')
+            .expect(404 /* notFound */)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            done();
+        });
+    });
     it('incorrectLogin', function (done) {
         request(server_1.default)
             .post('/users/login')

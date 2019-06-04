@@ -23,6 +23,9 @@ class UserRepository extends base_repository_1.BaseRepository {
             .findOne({ username: username })
             .select(this.excludeFields)
             .then((doc) => {
+            if (!doc) {
+                throw Error('');
+            }
             return doc;
         })
             .catch(err => {

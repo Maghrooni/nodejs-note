@@ -18,10 +18,10 @@ export class UserController {
         return UserRepository
             .getAll()
             .then((docs) => {
-                response.send(docs);
+                return response.send(docs);
             })
             .catch(err => {
-                response.status(statusCodes.serverError).send(err);
+                return response.status(statusCodes.serverError).send(err);
             });
     }
 
@@ -31,10 +31,10 @@ export class UserController {
         return UserRepository
             .getByUsername(username)
             .then((doc) => {
-                response.send(doc);
+                return response.send(doc);
             })
             .catch(err => {
-                response.status(statusCodes.serverError).send(err);
+                return response.status(statusCodes.notFound).send({message : 'user not found'});
             });
     }
 

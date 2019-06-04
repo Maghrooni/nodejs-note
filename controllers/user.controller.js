@@ -19,20 +19,20 @@ let UserController = class UserController {
         return UserRepository
             .getAll()
             .then((docs) => {
-            response.send(docs);
+            return response.send(docs);
         })
             .catch(err => {
-            response.status(500 /* serverError */).send(err);
+            return response.status(500 /* serverError */).send(err);
         });
     }
     getByUsername(username, response) {
         return UserRepository
             .getByUsername(username)
             .then((doc) => {
-            response.send(doc);
+            return response.send(doc);
         })
             .catch(err => {
-            response.status(500 /* serverError */).send(err);
+            return response.status(404 /* notFound */).send({ message: 'user not found' });
         });
     }
     add(user, response) {
