@@ -12,7 +12,7 @@ class UserRepository extends base_repository_1.BaseRepository {
         return user_model_1.User
             .find({ status: 1 /* active */ })
             .select(this.excludeFields)
-            .populate('notes')
+            .populate('notes', 'title tags color type', { status: 1 /* active */ })
             .limit(+perPage)
             .skip(perPage * page)
             .sort({
@@ -29,6 +29,7 @@ class UserRepository extends base_repository_1.BaseRepository {
         return user_model_1.User
             .findOne({ username: username })
             .select(this.excludeFields)
+            .populate('notes', 'title tags color type', { status: 1 /* active */ })
             .then(doc => {
             if (!doc) {
                 throw Error('');
