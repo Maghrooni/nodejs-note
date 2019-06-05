@@ -10,6 +10,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
+const logger_middleware_1 = require("../middlewares/logger.middleware");
 let UserRepository = require('../repositories/user.repository');
 let UserService = require('../services/user.service');
 let UserController = class UserController {
@@ -76,23 +77,28 @@ __decorate([
 ], UserController.prototype, "getAll", null);
 __decorate([
     routing_controllers_1.Get(`/:username`),
+    routing_controllers_1.UseAfter(logger_middleware_1.LoggerMiddleware),
     routing_controllers_1.OnUndefined(404 /* notFound */),
     __param(0, routing_controllers_1.Param('username')), __param(1, routing_controllers_1.Res())
 ], UserController.prototype, "getByUsername", null);
 __decorate([
     routing_controllers_1.Post(),
+    routing_controllers_1.UseAfter(logger_middleware_1.LoggerMiddleware),
     __param(0, routing_controllers_1.Body({ required: true })), __param(1, routing_controllers_1.Res())
 ], UserController.prototype, "add", null);
 __decorate([
     routing_controllers_1.Post(`/login`),
+    routing_controllers_1.UseAfter(logger_middleware_1.LoggerMiddleware),
     __param(0, routing_controllers_1.Body()), __param(1, routing_controllers_1.Req()), __param(2, routing_controllers_1.Res())
 ], UserController.prototype, "login", null);
 __decorate([
     routing_controllers_1.Put(`/:id`),
+    routing_controllers_1.UseAfter(logger_middleware_1.LoggerMiddleware),
     __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body()), __param(2, routing_controllers_1.Res())
 ], UserController.prototype, "update", null);
 __decorate([
     routing_controllers_1.Delete(`/:id`),
+    routing_controllers_1.UseAfter(logger_middleware_1.LoggerMiddleware),
     __param(0, routing_controllers_1.Param('id'))
 ], UserController.prototype, "delete", null);
 UserController = __decorate([

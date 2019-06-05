@@ -9,16 +9,17 @@ import {
     Delete,
     Res,
     Req,
-    QueryParam
+    QueryParam,
+    UseAfter
 } from "routing-controllers";
 import {statusCodes} from "../config";
 import {iUser} from "../models/user.model";
+import {LoggerMiddleware} from "../middlewares/logger.middleware";
 
 let UserRepository = require('../repositories/user.repository');
 let UserService = require('../services/user.service');
 
 @JsonController('/users')
-
 export class UserController {
 
 
@@ -38,6 +39,7 @@ export class UserController {
     }
 
     @Get(`/:username`)
+    @UseAfter(LoggerMiddleware)
     @OnUndefined(statusCodes.notFound)
     getByUsername(@Param('username') username: string, @Res() response: any) {
         return UserRepository
@@ -51,6 +53,7 @@ export class UserController {
     }
 
     @Post()
+    @UseAfter(LoggerMiddleware)
     add(@Body({required: true}) user: iUser, @Res() response: any) {
         return UserService
             .register(user)
@@ -63,6 +66,7 @@ export class UserController {
     }
 
     @Post(`/login`)
+    @UseAfter(LoggerMiddleware)
     login(@Body() user: any, @Req() request: any, @Res() response: any) {
         return UserService
             .login(user, request)
@@ -75,6 +79,7 @@ export class UserController {
     }
 
     @Put(`/:id`)
+    @UseAfter(LoggerMiddleware)
     update(@Param('id') id: string, @Body() user: iUser, @Res() response: any) {
         //todo check if logged in user has permission to update data
         return UserService
@@ -88,6 +93,7 @@ export class UserController {
     }
 
     @Delete(`/:id`)
+    @UseAfter(LoggerMiddleware)
     delete(@Param('id') id: string) {
         return UserRepository.delete(id);
     }
