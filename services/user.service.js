@@ -14,8 +14,8 @@ class UserService extends base_service_1.BaseService {
         //todo check autologin config
         return this.repository
             .add(user)
-            .then((doc) => {
-            if (doc.errors) {
+            .then(doc => {
+            if (doc.errors !== undefined) {
                 throw Error(doc.errors.message);
             }
             LogService.add({
@@ -32,7 +32,7 @@ class UserService extends base_service_1.BaseService {
     login(user, request) {
         return this.repository
             .getByUserPass(user.username, user.password)
-            .then((doc) => {
+            .then(doc => {
             if (!doc) {
                 LogService.add({
                     title: 'Login Failed', priority: 3 /* high */, data: {

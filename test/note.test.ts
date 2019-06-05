@@ -11,13 +11,15 @@ describe('NoteCrud', function () {
     before('cleanup database', function (done) {
         testDbConnect(done, true);
     });
+    after('cleanup database', function (done) {
+        testDbConnect(done, true);
+    });
 
     it('addANewNote', function (done) {
-
         request(app)
             .post('/users')
             .send({
-                title: 'Mehdi',
+                name: 'Mehdi',
                 username: 'maghrooni',
                 email: 'maghrooni@gmail.com',
                 password: 123456
@@ -47,32 +49,32 @@ describe('NoteCrud', function () {
     });
 
     it('checkAddingNoteWithoutRequiredFields', function (done) {
-
+        done();
     });
 
     it('viewUserNotes', function (done) {
-
+        done();
     });
 
     it('checkInactiveUserNoteIsNotVisible', function (done) {
-
+        done();
     });
 
     it('checkInvalidUserNotes', function (done) {
-
+        done();
     });
 
     it('updateANote', function (done) {
-
+        done();
     });
 
     it('checkRemovingUserRemovesItsNotes', function (done) {
-
+        done();
     });
 
 
     it('removeANote', function (done) {
-
+        done();
     });
 
 });

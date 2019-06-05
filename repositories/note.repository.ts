@@ -18,7 +18,7 @@ class NoteRepository extends BaseRepository {
             .sort({
                 _id: 'desc'
             })
-            .then((doc) => {
+            .then(doc => {
                 return doc;
             })
             .catch(err => {
@@ -33,7 +33,7 @@ class NoteRepository extends BaseRepository {
     getById(id: string) {
         return User
             .findById(id)
-            .then((doc) => {
+            .then(doc => {
                 return doc;
             })
             .catch(err => {
@@ -44,7 +44,7 @@ class NoteRepository extends BaseRepository {
     add(note: iNote) {
         return Note
             .create(note)
-            .then((doc) => {
+            .then(doc => {
                 return doc;
             })
             .catch(err => {
@@ -57,7 +57,7 @@ class NoteRepository extends BaseRepository {
         return Note.remove({_id: id});
     }
 
-    deleteUserNotes(userId: string){
+    deleteUserNotes(userId: string) {
         return Note.remove({userId: userId});
     }
 

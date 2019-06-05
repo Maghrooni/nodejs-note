@@ -16,7 +16,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
             .sort({
             _id: 'desc'
         })
-            .then((doc) => {
+            .then(doc => {
             return doc;
         })
             .catch(err => {
@@ -29,7 +29,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
     getById(id) {
         return user_model_1.User
             .findById(id)
-            .then((doc) => {
+            .then(doc => {
             return doc;
         })
             .catch(err => {
@@ -39,7 +39,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
     add(note) {
         return note_model_1.Note
             .create(note)
-            .then((doc) => {
+            .then(doc => {
             return doc;
         })
             .catch(err => {

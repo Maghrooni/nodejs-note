@@ -10,6 +10,9 @@ describe('UserCrud', function () {
     before('cleanup database', function (done) {
         dbConnection_1.testDbConnect(done, true);
     });
+    after('cleanup database', function (done) {
+        dbConnection_1.testDbConnect(done, true);
+    });
     it('registerANewUser', function (done) {
         request(server_1.default)
             .post('/users')
@@ -192,6 +195,7 @@ describe('UserCrud', function () {
         });
     });
     it('removeAUser', function (done) {
+        done();
     });
 });
 //# sourceMappingURL=user.test.js.map

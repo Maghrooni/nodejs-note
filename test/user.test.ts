@@ -10,6 +10,9 @@ describe('UserCrud', function () {
     before('cleanup database', function (done) {
         testDbConnect(done, true);
     });
+    after('cleanup database', function (done) {
+        testDbConnect(done, true);
+    });
 
     it('registerANewUser', function (done) {
         request(app)
@@ -207,7 +210,7 @@ describe('UserCrud', function () {
     });
 
     it('removeAUser', function (done) {
-
+        done();
     });
 
 });

@@ -12,6 +12,9 @@ class NoteService extends base_service_1.BaseService {
         return this.repository
             .add(note)
             .then((doc) => {
+            if (doc.errors !== undefined) {
+                throw Error(doc.errors.message);
+            }
             return doc;
         })
             .catch(err => {

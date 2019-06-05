@@ -10,11 +10,14 @@ describe('NoteCrud', function () {
     before('cleanup database', function (done) {
         dbConnection_1.testDbConnect(done, true);
     });
+    after('cleanup database', function (done) {
+        dbConnection_1.testDbConnect(done, true);
+    });
     it('addANewNote', function (done) {
         request(server_1.default)
             .post('/users')
             .send({
-            title: 'Mehdi',
+            name: 'Mehdi',
             username: 'maghrooni',
             email: 'maghrooni@gmail.com',
             password: 123456
@@ -43,18 +46,25 @@ describe('NoteCrud', function () {
         });
     });
     it('checkAddingNoteWithoutRequiredFields', function (done) {
+        done();
     });
     it('viewUserNotes', function (done) {
+        done();
     });
     it('checkInactiveUserNoteIsNotVisible', function (done) {
+        done();
     });
     it('checkInvalidUserNotes', function (done) {
+        done();
     });
     it('updateANote', function (done) {
+        done();
     });
     it('checkRemovingUserRemovesItsNotes', function (done) {
+        done();
     });
     it('removeANote', function (done) {
+        done();
     });
 });
 //# sourceMappingURL=note.test.js.map

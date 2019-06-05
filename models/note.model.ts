@@ -6,7 +6,7 @@ import validationConfig from '../config/validation';
 export interface iNote {
     id?: string | number;
     title: string,
-    userId: number,
+    userId: string,
     type: number,
     color: string,
     status: number
@@ -17,7 +17,7 @@ export interface iNoteDocument extends Document, iNote {
 
 let noteSchema = new Schema({
     title: {type: String, required: true, min: validationConfig.user.min},
-    userId: {type: Number, required: true},
+    userId: {type: String, required: true},
     color: String,
     type: {type: Number, default: noteTypes.general},
     status: {type: Number, default: itemStatuses.active},

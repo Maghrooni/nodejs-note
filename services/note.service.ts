@@ -5,15 +5,19 @@ let NoteRepository = require('../repositories/note.repository');
 
 class NoteService extends BaseService {
 
-    constructor(){
+    constructor() {
         super();
         this.repository = NoteRepository;
     }
+
     add(note: iNote) {
         //todo transactions ?
         return this.repository
             .add(note)
             .then((doc) => {
+                if (doc.errors !== undefined) {
+                    throw Error(doc.errors.message);
+                }
                 return doc;
             })
             .catch(err => {
