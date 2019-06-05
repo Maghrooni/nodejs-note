@@ -20,7 +20,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     getByUsername(username) {
@@ -35,7 +35,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
             return docs;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     getByTag(tag) {
@@ -50,7 +50,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
             return docs;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     getById(id) {
@@ -60,7 +60,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     add(note) {
@@ -70,7 +70,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     push(id, push) {
@@ -80,7 +80,7 @@ class NoteRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     delete(id) {

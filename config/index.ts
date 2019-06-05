@@ -7,7 +7,7 @@ export enum environments {
 export const configs = {
     localPort: 1500,
     hostName: 'localhost',
-    environment: environments.production,
+    environment: environments.dev,
     pagination: {
         initialPage: 1,
         perPage: 10

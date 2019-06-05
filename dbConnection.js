@@ -11,9 +11,9 @@ const config_1 = require("./config");
 //     });
 function dbConnect(config = config_1.configs) {
     let options = { useNewUrlParser: true };
-    if (config_1.isProductionEnv()) {
-        options = Object.assign({}, options, { autoIndex: false });
-    }
+    // if (isProductionEnv()) {
+    options = Object.assign({}, options, { autoIndex: false });
+    // }
     return mongoose
         .connect(`mongodb://${config.database.ip}/${config.database.dbName}`, options)
         .then(db => {

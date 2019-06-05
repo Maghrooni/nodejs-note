@@ -73,7 +73,7 @@ class UserRepository extends base_repository_1.BaseRepository {
         })
             .catch(err => {
             // return this.errorHandler.throwError(err);
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     delete(id) {

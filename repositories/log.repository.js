@@ -19,7 +19,7 @@ class LogRepository extends base_repository_1.BaseRepository {
             return docs;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     getById(id) {
@@ -29,7 +29,7 @@ class LogRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     add(log) {
@@ -39,7 +39,7 @@ class LogRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     delete(id) {

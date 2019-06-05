@@ -9,7 +9,7 @@ var environments;
 exports.configs = {
     localPort: 1500,
     hostName: 'localhost',
-    environment: environments.production,
+    environment: environments.dev,
     pagination: {
         initialPage: 1,
         perPage: 10

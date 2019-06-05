@@ -79,7 +79,7 @@ class UserRepository extends BaseRepository {
             })
             .catch(err => {
                 // return this.errorHandler.throwError(err);
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 

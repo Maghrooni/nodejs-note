@@ -16,7 +16,7 @@ class UserService extends base_service_1.BaseService {
             .add(user)
             .then(doc => {
             if (doc.errors !== undefined) {
-                throw Error(doc.errors.message);
+                return this.errorHandler.throwError(doc.errors.message);
             }
             return doc;
         })
@@ -30,7 +30,7 @@ class UserService extends base_service_1.BaseService {
             //     return doc;
             // })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     login(user, request) {
@@ -44,7 +44,7 @@ class UserService extends base_service_1.BaseService {
                         user: user
                     }
                 });
-                throw Error('login failed');
+                return this.errorHandler.throwError('failed');
             }
             return doc;
         })
@@ -56,7 +56,7 @@ class UserService extends base_service_1.BaseService {
             return doc;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     update(id, updates) {
@@ -69,7 +69,7 @@ class UserService extends base_service_1.BaseService {
             return updated;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     remove(id) {

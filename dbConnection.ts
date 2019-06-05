@@ -11,9 +11,9 @@ import {configs, isProductionEnv} from './config';
 
 export function dbConnect(config: object = configs) {
     let options = {useNewUrlParser: true};
-    if (isProductionEnv()) {
+    // if (isProductionEnv()) {
         options = {...options, autoIndex: false};
-    }
+    // }
     return mongoose
         .connect(`mongodb://${config.database.ip}/${config.database.dbName}`, options)
         .then(db => {

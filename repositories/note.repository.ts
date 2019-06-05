@@ -22,7 +22,7 @@ class NoteRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 
@@ -38,7 +38,7 @@ class NoteRepository extends BaseRepository {
                 return docs;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 
@@ -54,7 +54,7 @@ class NoteRepository extends BaseRepository {
                 return docs;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 
@@ -65,7 +65,7 @@ class NoteRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 
@@ -76,7 +76,7 @@ class NoteRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 
@@ -87,7 +87,7 @@ class NoteRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 
