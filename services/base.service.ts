@@ -1,10 +1,8 @@
 import {BaseRepository} from "../repositories/base.repository";
-
-let ErrorHandler = require('../services/errorHandler.service');
+let eHandler = require('../services/errorHandler.service');
 
 interface iService {
-    repository: BaseRepository,
-    errorHandler: object
+    repository: BaseRepository
 }
 
 export class BaseService implements iService {
@@ -13,6 +11,6 @@ export class BaseService implements iService {
     errorHandler;
 
     constructor() {
-        this.errorHandler = ErrorHandler;
+        this.errorHandler = new eHandler().getInstance();
     }
 }

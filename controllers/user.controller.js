@@ -11,10 +11,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 const logger_middleware_1 = require("../middlewares/logger.middleware");
+const base_controller_1 = require("./base.controller");
 let UserRepository = require('../repositories/user.repository');
 let UserService = require('../services/user.service');
-let UserController = class UserController {
+let UserController = class UserController extends base_controller_1.BaseController {
     constructor() {
+        super();
     }
     getAll(response, page, limit) {
         return UserRepository
@@ -43,7 +45,7 @@ let UserController = class UserController {
             return response.send(registered);
         })
             .catch(err => {
-            return response.status(400 /* validationError */).send({ message: 'registration failed' });
+            return response.status(400 /* validationError */).send({ message: err.message });
         });
     }
     login(user, request, response) {

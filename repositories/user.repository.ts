@@ -3,7 +3,6 @@ import {BaseRepository} from "./base.repository";
 import {itemStatuses, configs} from "../config";
 import {request} from "http";
 
-
 class UserRepository extends BaseRepository {
     excludeFields = '-password';
 
@@ -25,7 +24,7 @@ class UserRepository extends BaseRepository {
                 return docs;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 
@@ -36,12 +35,12 @@ class UserRepository extends BaseRepository {
             .populate('notes', 'title tags color type', {status: itemStatuses.active})
             .then(doc => {
                 if (!doc) {
-                    throw Error('');
+                    return this.errorHandler.throwError('failed');
                 }
                 return doc;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 
@@ -57,7 +56,7 @@ class UserRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 
@@ -68,7 +67,7 @@ class UserRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 
@@ -79,6 +78,7 @@ class UserRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
+                // return this.errorHandler.throwError(err);
                 throw Error(err);
             });
     }
@@ -95,7 +95,7 @@ class UserRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 
@@ -106,7 +106,7 @@ class UserRepository extends BaseRepository {
                 return doc;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 

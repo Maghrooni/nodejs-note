@@ -7,6 +7,10 @@ require("reflect-metadata");
 const dbConnection_1 = require("./dbConnection");
 const app = express();
 dbConnection_1.dbConnect();
+// import userRoutes from './routes/user.route';
+// import defaultRoutes from './routes';
+// import {UserController} from "./controllers/user.controller";
+// import {NoteController} from "./controllers/note.controller";
 routing_controllers_1.useExpressServer(app, {
     controllers: [__dirname + "/controllers/*.js"]
 });

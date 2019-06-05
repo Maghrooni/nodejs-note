@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 let LogRepository = require('../repositories/log.repository');
-let ErrorHandler = require('./errorHandler.service');
+let Log = require('../models/log.model');
 class LogService {
     constructor() {
         this.repository = LogRepository;
@@ -9,7 +9,7 @@ class LogService {
     add(log) {
         return this.repository
             .add(log)
-            .then((doc) => {
+            .then(doc => {
             return doc;
         })
             .catch(err => {

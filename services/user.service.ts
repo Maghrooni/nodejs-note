@@ -17,19 +17,23 @@ class UserService extends BaseService {
         //todo use transactions ?
         //todo session or use tokens
         //todo check autologin config
-        return this.repository
+        return UserRepository
             .add(user)
             .then(doc => {
                 if (doc.errors !== undefined) {
                     throw Error(doc.errors.message);
                 }
-                LogService.add({
-                    title: 'New User', priority: logPriorities.medium, data: {
-                        user: doc
-                    }
-                });
                 return doc;
             })
+            //todo fix log
+            // .then(doc => {
+            //     LogService.add({
+            //         title: 'New User', priority: logPriorities.medium, data: {
+            //             user: doc
+            //         }
+            //     });
+            //     return doc;
+            // })
             .catch(err => {
                 throw Error(err);
             });
@@ -51,6 +55,9 @@ class UserService extends BaseService {
                     });
                     throw Error('login failed');
                 }
+                return doc;
+            })
+            .then(doc => {
                 this.repository.update(doc._id, {
                     lastLogin: new Date(),
                     lastLoginIp: request.headers['x-forwarded-for'] || request.connection.remoteAddress

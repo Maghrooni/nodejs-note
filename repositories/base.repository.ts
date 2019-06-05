@@ -1,18 +1,14 @@
+let eHandler = require('../services/errorHandler.service');
+
 interface iRepository {
 
 }
 
 export class BaseRepository implements iRepository {
 
+    protected errorHandler;
+
     constructor() {
-
-    }
-
-    getOnlyDocumentFields(cursor: object): object {
-        let items = {};
-        cursor.forEach(function (item) {
-            items[item._id] = item._doc;
-        });
-        return items;
+        this.errorHandler = new eHandler().getInstance();
     }
 }

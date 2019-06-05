@@ -2,7 +2,7 @@ import {BaseService} from "./base.service";
 import {iLog} from "../models/log.model";
 
 let LogRepository = require('../repositories/log.repository');
-let ErrorHandler = require('./errorHandler.service');
+let Log = require('../models/log.model');
 
 class LogService {
 
@@ -15,7 +15,7 @@ class LogService {
     add(log: iLog) {
         return this.repository
             .add(log)
-            .then((doc) => {
+            .then(doc => {
                 return doc;
             })
             .catch(err => {

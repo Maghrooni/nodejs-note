@@ -9,8 +9,8 @@ const app = express();
 dbConnect();
 // import userRoutes from './routes/user.route';
 // import defaultRoutes from './routes';
-import {UserController} from "./controllers/user.controller";
-import {NoteController} from "./controllers/note.controller";
+// import {UserController} from "./controllers/user.controller";
+// import {NoteController} from "./controllers/note.controller";
 
 
 useExpressServer(app, {

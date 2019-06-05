@@ -1,5 +1,5 @@
 import {iLog} from "../models/log.model";
-import configs from "../config";
+import configs, {isDevEnv} from "../config";
 
 let LogService = require('../services/log.service');
 
@@ -12,6 +12,9 @@ class ErrorHandlerService {
         if (log && configs.global.saveLogs) {
             LogService.add(log);
         }
+        if (isDevEnv()) {
+            console.log(`\n######### ${msg} \n########\n`);
+        }
         throw new Error(`${msg}`);
     }
 
@@ -21,4 +24,18 @@ class ErrorHandlerService {
 
 }
 
-module.exports = new ErrorHandlerService();
+class Singleton {
+
+    constructor() {
+        if (!Singleton.instance) {
+            Singleton.instance = new ErrorHandlerService();
+        }
+    }
+
+    getInstance() {
+        return Singleton.instance;
+    }
+
+}
+
+module.exports = Singleton;

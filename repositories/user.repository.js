@@ -22,7 +22,7 @@ class UserRepository extends base_repository_1.BaseRepository {
             return docs;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     getByUsername(username) {
@@ -32,12 +32,12 @@ class UserRepository extends base_repository_1.BaseRepository {
             .populate('notes', 'title tags color type', { status: 1 /* active */ })
             .then(doc => {
             if (!doc) {
-                throw Error('');
+                return this.errorHandler.throwError('failed');
             }
             return doc;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     getByUserPass(username, password) {
@@ -52,7 +52,7 @@ class UserRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     getById(id) {
@@ -62,7 +62,7 @@ class UserRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     add(user) {
@@ -72,6 +72,7 @@ class UserRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
+            // return this.errorHandler.throwError(err);
             throw Error(err);
         });
     }
@@ -86,7 +87,7 @@ class UserRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
     push(id, push) {
@@ -96,7 +97,7 @@ class UserRepository extends base_repository_1.BaseRepository {
             return doc;
         })
             .catch(err => {
-            throw Error(err);
+            return this.errorHandler.throwError(err);
         });
     }
 }

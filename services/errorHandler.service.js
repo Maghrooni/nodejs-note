@@ -9,11 +9,24 @@ class ErrorHandlerService {
         if (log && config_1.default.global.saveLogs) {
             LogService.add(log);
         }
+        if (config_1.isDevEnv()) {
+            console.log(`\n######### ${msg} \n########\n`);
+        }
         throw new Error(`${msg}`);
     }
     consoleError(msg) {
         return console.log(msg);
     }
 }
-module.exports = new ErrorHandlerService();
+class Singleton {
+    constructor() {
+        if (!Singleton.instance) {
+            Singleton.instance = new ErrorHandlerService();
+        }
+    }
+    getInstance() {
+        return Singleton.instance;
+    }
+}
+module.exports = Singleton;
 //# sourceMappingURL=errorHandler.service.js.map

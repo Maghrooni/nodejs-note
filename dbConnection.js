@@ -16,7 +16,8 @@ function dbConnect(config = config_1.configs) {
     }
     return mongoose
         .connect(`mongodb://${config.database.ip}/${config.database.dbName}`, options)
-        .then(() => {
+        .then(db => {
+        return db;
         // console.log('mongo !');
     })
         .catch((err) => {

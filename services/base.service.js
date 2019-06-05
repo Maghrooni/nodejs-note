@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-let ErrorHandler = require('../services/errorHandler.service');
+let eHandler = require('../services/errorHandler.service');
 class BaseService {
     constructor() {
-        this.errorHandler = ErrorHandler;
+        this.errorHandler = new eHandler().getInstance();
     }
 }
 exports.BaseService = BaseService;

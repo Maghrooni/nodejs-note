@@ -15,15 +15,17 @@ import {
 import {statusCodes} from "../config";
 import {iUser} from "../models/user.model";
 import {LoggerMiddleware} from "../middlewares/logger.middleware";
+import {BaseController} from "./base.controller";
 
 let UserRepository = require('../repositories/user.repository');
 let UserService = require('../services/user.service');
 
 @JsonController('/users')
-export class UserController {
+export class UserController extends BaseController {
 
 
     constructor() {
+        super();
     }
 
     @Get()
@@ -61,7 +63,7 @@ export class UserController {
                 return response.send(registered);
             })
             .catch(err => {
-                return response.status(statusCodes.validationError).send({message: 'registration failed'});
+                return response.status(statusCodes.validationError).send({message: err.message});
             });
     }
 
