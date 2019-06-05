@@ -15,9 +15,9 @@ let UserService = require('../services/user.service');
 let UserController = class UserController {
     constructor() {
     }
-    getAll(response) {
+    getAll(response, page, limit) {
         return UserRepository
-            .getAll()
+            .getAll(page, limit)
             .then(docs => {
             return response.send(docs);
         })
@@ -72,7 +72,7 @@ let UserController = class UserController {
 };
 __decorate([
     routing_controllers_1.Get(),
-    __param(0, routing_controllers_1.Res())
+    __param(0, routing_controllers_1.Res()), __param(1, routing_controllers_1.QueryParam("page")), __param(2, routing_controllers_1.QueryParam("limit"))
 ], UserController.prototype, "getAll", null);
 __decorate([
     routing_controllers_1.Get(`/:username`),

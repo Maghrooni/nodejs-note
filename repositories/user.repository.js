@@ -2,15 +2,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = require("../models/user.model");
 const base_repository_1 = require("./base.repository");
+const config_1 = require("../config");
 class UserRepository extends base_repository_1.BaseRepository {
     constructor() {
         super();
         this.excludeFields = '-password';
     }
-    getAll() {
+    getAll(page = config_1.configs.pagination.initialPage, perPage = config_1.configs.pagination.perPage) {
         return user_model_1.User
             .find({ status: 1 /* active */ })
             .select(this.excludeFields)
+            .limit(+perPage)
+            .skip(perPage * page)
+            .sort({
+            _id: 'desc'
+        })
             .then(docs => {
             return docs;
         })

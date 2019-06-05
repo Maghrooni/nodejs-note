@@ -1,4 +1,16 @@
-import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete, Res, Req} from "routing-controllers";
+import {
+    JsonController,
+    OnUndefined,
+    Param,
+    Body,
+    Get,
+    Post,
+    Put,
+    Delete,
+    Res,
+    Req,
+    QueryParam
+} from "routing-controllers";
 import {statusCodes} from "../config";
 import {iUser} from "../models/user.model";
 
@@ -14,9 +26,9 @@ export class UserController {
     }
 
     @Get()
-    getAll(@Res() response: any) {
+    getAll(@Res() response: any, @QueryParam("page") page: number, @QueryParam("limit") limit: number,) {
         return UserRepository
-            .getAll()
+            .getAll(page, limit)
             .then(docs => {
                 return response.send(docs);
             })

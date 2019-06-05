@@ -8,6 +8,10 @@ export const configs = {
     localPort: 1500,
     hostName: 'localhost',
     environment: environments.production,
+    pagination: {
+        initialPage: 1,
+        perPage: 10
+    },
     global: {
         logUrls: false,
         saveLogs: true

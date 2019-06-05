@@ -1,6 +1,6 @@
 import {iUser, User} from '../models/user.model'
 import {BaseRepository} from "./base.repository";
-import {itemStatuses} from "../config";
+import {itemStatuses, configs} from "../config";
 import {request} from "http";
 
 
@@ -11,10 +11,15 @@ class UserRepository extends BaseRepository {
         super();
     }
 
-    getAll() {
+    getAll(page: number = configs.pagination.initialPage, perPage: number = configs.pagination.perPage) {
         return User
             .find({status: itemStatuses.active})
             .select(this.excludeFields)
+            .limit(+perPage)
+            .skip(perPage * page)
+            .sort({
+                _id: 'desc'
+            })
             .then(docs => {
                 return docs;
             })
