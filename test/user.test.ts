@@ -6,7 +6,7 @@ import app from '../server';
 
 configs.environment = environments.test;
 
-describe('UserRegistration', function () {
+describe('UserCrud', function () {
     before('cleanup database', function (done) {
         testDbConnect(done, true);
     });
@@ -203,6 +203,10 @@ describe('UserRegistration', function () {
                     });
             });
 
+
+    });
+
+    it('removeAUser', function (done) {
 
     });
 

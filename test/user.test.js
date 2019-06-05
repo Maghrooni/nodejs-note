@@ -6,7 +6,7 @@ const dbConnection_1 = require("../dbConnection");
 const request = require("supertest");
 const server_1 = require("../server");
 config_1.configs.environment = config_1.environments.test;
-describe('UserRegistration', function () {
+describe('UserCrud', function () {
     before('cleanup database', function (done) {
         dbConnection_1.testDbConnect(done, true);
     });
@@ -190,6 +190,8 @@ describe('UserRegistration', function () {
                 done();
             });
         });
+    });
+    it('removeAUser', function (done) {
     });
 });
 //# sourceMappingURL=user.test.js.map
