@@ -1,7 +1,7 @@
 import {iNote, Note} from '../models/note.model'
 import {BaseRepository} from "./base.repository";
 import {User} from "../models/user.model";
-import {configs} from "../config";
+import {configs, itemStatuses} from "../config";
 
 
 class NoteRepository extends BaseRepository {
@@ -27,11 +27,39 @@ class NoteRepository extends BaseRepository {
     }
 
     getByUsername(username: string) {
-        //todo get user notes with username
+        return User
+            .find({username: username, status: itemStatuses.active})
+            .select('username name')
+            .populate('notes', 'title tags color type', {status: itemStatuses.active})
+            .sort({
+                title: 'asc'
+            })
+            .then(docs => {
+                return docs;
+            })
+            .catch(err => {
+                throw Error(err);
+            });
+    }
+
+    getByTag(tag: string) {
+        return Note
+        //or tags: {'$in': [tag]}
+            .find({tags: tag, status: itemStatuses.active})
+            .select('title tags color type')
+            .sort({
+                title: 'asc'
+            })
+            .then(docs => {
+                return docs;
+            })
+            .catch(err => {
+                throw Error(err);
+            });
     }
 
     getById(id: string) {
-        return User
+        return Note
             .findById(id)
             .then(doc => {
                 return doc;

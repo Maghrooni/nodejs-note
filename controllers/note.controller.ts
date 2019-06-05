@@ -51,6 +51,19 @@ export class NoteController {
             });
     }
 
+    @Get('/tag/:tag')
+    @OnUndefined(statusCodes.notFound)
+    getByTag(@Param('tag') tag: string, @Res() response: any) {
+        return NoteRepository
+            .getByTag(tag)
+            .then((docs) => {
+                response.send(docs);
+            })
+            .catch(err => {
+                response.status(statusCodes.serverError).send(err);
+            });
+    }
+
     @Post('/:userId')
     add(@Param('userId') userId: string, @Body() note: iNote, @Res() response: any) {
         return NoteService

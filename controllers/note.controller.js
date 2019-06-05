@@ -45,6 +45,16 @@ let NoteController = class NoteController {
             response.status(500 /* serverError */).send(err);
         });
     }
+    getByTag(tag, response) {
+        return NoteRepository
+            .getByTag(tag)
+            .then((docs) => {
+            response.send(docs);
+        })
+            .catch(err => {
+            response.status(500 /* serverError */).send(err);
+        });
+    }
     add(userId, note, response) {
         return NoteService
             .add(userId, note)
@@ -83,6 +93,11 @@ __decorate([
     routing_controllers_1.OnUndefined(404 /* notFound */),
     __param(0, routing_controllers_1.Param('username')), __param(1, routing_controllers_1.Res())
 ], NoteController.prototype, "getByUsername", null);
+__decorate([
+    routing_controllers_1.Get('/tag/:tag'),
+    routing_controllers_1.OnUndefined(404 /* notFound */),
+    __param(0, routing_controllers_1.Param('tag')), __param(1, routing_controllers_1.Res())
+], NoteController.prototype, "getByTag", null);
 __decorate([
     routing_controllers_1.Post('/:userId'),
     __param(0, routing_controllers_1.Param('userId')), __param(1, routing_controllers_1.Body()), __param(2, routing_controllers_1.Res())

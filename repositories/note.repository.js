@@ -24,10 +24,37 @@ class NoteRepository extends base_repository_1.BaseRepository {
         });
     }
     getByUsername(username) {
-        //todo get user notes with username
+        return user_model_1.User
+            .find({ username: username, status: 1 /* active */ })
+            .select('username name')
+            .populate('notes', 'title tags color type', { status: 1 /* active */ })
+            .sort({
+            title: 'asc'
+        })
+            .then(docs => {
+            return docs;
+        })
+            .catch(err => {
+            throw Error(err);
+        });
+    }
+    getByTag(tag) {
+        return note_model_1.Note
+            //or tags: {'$in': [tag]}
+            .find({ tags: tag, status: 1 /* active */ })
+            .select('title tags color type')
+            .sort({
+            title: 'asc'
+        })
+            .then(docs => {
+            return docs;
+        })
+            .catch(err => {
+            throw Error(err);
+        });
     }
     getById(id) {
-        return user_model_1.User
+        return note_model_1.Note
             .findById(id)
             .then(doc => {
             return doc;
