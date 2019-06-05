@@ -1,6 +1,7 @@
 import {iNote, Note} from '../models/note.model'
 import {BaseRepository} from "./base.repository";
 import {User} from "../models/user.model";
+import {configs} from "../config";
 
 
 class NoteRepository extends BaseRepository {
@@ -9,9 +10,14 @@ class NoteRepository extends BaseRepository {
         super();
     }
 
-    getAll() {
+    getAll(page: number = configs.pagination.initialPage, perPage: number = configs.pagination.perPage) {
         return Note
             .find({})
+            .limit(+perPage)
+            .skip(perPage * page)
+            .sort({
+                _id: 'desc'
+            })
             .then((doc) => {
                 return doc;
             })

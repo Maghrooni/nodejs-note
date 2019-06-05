@@ -1,6 +1,7 @@
 import {iLog, Log} from '../models/log.model'
 import {BaseRepository} from "./base.repository";
 import {User} from "../models/user.model";
+import {configs} from "../config";
 
 
 class LogRepository extends BaseRepository {
@@ -9,9 +10,14 @@ class LogRepository extends BaseRepository {
         super();
     }
 
-    getAll() {
+    getAll(page: number = configs.pagination.initialPage, perPage: number = configs.pagination.perPage) {
         return Log
             .find({})
+            .limit(+perPage)
+            .skip(perPage * page)
+            .sort({
+                _id: 'desc'
+            })
             .then((docs) => {
                 return docs;
             })

@@ -26,7 +26,7 @@ export class UserController {
     }
 
     @Get()
-    getAll(@Res() response: any, @QueryParam("page") page: number, @QueryParam("limit") limit: number,) {
+    getAll(@Res() response: any, @QueryParam("page") page: number, @QueryParam("limit") limit: number) {
         return UserRepository
             .getAll(page, limit)
             .then(docs => {

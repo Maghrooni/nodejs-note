@@ -2,13 +2,19 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const log_model_1 = require("../models/log.model");
 const base_repository_1 = require("./base.repository");
+const config_1 = require("../config");
 class LogRepository extends base_repository_1.BaseRepository {
     constructor() {
         super();
     }
-    getAll() {
+    getAll(page = config_1.configs.pagination.initialPage, perPage = config_1.configs.pagination.perPage) {
         return log_model_1.Log
             .find({})
+            .limit(+perPage)
+            .skip(perPage * page)
+            .sort({
+            _id: 'desc'
+        })
             .then((docs) => {
             return docs;
         })

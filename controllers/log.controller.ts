@@ -1,4 +1,4 @@
-import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete, Res} from "routing-controllers";
+import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete, Res, QueryParam} from "routing-controllers";
 import {statusCodes} from "../config";
 
 let LogRepository = require('../repositories/log.repository');
@@ -11,9 +11,9 @@ export class LogController {
     }
 
     @Get()
-    getAll(@Res() response: any) {
+    getAll(@Res() response: any, @QueryParam("page") page: number, @QueryParam("limit") limit: number) {
         return LogRepository
-            .getAll()
+            .getAll(page, limit)
             .then((docs) => {
                 response.send(docs);
             })

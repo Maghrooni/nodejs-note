@@ -1,4 +1,4 @@
-import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete, Res} from "routing-controllers";
+import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete, Res, QueryParam} from "routing-controllers";
 import {statusCodes} from "../config";
 import {noteTypes} from "../config/note";
 import {iNote} from "../models/note.model";
@@ -14,9 +14,9 @@ export class NoteController {
     }
 
     @Get()
-    getAll(@Res() response: any) {
+    getAll(@Res() response: any, @QueryParam("page") page: number, @QueryParam("limit") limit: number) {
         return NoteRepository
-            .getAll()
+            .getAll(page, limit)
             .then((docs) => {
                 response.send(docs);
             })

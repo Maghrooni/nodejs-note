@@ -15,9 +15,9 @@ let NoteService = require('../services/note.service');
 let NoteController = class NoteController {
     constructor() {
     }
-    getAll(response) {
+    getAll(response, page, limit) {
         return NoteRepository
-            .getAll()
+            .getAll(page, limit)
             .then((docs) => {
             response.send(docs);
         })
@@ -71,7 +71,7 @@ let NoteController = class NoteController {
 };
 __decorate([
     routing_controllers_1.Get(),
-    __param(0, routing_controllers_1.Res())
+    __param(0, routing_controllers_1.Res()), __param(1, routing_controllers_1.QueryParam("page")), __param(2, routing_controllers_1.QueryParam("limit"))
 ], NoteController.prototype, "getAll", null);
 __decorate([
     routing_controllers_1.Get('/:id'),

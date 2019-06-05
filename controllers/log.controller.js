@@ -14,9 +14,9 @@ let LogRepository = require('../repositories/log.repository');
 let LogController = class LogController {
     constructor() {
     }
-    getAll(response) {
+    getAll(response, page, limit) {
         return LogRepository
-            .getAll()
+            .getAll(page, limit)
             .then((docs) => {
             response.send(docs);
         })
@@ -27,7 +27,7 @@ let LogController = class LogController {
 };
 __decorate([
     routing_controllers_1.Get(),
-    __param(0, routing_controllers_1.Res())
+    __param(0, routing_controllers_1.Res()), __param(1, routing_controllers_1.QueryParam("page")), __param(2, routing_controllers_1.QueryParam("limit"))
 ], LogController.prototype, "getAll", null);
 LogController = __decorate([
     routing_controllers_1.JsonController('/logs')
