@@ -45,9 +45,9 @@ let NoteController = class NoteController {
             response.status(500 /* serverError */).send(err);
         });
     }
-    add(note, response) {
+    add(userId, note, response) {
         return NoteService
-            .add(note)
+            .add(userId, note)
             .then((doc) => {
             response.send(doc);
         })
@@ -84,8 +84,8 @@ __decorate([
     __param(0, routing_controllers_1.Param('username')), __param(1, routing_controllers_1.Res())
 ], NoteController.prototype, "getByUsername", null);
 __decorate([
-    routing_controllers_1.Post(),
-    __param(0, routing_controllers_1.Body()), __param(1, routing_controllers_1.Res())
+    routing_controllers_1.Post('/:userId'),
+    __param(0, routing_controllers_1.Param('userId')), __param(1, routing_controllers_1.Body()), __param(2, routing_controllers_1.Res())
 ], NoteController.prototype, "add", null);
 __decorate([
     routing_controllers_1.Put('/:id'),

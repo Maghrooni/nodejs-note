@@ -15,6 +15,7 @@ class UserRepository extends BaseRepository {
         return User
             .find({status: itemStatuses.active})
             .select(this.excludeFields)
+            .populate('notes')
             .limit(+perPage)
             .skip(perPage * page)
             .sort({
@@ -89,6 +90,17 @@ class UserRepository extends BaseRepository {
     update(id: string, updates: object) {
         return User
             .updateOne({_id: id}, updates)
+            .then(doc => {
+                return doc;
+            })
+            .catch(err => {
+                throw Error(err);
+            });
+    }
+
+    push(id: string, push: object) {
+        return User
+            .updateOne({_id: id}, {'$push': push})
             .then(doc => {
                 return doc;
             })

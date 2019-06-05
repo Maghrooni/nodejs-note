@@ -52,6 +52,17 @@ class NoteRepository extends BaseRepository {
             });
     }
 
+    push(id: string, push: object) {
+        return Note
+            .updateOne({_id: id}, {'$push': push})
+            .then(doc => {
+                return doc;
+            })
+            .catch(err => {
+                throw Error(err);
+            });
+    }
+
     delete(id: string) {
         //todo check is removed or not, promise ?
         return Note.remove({_id: id});

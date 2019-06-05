@@ -31,10 +31,10 @@ describe('NoteCrud', function () {
                 }
                 should(response.body._id).be.a.String();
                 request(app)
-                    .post('/notes')
+                    .post(`/notes/${response.body._id}`)
                     .send({
                         title: 'New Note',
-                        userId: response.body._id,
+                        tags: ['some', 'tag'],
                         color: '#ffff',
                         type: noteTypes.personal
                     })

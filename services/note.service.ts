@@ -2,6 +2,7 @@ import {BaseService} from "./base.service";
 import {iNote} from "../models/note.model";
 
 let NoteRepository = require('../repositories/note.repository');
+let UserRepository = require('../repositories/user.repository');
 
 class NoteService extends BaseService {
 
@@ -10,8 +11,24 @@ class NoteService extends BaseService {
         this.repository = NoteRepository;
     }
 
-    add(note: iNote) {
+    add(userId: string, note: iNote) {
         //todo transactions ?
+        //todo validate user has permission to add note for this userId
+        return this.repository
+            .add(note)
+            .then(doc => {
+                if (doc.errors !== undefined) {
+                    throw Error(doc.errors.message);
+                }
+                return UserRepository.push(userId, {notes: doc._id});
+            })
+            .catch(err => {
+                throw Error(err);
+            });
+        //todo add log of added note
+    }
+
+    private createNote(note: iNote) {
         return this.repository
             .add(note)
             .then((doc) => {
@@ -23,8 +40,6 @@ class NoteService extends BaseService {
             .catch(err => {
                 throw Error(err);
             });
-        //todo add log of added note
-
     }
 
     update(id: string, updates: object) {

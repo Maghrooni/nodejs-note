@@ -10,7 +10,8 @@ export interface iUser {
     name: string,
     email: string,
     status: number,
-    password: (string | number)
+    password: (string | number),
+    notes: object
 }
 
 export interface iUserDocument extends Document, iUser {
@@ -23,7 +24,8 @@ let userSchema = new Schema({
     password: {type: String, min: validationConfig.user.password.min, required: true},
     status: {type: Number, default: itemStatuses.active},
     lastLogin: {type: Date},
-    lastLoginIp: {type: String}
+    lastLoginIp: {type: String},
+    notes: [{type: Schema.Types.ObjectId, ref: 'Note'}]
 }, {timestamps: true});
 
 userSchema.plugin(uniqueValidator);

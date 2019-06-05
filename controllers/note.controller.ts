@@ -51,10 +51,10 @@ export class NoteController {
             });
     }
 
-    @Post()
-    add(@Body() note: iNote, @Res() response: any) {
+    @Post('/:userId')
+    add(@Param('userId') userId: string, @Body() note: iNote, @Res() response: any) {
         return NoteService
-            .add(note)
+            .add(userId, note)
             .then((doc) => {
                 response.send(doc);
             })
