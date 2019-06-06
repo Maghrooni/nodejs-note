@@ -1,11 +1,12 @@
 import {ExpressMiddlewareInterface} from 'routing-controllers';
 import {logPriorities} from "../config/log";
 
-let LogService = require('../services/log.service');
+let logger = require('../services/log.service');
+let logginServ = new logger().getInstance();
 
 export class LoggerMiddleware implements ExpressMiddlewareInterface {
     use(request: any, response: any, next?: (err?: any) => any): any {
-        LogService.add({
+        logginServ.add({
             title: 'Logger', priority: logPriorities.medium, data: {
                 body: response.body,
                 request: {

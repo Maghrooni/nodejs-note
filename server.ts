@@ -14,7 +14,8 @@ dbConnect();
 
 
 useExpressServer(app, {
-    controllers: [__dirname + "/controllers/*.js"]
+    controllers: [__dirname + "/controllers/*.js"],
+    defaultErrorHandler: false
 });
 
 // app.use(bodyParser.json());

@@ -12,7 +12,8 @@ dbConnection_1.dbConnect();
 // import {UserController} from "./controllers/user.controller";
 // import {NoteController} from "./controllers/note.controller";
 routing_controllers_1.useExpressServer(app, {
-    controllers: [__dirname + "/controllers/*.js"]
+    controllers: [__dirname + "/controllers/*.js"],
+    defaultErrorHandler: false
 });
 // app.use(bodyParser.json());
 // app.use('/', defaultRoutes);

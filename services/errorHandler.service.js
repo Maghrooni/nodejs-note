@@ -10,7 +10,8 @@ class ErrorHandlerService {
             LogService.add(log);
         }
         if (config_1.isDevEnv()) {
-            console.log(`\n#########\n ${msg} \n########\n`);
+            // console.log();
+            console.trace(`\n#########\n ${msg} \n########\n`);
         }
         throw new Error(`${msg}`);
     }

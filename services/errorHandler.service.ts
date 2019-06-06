@@ -13,7 +13,8 @@ class ErrorHandlerService {
             LogService.add(log);
         }
         if (isDevEnv()) {
-            console.log(`\n#########\n ${msg} \n########\n`);
+            // console.log();
+            console.trace(`\n#########\n ${msg} \n########\n`);
         }
         throw new Error(`${msg}`);
     }
