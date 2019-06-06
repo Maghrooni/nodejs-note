@@ -73,8 +73,8 @@ class UserService extends BaseService {
         return this.repository
             .update(id, updates)
             .then(updated => {
-                if (updated.nModified <= 0) {
-                    throw Error('');
+                if (updated.nModified !== 1) {
+                    return this.errorHandler.throwError('update failed');
                 }
                 return updated;
             })
