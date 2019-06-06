@@ -26,6 +26,12 @@ class NoteService extends BaseService {
                 return UserRepository.push(userId, {notes: doc._id});
             })
             .then(doc => {
+                if (doc.nModified !== 1) {
+                    return this.errorHandler.throwError('user do not exist');
+                }
+                return doc;
+            })
+            .then(doc => {
                 return this.logger
                     .add({
                         title: 'new note',

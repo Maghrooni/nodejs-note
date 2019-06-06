@@ -5,6 +5,9 @@ import request = require('supertest');
 import app from '../server';
 import {noteTypes} from "../config/note";
 
+const mongoose = require('mongoose');
+
+
 configs.environment = environments.test;
 
 describe('NoteCrud', function () {
@@ -50,6 +53,43 @@ describe('NoteCrud', function () {
 
     it('checkAddingNoteWithoutRequiredFields', function (done) {
         done();
+    });
+
+    it('checkAddingNoteWithInvalidUserID', function (done) {
+        request(app)
+            .post(`/notes/invaliduserid`)
+            .send({
+                title: 'New Note',
+                tags: ['some', 'tag'],
+                color: '#ffff',
+                type: noteTypes.personal
+            })
+            .expect(statusCodes.serverError)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it('checkAddingNoteWithValidNotExistedUserID', function (done) {
+        let notExistedUserId = mongoose.Types.ObjectId();
+        request(app)
+            .post(`/notes/${notExistedUserId}`)
+            .send({
+                title: 'New Note',
+                tags: ['some', 'tag'],
+                color: '#ffff',
+                type: noteTypes.personal
+            })
+            .expect(statusCodes.serverError)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
     });
 
     it('viewUserNotes', function (done) {
