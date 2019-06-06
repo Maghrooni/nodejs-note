@@ -29,6 +29,7 @@ class UserService extends BaseService {
      *
      * - Create user
      * - Check user has been created successfully
+     * - Logs registered user
      * - Return created user
      *
      * @param {iUser} user
@@ -38,6 +39,7 @@ class UserService extends BaseService {
         //todo use transactions ?
         //todo session or use tokens
         //todo check autologin config
+        user.password = "" + user.password;
         return UserRepository
             .add(user)
             .then(doc => {
@@ -46,15 +48,14 @@ class UserService extends BaseService {
                 }
                 return doc;
             })
-            //todo fix log
-            // .then(doc => {
-            //     LogService.add({
-            //         title: 'New User', priority: logPriorities.medium, data: {
-            //             user: doc
-            //         }
-            //     });
-            //     return doc;
-            // })
+            .then(doc => {
+                this.logger.add({
+                    title: 'New User', priority: logPriorities.medium, data: {
+                        user: doc
+                    }
+                });
+                return doc;
+            })
             .catch(err => {
                 return this.errorHandler.throwError(err);
             });

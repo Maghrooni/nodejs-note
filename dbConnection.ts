@@ -1,4 +1,4 @@
-import mongoose = require("mongoose");
+const mongoose = require("mongoose");
 import {configs, isProductionEnv} from './config';
 
 // mongoose.connection

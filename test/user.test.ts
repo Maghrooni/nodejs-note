@@ -1,19 +1,13 @@
 import should = require('should');
 import {configs, environments, itemStatuses, statusCodes} from '../config';
-import {testDbConnect} from "../dbConnection";
 import request = require('supertest');
 import app from '../server';
+import {testDBConnection} from "./helpers";
 
 configs.environment = environments.test;
 
-describe('UserCrud', function () {
-    before('cleanup database', function (done) {
-        testDbConnect(done, true);
-    });
-    after('cleanup database', function (done) {
-        testDbConnect(done, true);
-    });
-
+describe('User Crud', function () {
+    testDBConnection();
     it('registerANewUser', function (done) {
         request(app)
             .post('/users')
@@ -32,19 +26,39 @@ describe('UserCrud', function () {
             });
     });
 
-    // it('dontAllowRegisteringWithoutBodyData', function (done) {
-    //     request(app)
-    //         .post('/users')
-    //         .expect(statusCodes.validationError)
-    //         .end(function (err, response) {
-    //             if (err) {
-    //                 return done(err);
-    //             }
-    //             done();
-    //         });
-    // });
+    it('updateUserData', function (done) {
+        request(app)
+            .get('/users/maghrooni')
+            .expect(statusCodes.ok)
+            .end((err, response) => {
+                if (err) {
+                    return done(err);
+                }
+                should(response.body._id).be.a.String();
+                request(app)
+                    .put(`/users/${response.body._id}`)
+                    .send({
+                        username: 'maghrooniupdated',
+                    })
+                    .expect(statusCodes.ok)
+                    .end((err, response) => {
+                        if (err) {
+                            return done(err);
+                        }
+                        done();
+                    });
+            });
 
-    it('uniqueValidationCheckOnRegistration', function (done) {
+
+    });
+
+    it('removeAUser', function (done) {
+        done();
+    });
+
+});
+describe('User Login', function () {
+    it('registerANewUser', function (done) {
         request(app)
             .post('/users')
             .send({
@@ -53,7 +67,7 @@ describe('UserCrud', function () {
                 email: 'maghrooni@gmail.com',
                 password: 123456
             })
-            .expect(statusCodes.validationError)
+            .expect(statusCodes.ok)
             .end(function (err, response) {
                 if (err) {
                     return done(err);
@@ -79,6 +93,57 @@ describe('UserCrud', function () {
             });
     });
 
+    it('dontAllowInvalidLoginCredentials', function (done) {
+        request(app)
+            .post('/users/login')
+            .send({
+                username: 'maghrooni',
+                password: 333333
+            })
+            .expect(statusCodes.unauthorized)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it('dontAllowInvalidLoginCredentials', function (done) {
+        request(app)
+            .post('/users/login')
+            .send({
+                username: 'maghrooni',
+                password: 333333
+            })
+            .expect(statusCodes.unauthorized)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+    });
+});
+describe('User View', function () {
+    testDBConnection();
+    it('registerANewUser', function (done) {
+        request(app)
+            .post('/users')
+            .send({
+                name: 'Mehdi',
+                username: 'maghrooni',
+                email: 'maghrooni@gmail.com',
+                password: 123456
+            })
+            .expect(statusCodes.ok)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+    });
     it('userProfileViewWithUsername', function (done) {
         request(app)
             .get('/users/maghrooni')
@@ -156,15 +221,19 @@ describe('UserCrud', function () {
                     });
             });
     });
-
-    it('dontAllowInvalidLoginCredentials', function (done) {
+});
+describe('User Validation', function () {
+    testDBConnection();
+    it('registerANewUser', function (done) {
         request(app)
-            .post('/users/login')
+            .post('/users')
             .send({
+                name: 'Mehdi',
                 username: 'maghrooni',
-                password: 333333
+                email: 'maghrooni@gmail.com',
+                password: 123456
             })
-            .expect(statusCodes.unauthorized)
+            .expect(statusCodes.ok)
             .end(function (err, response) {
                 if (err) {
                     return done(err);
@@ -172,7 +241,6 @@ describe('UserCrud', function () {
                 done();
             });
     });
-
     it('requiredFieldsCheckOnRegistration', function (done) {
         request(app)
             .post('/users')
@@ -189,34 +257,58 @@ describe('UserCrud', function () {
             });
     });
 
-    it('updateUserData', function (done) {
+    it('uniqueValidationCheckOnRegistration', function (done) {
         request(app)
-            .get('/users/maghrooni')
-            .expect(statusCodes.ok)
-            .end((err, response) => {
+            .post('/users')
+            .send({
+                name: 'Mehdi',
+                username: 'maghrooni',
+                email: 'maghrooni@gmail.com',
+                password: 123456
+            })
+            .expect(statusCodes.validationError)
+            .end(function (err, response) {
                 if (err) {
                     return done(err);
                 }
-                should(response.body._id).be.a.String();
-                request(app)
-                    .put(`/users/${response.body._id}`)
-                    .send({
-                        username: 'maghrooniupdated',
-                    })
-                    .expect(statusCodes.ok)
-                    .end((err, response) => {
-                        if (err) {
-                            return done(err);
-                        }
-                        done();
-                    });
+                done();
             });
-
-
     });
 
-    it('removeAUser', function (done) {
-        done();
+    it('emailValidationCheckOnRegistration', function (done) {
+        request(app)
+            .post('/users')
+            .send({
+                name: 'Mehdi',
+                username: 'maghrooni1',
+                email: 'maghrooni1@',
+                password: 123456
+            })
+            .expect(statusCodes.validationError)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it('passwordValidationCheckOnRegistration', function (done) {
+        request(app)
+            .post('/users')
+            .send({
+                name: 'Mehdi',
+                username: 'maghrooni2',
+                email: 'maghrooni2@gmail.com',
+                password: 'in'
+            })
+            .expect(statusCodes.validationError)
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
     });
 
 });

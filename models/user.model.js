@@ -1,13 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-let uniqueValidator = require('mongoose-unique-validator');
 const validation_1 = require("../config/validation");
+const uniqueValidator = require('mongoose-unique-validator');
+const validator = require('validator');
 let userSchema = new mongoose_1.Schema({
-    name: { type: String, required: true, min: validation_1.default.user.min },
+    name: { type: String, required: true, minLength: validation_1.default.user.min },
     username: { type: String, unique: true, required: true, trim: true },
-    email: { type: String, unique: true, required: true, trim: true },
-    password: { type: String, min: validation_1.default.user.password.min, required: true },
+    email: {
+        type: String, unique: true, required: true, trim: true, validate: {
+            validator: (value) => {
+                return validator.isEmail(value);
+            },
+            message: '{VALUE} is not a valid email'
+        }
+    },
+    password: {
+        type: String, required: true,
+        validate: {
+            validator: (value) => {
+                return value.length >= validation_1.default.user.password.min;
+            },
+            message: `password must has at least ${validation_1.default.user.password.min} numbers`
+        }
+    },
     status: { type: Number, default: 1 /* active */ },
     lastLogin: { type: Date },
     lastLoginIp: { type: String },

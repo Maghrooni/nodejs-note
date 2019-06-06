@@ -2,17 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const should = require("should");
 const config_1 = require("../config");
-const dbConnection_1 = require("../dbConnection");
 const request = require("supertest");
 const server_1 = require("../server");
+const helpers_1 = require("./helpers");
 config_1.configs.environment = config_1.environments.test;
-describe('UserCrud', function () {
-    before('cleanup database', function (done) {
-        dbConnection_1.testDbConnect(done, true);
-    });
-    after('cleanup database', function (done) {
-        dbConnection_1.testDbConnect(done, true);
-    });
+describe('User Crud', function () {
+    helpers_1.testDBConnection();
     it('registerANewUser', function (done) {
         request(server_1.default)
             .post('/users')
@@ -30,18 +25,35 @@ describe('UserCrud', function () {
             done();
         });
     });
-    // it('dontAllowRegisteringWithoutBodyData', function (done) {
-    //     request(app)
-    //         .post('/users')
-    //         .expect(statusCodes.validationError)
-    //         .end(function (err, response) {
-    //             if (err) {
-    //                 return done(err);
-    //             }
-    //             done();
-    //         });
-    // });
-    it('uniqueValidationCheckOnRegistration', function (done) {
+    it('updateUserData', function (done) {
+        request(server_1.default)
+            .get('/users/maghrooni')
+            .expect(200 /* ok */)
+            .end((err, response) => {
+            if (err) {
+                return done(err);
+            }
+            should(response.body._id).be.a.String();
+            request(server_1.default)
+                .put(`/users/${response.body._id}`)
+                .send({
+                username: 'maghrooniupdated',
+            })
+                .expect(200 /* ok */)
+                .end((err, response) => {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+        });
+    });
+    it('removeAUser', function (done) {
+        done();
+    });
+});
+describe('User Login', function () {
+    it('registerANewUser', function (done) {
         request(server_1.default)
             .post('/users')
             .send({
@@ -50,7 +62,7 @@ describe('UserCrud', function () {
             email: 'maghrooni@gmail.com',
             password: 123456
         })
-            .expect(400 /* validationError */)
+            .expect(200 /* ok */)
             .end(function (err, response) {
             if (err) {
                 return done(err);
@@ -71,6 +83,56 @@ describe('UserCrud', function () {
                 return done(err);
             }
             should(response.body.username).equal('maghrooni');
+            done();
+        });
+    });
+    it('dontAllowInvalidLoginCredentials', function (done) {
+        request(server_1.default)
+            .post('/users/login')
+            .send({
+            username: 'maghrooni',
+            password: 333333
+        })
+            .expect(401 /* unauthorized */)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('dontAllowInvalidLoginCredentials', function (done) {
+        request(server_1.default)
+            .post('/users/login')
+            .send({
+            username: 'maghrooni',
+            password: 333333
+        })
+            .expect(401 /* unauthorized */)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            done();
+        });
+    });
+});
+describe('User View', function () {
+    helpers_1.testDBConnection();
+    it('registerANewUser', function (done) {
+        request(server_1.default)
+            .post('/users')
+            .send({
+            name: 'Mehdi',
+            username: 'maghrooni',
+            email: 'maghrooni@gmail.com',
+            password: 123456
+        })
+            .expect(200 /* ok */)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
             done();
         });
     });
@@ -147,14 +209,19 @@ describe('UserCrud', function () {
             });
         });
     });
-    it('dontAllowInvalidLoginCredentials', function (done) {
+});
+describe('User Validation', function () {
+    helpers_1.testDBConnection();
+    it('registerANewUser', function (done) {
         request(server_1.default)
-            .post('/users/login')
+            .post('/users')
             .send({
+            name: 'Mehdi',
             username: 'maghrooni',
-            password: 333333
+            email: 'maghrooni@gmail.com',
+            password: 123456
         })
-            .expect(401 /* unauthorized */)
+            .expect(200 /* ok */)
             .end(function (err, response) {
             if (err) {
                 return done(err);
@@ -177,31 +244,56 @@ describe('UserCrud', function () {
             done();
         });
     });
-    it('updateUserData', function (done) {
+    it('uniqueValidationCheckOnRegistration', function (done) {
         request(server_1.default)
-            .get('/users/maghrooni')
-            .expect(200 /* ok */)
-            .end((err, response) => {
+            .post('/users')
+            .send({
+            name: 'Mehdi',
+            username: 'maghrooni',
+            email: 'maghrooni@gmail.com',
+            password: 123456
+        })
+            .expect(400 /* validationError */)
+            .end(function (err, response) {
             if (err) {
                 return done(err);
             }
-            should(response.body._id).be.a.String();
-            request(server_1.default)
-                .put(`/users/${response.body._id}`)
-                .send({
-                username: 'maghrooniupdated',
-            })
-                .expect(200 /* ok */)
-                .end((err, response) => {
-                if (err) {
-                    return done(err);
-                }
-                done();
-            });
+            done();
         });
     });
-    it('removeAUser', function (done) {
-        done();
+    it('emailValidationCheckOnRegistration', function (done) {
+        request(server_1.default)
+            .post('/users')
+            .send({
+            name: 'Mehdi',
+            username: 'maghrooni1',
+            email: 'maghrooni1@',
+            password: 123456
+        })
+            .expect(400 /* validationError */)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('passwordValidationCheckOnRegistration', function (done) {
+        request(server_1.default)
+            .post('/users')
+            .send({
+            name: 'Mehdi',
+            username: 'maghrooni2',
+            email: 'maghrooni2@gmail.com',
+            password: 'in'
+        })
+            .expect(400 /* validationError */)
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            done();
+        });
     });
 });
 //# sourceMappingURL=user.test.js.map

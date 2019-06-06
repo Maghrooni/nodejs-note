@@ -44,7 +44,7 @@ class UserRepository extends BaseRepository {
             });
     }
 
-    getByUserPass(username: string, password: (number | string)) {
+    getByUserPass(username: string, password: string) {
         return User
             .findOne({
                 username: username,
