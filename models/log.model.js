@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 let noteSchema = new mongoose_1.Schema({
     title: { type: String, required: true },
-    userId: { type: Number },
+    userId: { type: String },
     type: { type: Number, default: 1 /* general */ },
     priority: { type: Number, default: 1 /* low */ },
     data: { type: Array },

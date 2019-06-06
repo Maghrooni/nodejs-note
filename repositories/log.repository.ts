@@ -1,6 +1,5 @@
 import {iLog, Log} from '../models/log.model'
 import {BaseRepository} from "./base.repository";
-import {User} from "../models/user.model";
 import {configs} from "../config";
 
 

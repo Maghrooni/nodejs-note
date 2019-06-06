@@ -18,27 +18,23 @@ class NoteService extends BaseService {
             .add(note)
             .then(doc => {
                 if (doc.errors !== undefined) {
-                    throw Error(doc.errors.message);
-                }
-                return UserRepository.push(userId, {notes: doc._id});
-            })
-            .catch(err => {
-                throw Error(err);
-            });
-        //todo add log of added note
-    }
-
-    private createNote(note: iNote) {
-        return this.repository
-            .add(note)
-            .then((doc) => {
-                if (doc.errors !== undefined) {
-                    throw Error(doc.errors.message);
+                    return this.errorHandler.throwError(doc.errors.message);
                 }
                 return doc;
             })
+            .then(doc => {
+                return UserRepository.push(userId, {notes: doc._id});
+            })
+            .then(doc => {
+                return this.logger
+                    .add({
+                        title: 'new note',
+                        userId: userId,
+                        data: {doc}
+                    });
+            })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 
@@ -52,7 +48,7 @@ class NoteService extends BaseService {
                 return updated;
             })
             .catch(err => {
-                throw Error(err);
+                return this.errorHandler.throwError(err);
             });
     }
 }

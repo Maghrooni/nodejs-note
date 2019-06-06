@@ -1,8 +1,7 @@
 import {BaseService} from "./base.service";
-import {iLog} from "../models/log.model";
+import {iLog, Log} from '../models/log.model'
 
 let LogRepository = require('../repositories/log.repository');
-let Log = require('../models/log.model');
 
 class LogService {
 
@@ -13,15 +12,29 @@ class LogService {
     }
 
     add(log: iLog) {
-        return this.repository
-            .add(log)
-            .then(doc => {
+        //todo fix repository not working
+        return Log
+            .create(log)
+            .then((doc) => {
                 return doc;
             })
             .catch(err => {
-                throw Error(err);
+               throw Error(err);
             });
     }
 }
+class Singleton {
 
-module.exports = new LogService();
+    constructor() {
+        if (!Singleton.instance) {
+            Singleton.instance = new LogService();
+        }
+    }
+
+    getInstance() {
+        return Singleton.instance;
+    }
+
+}
+
+module.exports = Singleton;

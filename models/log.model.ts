@@ -5,7 +5,7 @@ import {Schema, model, Document} from 'mongoose';
 export interface iLog {
     id?: number | string,
     title: string,
-    userId?: number,
+    userId?: string,
     type: number,
     priority: number,
     data: object,
@@ -17,7 +17,7 @@ export interface iLogDocument extends Document, iLog {
 
 let noteSchema = new Schema({
     title: {type: String, required: true},
-    userId: {type: Number},
+    userId: {type: String},
     type: {type: Number, default: logTypes.general},
     priority: {type: Number, default: logPriorities.low},
     data: {type: Array},
