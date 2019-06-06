@@ -5,20 +5,35 @@ import {BaseService} from "./base.service";
 import {logPriorities} from "../config/log";
 import {iUser} from "../models/user.model";
 
-/**
- * @const {Singleton Object}
- */
 const LogService = require('./log.service');
 
 const UserRepository = require('../repositories/user.repository');
 
+/**
+ *
+ */
 class UserService extends BaseService {
 
+    /**
+     * Calls BaseService constructor
+     * Set the main service repository to UserRepository
+     */
     constructor() {
         super();
         this.repository = UserRepository;
     }
 
+    /**
+     *
+     * Register User
+     *
+     * - Create user
+     * - Check user has been created successfully
+     * - Return created user
+     *
+     * @param {iUser} user
+     * @returns {Promise<T>}
+     */
     register(user: iUser) {
         //todo use transactions ?
         //todo session or use tokens
@@ -45,6 +60,18 @@ class UserService extends BaseService {
             });
     }
 
+    /**
+     *
+     * Login User
+     *
+     * - Find user by username and password combination
+     * - Validate if user exists and is active
+     * - Return found user
+     *
+     * @param {iUser} user
+     * @param request
+     * @returns {Promise<T>}
+     */
     login(user: iUser, request: any) {
         return this.repository
             .getByUserPass(
@@ -75,6 +102,18 @@ class UserService extends BaseService {
             });
     }
 
+    /**
+     *
+     * Update user information
+     *
+     * - Update the user
+     * - Validate user has been modified or not
+     * - Return updated user
+     *
+     * @param {string} id
+     * @param {object} updates
+     * @returns {Promise<T>}
+     */
     update(id: string, updates: object) {
         return this.repository
             .update(id, updates)

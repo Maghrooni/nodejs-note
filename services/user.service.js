@@ -4,16 +4,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module UserService
  */
 const base_service_1 = require("./base.service");
-/**
- * @const {Singleton Object}
- */
 const LogService = require('./log.service');
 const UserRepository = require('../repositories/user.repository');
+/**
+ *
+ */
 class UserService extends base_service_1.BaseService {
+    /**
+     * Calls BaseService constructor
+     * Set the main service repository to UserRepository
+     */
     constructor() {
         super();
         this.repository = UserRepository;
     }
+    /**
+     *
+     * Register User
+     *
+     * - Create user
+     * - Check user has been created successfully
+     * - Return created user
+     *
+     * @param {iUser} user
+     * @returns {Promise<T>}
+     */
     register(user) {
         //todo use transactions ?
         //todo session or use tokens
@@ -39,6 +54,18 @@ class UserService extends base_service_1.BaseService {
             return this.errorHandler.throwError(err);
         });
     }
+    /**
+     *
+     * Login User
+     *
+     * - Find user by username and password combination
+     * - Validate if user exists and is active
+     * - Return found user
+     *
+     * @param {iUser} user
+     * @param request
+     * @returns {Promise<T>}
+     */
     login(user, request) {
         return this.repository
             .getByUserPass(user.username, user.password)
@@ -65,6 +92,18 @@ class UserService extends base_service_1.BaseService {
             return this.errorHandler.throwError(err);
         });
     }
+    /**
+     *
+     * Update user information
+     *
+     * - Update the user
+     * - Validate user has been modified or not
+     * - Return updated user
+     *
+     * @param {string} id
+     * @param {object} updates
+     * @returns {Promise<T>}
+     */
     update(id, updates) {
         return this.repository
             .update(id, updates)

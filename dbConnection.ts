@@ -9,6 +9,12 @@ import {configs, isProductionEnv} from './config';
 //         console.log(`DB Error: ${err}`);
 //     });
 
+/**
+ * Connection to Database
+ *
+ * @param {object} config
+ * @returns {Promise<T | void>}
+ */
 export function dbConnect(config: object = configs) {
     let options = {useNewUrlParser: true};
     // if (isProductionEnv()) {
@@ -25,6 +31,14 @@ export function dbConnect(config: object = configs) {
         })
 }
 
+/**
+ *
+ * Connection to Test Database
+ *
+ * @param callback
+ * @param {boolean} dropDb to whether drop the database on connection or not
+ * @returns {module:mongoose.Mongoose}
+ */
 export function testDbConnect(callback: any, dropDb: boolean = true) {
     return mongoose.connect(`mongodb://${configs.test.database.ip}/${configs.test.database.dbName}`, {useNewUrlParser: true}, function () {
         if (dropDb) {

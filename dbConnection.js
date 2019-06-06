@@ -9,6 +9,12 @@ const config_1 = require("./config");
 //     .on('err', function (err) {
 //         console.log(`DB Error: ${err}`);
 //     });
+/**
+ * Connection to Database
+ *
+ * @param {object} config
+ * @returns {Promise<T | void>}
+ */
 function dbConnect(config = config_1.configs) {
     let options = { useNewUrlParser: true };
     // if (isProductionEnv()) {
@@ -25,6 +31,14 @@ function dbConnect(config = config_1.configs) {
     });
 }
 exports.dbConnect = dbConnect;
+/**
+ *
+ * Connection to Test Database
+ *
+ * @param callback
+ * @param {boolean} dropDb to whether drop the database on connection or not
+ * @returns {module:mongoose.Mongoose}
+ */
 function testDbConnect(callback, dropDb = true) {
     return mongoose.connect(`mongodb://${config_1.configs.test.database.ip}/${config_1.configs.test.database.dbName}`, { useNewUrlParser: true }, function () {
         if (dropDb) {
