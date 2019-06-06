@@ -6,6 +6,11 @@ var environments;
     environments["test"] = "test";
     environments["production"] = "production";
 })(environments = exports.environments || (exports.environments = {}));
+/**
+ * General Configuration settings
+ *
+ * @type {{localPort: number; hostName: string; environment: environments; pagination: {initialPage: number; perPage: number}; global: {logUrls: boolean; saveLogs: boolean}; database: {ip: string; dbName: string}; test: {database: {ip: string; dbName: string}}}}
+ */
 exports.configs = {
     localPort: 1500,
     hostName: 'localhost',

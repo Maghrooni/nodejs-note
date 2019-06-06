@@ -4,6 +4,11 @@ export enum environments {
     production = 'production'
 }
 
+/**
+ * General Configuration settings
+ *
+ * @type {{localPort: number; hostName: string; environment: environments; pagination: {initialPage: number; perPage: number}; global: {logUrls: boolean; saveLogs: boolean}; database: {ip: string; dbName: string}; test: {database: {ip: string; dbName: string}}}}
+ */
 export const configs = {
     localPort: 1500,
     hostName: 'localhost',

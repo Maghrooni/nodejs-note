@@ -1,10 +1,16 @@
+/**
+ * @module UserService
+ */
 import {BaseService} from "./base.service";
 import {logPriorities} from "../config/log";
 import {iUser} from "../models/user.model";
 
-let LogService = require('./log.service');
+/**
+ * @const {Singleton Object}
+ */
+const LogService = require('./log.service');
 
-let UserRepository = require('../repositories/user.repository');
+const UserRepository = require('../repositories/user.repository');
 
 class UserService extends BaseService {
 

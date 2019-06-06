@@ -1,8 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * @module UserService
+ */
 const base_service_1 = require("./base.service");
-let LogService = require('./log.service');
-let UserRepository = require('../repositories/user.repository');
+/**
+ * @const {Singleton Object}
+ */
+const LogService = require('./log.service');
+const UserRepository = require('../repositories/user.repository');
 class UserService extends base_service_1.BaseService {
     constructor() {
         super();
