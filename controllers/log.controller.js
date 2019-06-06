@@ -10,7 +10,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
-let LogRepository = require('../repositories/log.repository');
+const LogRepository = require('../repositories/log.repository');
 let LogController = class LogController {
     constructor() {
     }

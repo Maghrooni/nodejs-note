@@ -17,8 +17,8 @@ import {iUser} from "../models/user.model";
 import {LoggerMiddleware} from "../middlewares/logger.middleware";
 import {BaseController} from "./base.controller";
 
-let UserRepository = require('../repositories/user.repository');
-let UserService = require('../services/user.service');
+const UserRepository = require('../repositories/user.repository');
+const UserService = require('../services/user.service');
 
 @JsonController('/users')
 export class UserController extends BaseController {

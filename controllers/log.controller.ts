@@ -1,7 +1,7 @@
 import {JsonController, OnUndefined, Param, Body, Get, Post, Put, Delete, Res, QueryParam} from "routing-controllers";
 import {statusCodes} from "../config";
 
-let LogRepository = require('../repositories/log.repository');
+const LogRepository = require('../repositories/log.repository');
 
 @JsonController('/logs')
 

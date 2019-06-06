@@ -3,8 +3,8 @@ import {statusCodes} from "../config";
 import {noteTypes} from "../config/note";
 import {iNote} from "../models/note.model";
 
-let NoteRepository = require('../repositories/note.repository');
-let NoteService = require('../services/note.service')
+const NoteRepository = require('../repositories/note.repository');
+const NoteService = require('../services/note.service');
 
 @JsonController('/notes')
 

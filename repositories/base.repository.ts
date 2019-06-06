@@ -1,4 +1,4 @@
-let eHandler = require('../services/errorHandler.service');
+const eHandler = require('../services/errorHandler.service');
 
 interface iRepository {
 

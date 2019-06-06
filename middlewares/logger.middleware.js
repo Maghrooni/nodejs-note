@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-let logger = require('../services/log.service');
-let logginServ = new logger().getInstance();
+const logger = require('../services/log.service');
+const logginServ = new logger().getInstance();
 class LoggerMiddleware {
     use(request, response, next) {
         logginServ.add({

@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 const logger_middleware_1 = require("../middlewares/logger.middleware");
 const base_controller_1 = require("./base.controller");
-let UserRepository = require('../repositories/user.repository');
-let UserService = require('../services/user.service');
+const UserRepository = require('../repositories/user.repository');
+const UserService = require('../services/user.service');
 let UserController = class UserController extends base_controller_1.BaseController {
     constructor() {
         super();

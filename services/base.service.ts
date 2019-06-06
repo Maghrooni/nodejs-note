@@ -1,7 +1,7 @@
 import {BaseRepository} from "../repositories/base.repository";
 
-let eHandler = require('../services/errorHandler.service');
-let logger = require('../services/log.service');
+const eHandler = require('../services/errorHandler.service');
+const logger = require('../services/log.service');
 
 interface iService {
     repository: BaseRepository

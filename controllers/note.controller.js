@@ -10,8 +10,8 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
-let NoteRepository = require('../repositories/note.repository');
-let NoteService = require('../services/note.service');
+const NoteRepository = require('../repositories/note.repository');
+const NoteService = require('../services/note.service');
 let NoteController = class NoteController {
     constructor() {
     }

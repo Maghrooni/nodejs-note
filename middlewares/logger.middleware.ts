@@ -1,8 +1,8 @@
 import {ExpressMiddlewareInterface} from 'routing-controllers';
 import {logPriorities} from "../config/log";
 
-let logger = require('../services/log.service');
-let logginServ = new logger().getInstance();
+const logger = require('../services/log.service');
+const logginServ = new logger().getInstance();
 
 export class LoggerMiddleware implements ExpressMiddlewareInterface {
     use(request: any, response: any, next?: (err?: any) => any): any {
