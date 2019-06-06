@@ -3,7 +3,6 @@ import {logTypes, logPriorities} from "../config/log";
 import {Schema, model, Document} from 'mongoose';
 
 export interface iLog {
-    id?: number | string,
     title: string,
     userId?: string,
     type: number,

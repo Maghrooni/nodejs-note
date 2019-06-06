@@ -5,7 +5,6 @@ let uniqueValidator = require('mongoose-unique-validator');
 import validationConfig from '../config/validation';
 
 export interface iUser {
-    id?: string | number;
     username: string,
     name: string,
     email: string,

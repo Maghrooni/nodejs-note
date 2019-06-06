@@ -4,7 +4,6 @@ import {noteTypes} from "../config/note";
 import validationConfig from '../config/validation';
 
 export interface iNote {
-    id?: string | number;
     title: string,
     type: number,
     color: string,
