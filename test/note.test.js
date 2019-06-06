@@ -47,7 +47,32 @@ describe('NoteCrud', function () {
         });
     });
     it('checkAddingNoteWithoutRequiredFields', function (done) {
-        done();
+        request(server_1.default)
+            .get('/users/maghrooni')
+            .expect(200 /* ok */)
+            .expect(function (res) {
+            should(res.body._id).be.String();
+        })
+            .end(function (err, response) {
+            if (err) {
+                return done(err);
+            }
+            should(response.body._id).be.a.String();
+            request(server_1.default)
+                .post(`/notes/${response.body._id}`)
+                .send({
+                tags: ['some', 'tag'],
+                color: '#ffff',
+                type: 2 /* personal */
+            })
+                .expect(500 /* serverError */)
+                .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
+        });
     });
     it('checkAddingNoteWithInvalidUserID', function (done) {
         request(server_1.default)

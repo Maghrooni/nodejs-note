@@ -52,7 +52,32 @@ describe('NoteCrud', function () {
     });
 
     it('checkAddingNoteWithoutRequiredFields', function (done) {
-        done();
+        request(app)
+            .get('/users/maghrooni')
+            .expect(statusCodes.ok)
+            .expect(function (res) {
+                should(res.body._id).be.String();
+            })
+            .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                should(response.body._id).be.a.String();
+                request(app)
+                    .post(`/notes/${response.body._id}`)
+                    .send({
+                        tags: ['some', 'tag'],
+                        color: '#ffff',
+                        type: noteTypes.personal
+                    })
+                    .expect(statusCodes.serverError)
+                    .end(function (err, response) {
+                        if (err) {
+                            return done(err);
+                        }
+                        done();
+                    });
+            });
     });
 
     it('checkAddingNoteWithInvalidUserID', function (done) {

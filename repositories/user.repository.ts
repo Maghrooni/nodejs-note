@@ -30,7 +30,7 @@ class UserRepository extends BaseRepository {
 
     getByUsername(username: string) {
         return User
-            .findOne({username: username})
+            .findOne({username: username, status: itemStatuses.active})
             .select(this.excludeFields)
             .populate('notes', 'title tags color type', {status: itemStatuses.active})
             .then(doc => {

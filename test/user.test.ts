@@ -139,15 +139,21 @@ describe('UserCrud', function () {
                 email: 'someemail@gmail.com',
                 password: 123456,
                 status: itemStatuses.inactive
-            });
-        request(app)
-            .get('/users/username')
-            .expect(statusCodes.notFound)
+            })
+            .expect(statusCodes.ok)
             .end(function (err, response) {
                 if (err) {
                     return done(err);
                 }
-                done();
+                request(app)
+                    .get('/users/username')
+                    .expect(statusCodes.notFound)
+                    .end(function (err, response) {
+                        if (err) {
+                            return done(err);
+                        }
+                        done();
+                    });
             });
     });
 

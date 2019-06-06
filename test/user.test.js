@@ -130,15 +130,21 @@ describe('UserCrud', function () {
             email: 'someemail@gmail.com',
             password: 123456,
             status: 2 /* inactive */
-        });
-        request(server_1.default)
-            .get('/users/username')
-            .expect(404 /* notFound */)
+        })
+            .expect(200 /* ok */)
             .end(function (err, response) {
             if (err) {
                 return done(err);
             }
-            done();
+            request(server_1.default)
+                .get('/users/username')
+                .expect(404 /* notFound */)
+                .end(function (err, response) {
+                if (err) {
+                    return done(err);
+                }
+                done();
+            });
         });
     });
     it('dontAllowInvalidLoginCredentials', function (done) {
