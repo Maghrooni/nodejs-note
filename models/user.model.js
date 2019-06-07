@@ -9,9 +9,7 @@ let userSchema = new mongoose_1.Schema({
     username: { type: String, unique: true, required: true, trim: true },
     email: {
         type: String, unique: true, required: true, trim: true, validate: {
-            validator: (value) => {
-                return validator.isEmail(value);
-            },
+            validator: validator.isEmail,
             message: '{VALUE} is not a valid email'
         }
     },
@@ -21,9 +19,19 @@ let userSchema = new mongoose_1.Schema({
             validator: (value) => {
                 return value.length >= validation_1.default.user.password.min;
             },
-            message: `password must has at least ${validation_1.default.user.password.min} numbers`
+            message: `password must have at least ${validation_1.default.user.password.min} numbers`
         }
     },
+    tokens: [{
+            access: {
+                type: String,
+                required: true
+            },
+            token: {
+                type: String,
+                required: true
+            }
+        }],
     status: { type: Number, default: 1 /* active */ },
     lastLogin: { type: Date },
     lastLoginIp: { type: String },

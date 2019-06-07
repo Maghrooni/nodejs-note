@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 const logger_middleware_1 = require("../middlewares/logger.middleware");
 const base_controller_1 = require("./base.controller");
+const user_config_1 = require("../config/user.config");
 const UserRepository = require('../repositories/user.repository');
 const UserService = require('../services/user.service');
 let UserController = class UserController extends base_controller_1.BaseController {
@@ -42,7 +43,10 @@ let UserController = class UserController extends base_controller_1.BaseControll
         return UserService
             .register(user)
             .then(registered => {
-            return response.send(registered);
+            console.log(registered);
+            return response
+                .header(user_config_1.default.auth.header, registered.tokens[0].token)
+                .send(registered);
         })
             .catch(err => {
             return response.status(400 /* validationError */).send({ message: err.message });

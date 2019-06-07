@@ -4,6 +4,10 @@
 import {BaseService} from "./base.service";
 import {logPriorities} from "../config/log";
 import {iUser} from "../models/user.model";
+import userConfigs from "../config/user.config";
+import doc = Mocha.reporters.doc;
+
+const Jwt = require('jsonwebtoken');
 
 const LogService = require('./log.service');
 
@@ -40,12 +44,14 @@ class UserService extends BaseService {
         //todo session or use tokens
         //todo check autologin config
         user.password = "" + user.password;
+        let document;
         return UserRepository
             .add(user)
             .then(doc => {
                 if (doc.errors !== undefined) {
                     return this.errorHandler.throwError(doc.errors.message);
                 }
+                document = doc;
                 return doc;
             })
             .then(doc => {
@@ -55,6 +61,13 @@ class UserService extends BaseService {
                     }
                 });
                 return doc;
+            })
+            .then(doc => {
+                return this.setAuthToken(doc._id, this.getAuthToken(doc._id));
+            })
+            .then(token => {
+                document.tokens = token.tokens;
+                return document;
             })
             .catch(err => {
                 return this.errorHandler.throwError(err);
@@ -134,6 +147,38 @@ class UserService extends BaseService {
         //todo get document
         //todo remove notes
         //todo remove user
+    }
+
+    /**
+     * Generate Auth token with User ID
+     *
+     * @param {string} userId
+     * @returns {string}
+     */
+    getAuthToken(userId: string): string {
+        return Jwt.sign({_id: userId, access: userConfigs.auth.access}, userConfigs.auth.salt).toString();
+    }
+
+    /**
+     * Set Generated Token on User
+     *
+     * @param {string} userId
+     * @param {string} token
+     * @returns {Promise<T>}
+     */
+    setAuthToken(userId: string, token: string) {
+        const tokens = {tokens: {access: userConfigs.auth.access, token: token}};
+        return this.repository
+            .push(userId, tokens)
+            .then(updated => {
+                if (updated.nModified !== 1) {
+                    return this.errorHandler.throwError('update failed');
+                }
+                return tokens;
+            })
+            .catch(err => {
+                return this.errorHandler.throwError(err);
+            });
     }
 }
 

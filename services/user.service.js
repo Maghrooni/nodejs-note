@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module UserService
  */
 const base_service_1 = require("./base.service");
+const user_config_1 = require("../config/user.config");
+const Jwt = require('jsonwebtoken');
 const LogService = require('./log.service');
 const UserRepository = require('../repositories/user.repository');
 /**
@@ -35,12 +37,14 @@ class UserService extends base_service_1.BaseService {
         //todo session or use tokens
         //todo check autologin config
         user.password = "" + user.password;
+        let document;
         return UserRepository
             .add(user)
             .then(doc => {
             if (doc.errors !== undefined) {
                 return this.errorHandler.throwError(doc.errors.message);
             }
+            document = doc;
             return doc;
         })
             .then(doc => {
@@ -50,6 +54,13 @@ class UserService extends base_service_1.BaseService {
                 }
             });
             return doc;
+        })
+            .then(doc => {
+            return this.setAuthToken(doc._id, this.getAuthToken(doc._id));
+        })
+            .then(token => {
+            document.tokens = token.tokens;
+            return document;
         })
             .catch(err => {
             return this.errorHandler.throwError(err);
@@ -123,6 +134,36 @@ class UserService extends base_service_1.BaseService {
         //todo get document
         //todo remove notes
         //todo remove user
+    }
+    /**
+     * Generate Auth token with User ID
+     *
+     * @param {string} userId
+     * @returns {string}
+     */
+    getAuthToken(userId) {
+        return Jwt.sign({ _id: userId, access: user_config_1.default.auth.access }, user_config_1.default.auth.salt).toString();
+    }
+    /**
+     * Set Generated Token on User
+     *
+     * @param {string} userId
+     * @param {string} token
+     * @returns {Promise<T>}
+     */
+    setAuthToken(userId, token) {
+        const tokens = { tokens: { access: user_config_1.default.auth.access, token: token } };
+        return this.repository
+            .push(userId, tokens)
+            .then(updated => {
+            if (updated.nModified !== 1) {
+                return this.errorHandler.throwError('update failed');
+            }
+            return tokens;
+        })
+            .catch(err => {
+            return this.errorHandler.throwError(err);
+        });
     }
 }
 module.exports = new UserService();

@@ -11,7 +11,8 @@ export interface iUser {
     email: string,
     status: number,
     password: string,
-    notes: object
+    notes: object,
+    tokens: object
 }
 
 export interface iUserDocument extends Document, iUser {
@@ -22,9 +23,7 @@ let userSchema = new Schema({
     username: {type: String, unique: true, required: true, trim: true},
     email: {
         type: String, unique: true, required: true, trim: true, validate: {
-            validator: (value) => {
-                return validator.isEmail(value);
-            },
+            validator: validator.isEmail,
             message: '{VALUE} is not a valid email'
         }
     },
@@ -34,9 +33,19 @@ let userSchema = new Schema({
             validator: (value) => {
                 return value.length >= validationConfig.user.password.min;
             },
-            message: `password must has at least ${validationConfig.user.password.min} numbers`
+            message: `password must have at least ${validationConfig.user.password.min} numbers`
         }
     },
+    tokens: [{
+        access: {
+            type: String,
+            required: true
+        },
+        token: {
+            type: String,
+            required: true
+        }
+    }],
     status: {type: Number, default: itemStatuses.active},
     lastLogin: {type: Date},
     lastLoginIp: {type: String},

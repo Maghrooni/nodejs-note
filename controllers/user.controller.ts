@@ -16,6 +16,7 @@ import {statusCodes} from "../config";
 import {iUser} from "../models/user.model";
 import {LoggerMiddleware} from "../middlewares/logger.middleware";
 import {BaseController} from "./base.controller";
+import userConfigs from "../config/user.config";
 
 const UserRepository = require('../repositories/user.repository');
 const UserService = require('../services/user.service');
@@ -60,7 +61,10 @@ export class UserController extends BaseController {
         return UserService
             .register(user)
             .then(registered => {
-                return response.send(registered);
+                console.log(registered);
+                return response
+                    .header(userConfigs.auth.header,registered.tokens[0].token)
+                    .send(registered);
             })
             .catch(err => {
                 return response.status(statusCodes.validationError).send({message: err.message});
