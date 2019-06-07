@@ -61,9 +61,11 @@ export class UserController extends BaseController {
         return UserService
             .register(user)
             .then(registered => {
+                const token = registered.tokens[0].token;
+                ['password', 'tokens', 'notes'].forEach(e => delete registered._doc[e]);
                 console.log(registered);
                 return response
-                    .header(userConfigs.auth.header,registered.tokens[0].token)
+                    .header(userConfigs.auth.header, token)
                     .send(registered);
             })
             .catch(err => {
