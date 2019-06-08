@@ -66,7 +66,7 @@ class UserRepository extends BaseRepository {
                 password: password,
                 status: itemStatuses.active
             })
-            .select(this.excludeFields)
+            .select('-password')
             .then(doc => {
                 return doc;
             })

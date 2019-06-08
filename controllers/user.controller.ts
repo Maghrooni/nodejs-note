@@ -94,7 +94,11 @@ export class UserController extends BaseController {
         return UserService
             .login(user, request)
             .then(res => {
-                return response.send(res);
+                const token = res.tokens[0].token;
+                ['password', 'tokens', 'notes'].forEach(e => delete res._doc[e]);
+                return response
+                    .header(userConfigs.auth.header, token)
+                    .send(res);
             })
             .catch(err => {
                 return response.status(statusCodes.unauthorized).send({message: 'login failed'});
