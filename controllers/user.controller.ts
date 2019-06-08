@@ -103,10 +103,10 @@ export class UserController extends BaseController {
 
     @Put(`/:id`)
     @UseAfter(LoggerMiddleware)
-    update(@Param('id') id: string, @Body() user: iUser, @Res() response: any) {
-        //todo check if logged in user has permission to update data
+    @UseBefore(AuthMiddleware)
+    update(@Body() user: iUser, @Res() response: any) {
         return UserService
-            .update(id, user)
+            .update(response.locals.user._id, user)
             .then(() => {
                 return response.send({message: 'updated'});
             })
@@ -117,8 +117,10 @@ export class UserController extends BaseController {
 
     @Delete(`/:id`)
     @UseAfter(LoggerMiddleware)
-    delete(@Param('id') id: string) {
-        return UserRepository.delete(id);
+    @UseBefore(AuthMiddleware)
+    delete(@Res() response: any) {
+        //todo deactivate user profile
+        return UserRepository.delete(response.locals.user._id);
     }
 
 }

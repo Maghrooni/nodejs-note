@@ -75,10 +75,9 @@ let UserController = class UserController extends base_controller_1.BaseControll
             return response.status(401 /* unauthorized */).send({ message: 'login failed' });
         });
     }
-    update(id, user, response) {
-        //todo check if logged in user has permission to update data
+    update(user, response) {
         return UserService
-            .update(id, user)
+            .update(response.locals.user._id, user)
             .then(() => {
             return response.send({ message: 'updated' });
         })
@@ -86,8 +85,9 @@ let UserController = class UserController extends base_controller_1.BaseControll
             return response.status(400 /* validationError */).send({ message: 'update failed' });
         });
     }
-    delete(id) {
-        return UserRepository.delete(id);
+    delete(response) {
+        //todo deactivate user profile
+        return UserRepository.delete(response.locals.user._id);
     }
 };
 __decorate([
@@ -119,12 +119,14 @@ __decorate([
 __decorate([
     routing_controllers_1.Put(`/:id`),
     routing_controllers_1.UseAfter(logger_middleware_1.LoggerMiddleware),
-    __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body()), __param(2, routing_controllers_1.Res())
+    routing_controllers_1.UseBefore(auth_middleware_1.AuthMiddleware),
+    __param(0, routing_controllers_1.Body()), __param(1, routing_controllers_1.Res())
 ], UserController.prototype, "update", null);
 __decorate([
     routing_controllers_1.Delete(`/:id`),
     routing_controllers_1.UseAfter(logger_middleware_1.LoggerMiddleware),
-    __param(0, routing_controllers_1.Param('id'))
+    routing_controllers_1.UseBefore(auth_middleware_1.AuthMiddleware),
+    __param(0, routing_controllers_1.Res())
 ], UserController.prototype, "delete", null);
 UserController = __decorate([
     routing_controllers_1.JsonController('/users')
