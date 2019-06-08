@@ -5,6 +5,7 @@ const config_1 = require("../config");
 const request = require("supertest");
 const server_1 = require("../server");
 const helpers_1 = require("./helpers");
+const user_config_1 = require("../config/user.config");
 config_1.configs.environment = config_1.environments.test;
 describe('User Crud', function () {
     helpers_1.testDBConnection();
@@ -27,18 +28,24 @@ describe('User Crud', function () {
     });
     it('updateUserData', function (done) {
         request(server_1.default)
-            .get('/users/profile/maghrooni')
+            .post('/users/login')
+            .send({
+            username: 'maghrooni',
+            password: 123456
+        })
             .expect(200 /* ok */)
             .end((err, response) => {
             if (err) {
                 return done(err);
             }
             should(response.body._id).be.a.String();
+            should(response.headers[user_config_1.default.auth.header]).be.a.String();
             request(server_1.default)
                 .put(`/users/${response.body._id}`)
                 .send({
                 username: 'maghrooniupdated',
             })
+                .set(user_config_1.default.auth.header, response.headers[user_config_1.default.auth.header])
                 .expect(200 /* ok */)
                 .end((err, response) => {
                 if (err) {

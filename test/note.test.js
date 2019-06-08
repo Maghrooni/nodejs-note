@@ -48,7 +48,7 @@ describe('NoteCrud', function () {
     });
     it('checkAddingNoteWithoutRequiredFields', function (done) {
         request(server_1.default)
-            .get('/users/maghrooni')
+            .get('/users/profile/maghrooni')
             .expect(200 /* ok */)
             .expect(function (res) {
             should(res.body._id).be.String();

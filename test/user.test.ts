@@ -3,6 +3,7 @@ import {configs, environments, itemStatuses, statusCodes} from '../config';
 import request = require('supertest');
 import app from '../server';
 import {testDBConnection} from "./helpers";
+import userConfigs from "../config/user.config";
 
 configs.environment = environments.test;
 
@@ -28,18 +29,24 @@ describe('User Crud', function () {
 
     it('updateUserData', function (done) {
         request(app)
-            .get('/users/profile/maghrooni')
+            .post('/users/login')
+            .send({
+                username: 'maghrooni',
+                password: 123456
+            })
             .expect(statusCodes.ok)
             .end((err, response) => {
                 if (err) {
                     return done(err);
                 }
                 should(response.body._id).be.a.String();
+                should(response.headers[userConfigs.auth.header]).be.a.String();
                 request(app)
                     .put(`/users/${response.body._id}`)
                     .send({
                         username: 'maghrooniupdated',
                     })
+                    .set(userConfigs.auth.header, response.headers[userConfigs.auth.header])
                     .expect(statusCodes.ok)
                     .end((err, response) => {
                         if (err) {

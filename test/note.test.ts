@@ -53,7 +53,7 @@ describe('NoteCrud', function () {
 
     it('checkAddingNoteWithoutRequiredFields', function (done) {
         request(app)
-            .get('/users/maghrooni')
+            .get('/users/profile/maghrooni')
             .expect(statusCodes.ok)
             .expect(function (res) {
                 should(res.body._id).be.String();
