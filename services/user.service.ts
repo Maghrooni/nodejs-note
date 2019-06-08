@@ -160,6 +160,34 @@ class UserService extends BaseService {
     }
 
     /**
+     * Get User by token
+     *
+     * @param {string} token
+     * @returns {Promise<T>}
+     */
+    getByToken(token: string) {
+        try {
+            const decoded = Jwt.verify(token, userConfigs.auth.salt);
+            return UserRepository
+                .getByToken(decoded._id, token, userConfigs.auth.access)
+                .then(doc => {
+                    return doc;
+                })
+                .catch(err => {
+                    LogService.add({
+                        title: 'invalid auth', priority: logPriorities.high, data: {
+                            error: err,
+                            token: token
+                        }
+                    });
+                    return this.errorHandler.throwError(err);
+                });
+        } catch (err) {
+            return this.errorHandler.throwError(err);
+        }
+    }
+
+    /**
      * Set Generated Token on User
      *
      * @param {string} userId

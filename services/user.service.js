@@ -145,6 +145,34 @@ class UserService extends base_service_1.BaseService {
         return Jwt.sign({ _id: userId, access: user_config_1.default.auth.access }, user_config_1.default.auth.salt).toString();
     }
     /**
+     * Get User by token
+     *
+     * @param {string} token
+     * @returns {Promise<T>}
+     */
+    getByToken(token) {
+        try {
+            const decoded = Jwt.verify(token, user_config_1.default.auth.salt);
+            return UserRepository
+                .getByToken(decoded._id, token, user_config_1.default.auth.access)
+                .then(doc => {
+                return doc;
+            })
+                .catch(err => {
+                LogService.add({
+                    title: 'invalid auth', priority: 3 /* high */, data: {
+                        error: err,
+                        token: token
+                    }
+                });
+                return this.errorHandler.throwError(err);
+            });
+        }
+        catch (err) {
+            return this.errorHandler.throwError(err);
+        }
+    }
+    /**
      * Set Generated Token on User
      *
      * @param {string} userId

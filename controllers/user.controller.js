@@ -13,6 +13,7 @@ const routing_controllers_1 = require("routing-controllers");
 const logger_middleware_1 = require("../middlewares/logger.middleware");
 const base_controller_1 = require("./base.controller");
 const user_config_1 = require("../config/user.config");
+const auth_middleware_1 = require("../middlewares/auth.middleware");
 const UserRepository = require('../repositories/user.repository');
 const UserService = require('../services/user.service');
 let UserController = class UserController extends base_controller_1.BaseController {
@@ -39,13 +40,22 @@ let UserController = class UserController extends base_controller_1.BaseControll
             return response.status(404 /* notFound */).send({ message: 'user not found' });
         });
     }
+    getProfile(request, response) {
+        return UserService
+            .getByToken(request.header(user_config_1.default.auth.header))
+            .then(doc => {
+            return response.send(doc);
+        })
+            .catch(err => {
+            return response.status(404 /* notFound */).send({ message: 'user not valid' });
+        });
+    }
     add(user, response) {
         return UserService
             .register(user)
             .then(registered => {
             const token = registered.tokens[0].token;
             ['password', 'tokens', 'notes'].forEach(e => delete registered._doc[e]);
-            console.log(registered);
             return response
                 .header(user_config_1.default.auth.header, token)
                 .send(registered);
@@ -84,11 +94,17 @@ __decorate([
     __param(0, routing_controllers_1.Res()), __param(1, routing_controllers_1.QueryParam("page")), __param(2, routing_controllers_1.QueryParam("limit"))
 ], UserController.prototype, "getAll", null);
 __decorate([
-    routing_controllers_1.Get(`/:username`),
+    routing_controllers_1.Get(`/profile/:username`),
     routing_controllers_1.UseAfter(logger_middleware_1.LoggerMiddleware),
     routing_controllers_1.OnUndefined(404 /* notFound */),
     __param(0, routing_controllers_1.Param('username')), __param(1, routing_controllers_1.Res())
 ], UserController.prototype, "getByUsername", null);
+__decorate([
+    routing_controllers_1.Get(`/profile`),
+    routing_controllers_1.UseBefore(auth_middleware_1.AuthMiddleware),
+    routing_controllers_1.OnUndefined(404 /* notFound */),
+    __param(0, routing_controllers_1.Req()), __param(1, routing_controllers_1.Res())
+], UserController.prototype, "getProfile", null);
 __decorate([
     routing_controllers_1.Post(),
     routing_controllers_1.UseAfter(logger_middleware_1.LoggerMiddleware),

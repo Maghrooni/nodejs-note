@@ -10,13 +10,14 @@ import {
     Res,
     Req,
     QueryParam,
-    UseAfter
+    UseAfter, UseBefore
 } from "routing-controllers";
 import {statusCodes} from "../config";
 import {iUser} from "../models/user.model";
 import {LoggerMiddleware} from "../middlewares/logger.middleware";
 import {BaseController} from "./base.controller";
 import userConfigs from "../config/user.config";
+import {AuthMiddleware} from "../middlewares/auth.middleware";
 
 const UserRepository = require('../repositories/user.repository');
 const UserService = require('../services/user.service');
@@ -41,7 +42,7 @@ export class UserController extends BaseController {
             });
     }
 
-    @Get(`/:username`)
+    @Get(`/profile/:username`)
     @UseAfter(LoggerMiddleware)
     @OnUndefined(statusCodes.notFound)
     getByUsername(@Param('username') username: string, @Res() response: any) {
@@ -55,6 +56,20 @@ export class UserController extends BaseController {
             });
     }
 
+    @Get(`/profile`)
+    @UseBefore(AuthMiddleware)
+    @OnUndefined(statusCodes.notFound)
+    getProfile(@Req() request: any, @Res() response: any) {
+        return UserService
+            .getByToken(request.header(userConfigs.auth.header))
+            .then(doc => {
+                return response.send(doc);
+            })
+            .catch(err => {
+                return response.status(statusCodes.notFound).send({message: 'user not valid'});
+            });
+    }
+
     @Post()
     @UseAfter(LoggerMiddleware)
     add(@Body({required: true}) user: iUser, @Res() response: any) {
@@ -63,7 +78,6 @@ export class UserController extends BaseController {
             .then(registered => {
                 const token = registered.tokens[0].token;
                 ['password', 'tokens', 'notes'].forEach(e => delete registered._doc[e]);
-                console.log(registered);
                 return response
                     .header(userConfigs.auth.header, token)
                     .send(registered);

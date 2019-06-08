@@ -27,7 +27,7 @@ describe('User Crud', function () {
     });
     it('updateUserData', function (done) {
         request(server_1.default)
-            .get('/users/maghrooni')
+            .get('/users/profile/maghrooni')
             .expect(200 /* ok */)
             .end((err, response) => {
             if (err) {
@@ -138,7 +138,7 @@ describe('User View', function () {
     });
     it('userProfileViewWithUsername', function (done) {
         request(server_1.default)
-            .get('/users/maghrooni')
+            .get('/users/profile/maghrooni')
             .expect(200 /* ok */)
             .end(function (err, response) {
             if (err) {
@@ -150,7 +150,7 @@ describe('User View', function () {
     });
     it('shownUserInformationExcludesPasswordOnProfile', function (done) {
         request(server_1.default)
-            .get('/users/maghrooni')
+            .get('/users/profile/maghrooni')
             .expect(200 /* ok */)
             .end(function (err, response) {
             if (err) {
@@ -174,7 +174,7 @@ describe('User View', function () {
     });
     it('invalidUserProfileView', function (done) {
         request(server_1.default)
-            .get('/users/maghrooni22')
+            .get('/users/profile/maghrooni22')
             .expect(404 /* notFound */)
             .end(function (err, response) {
             if (err) {
@@ -199,7 +199,7 @@ describe('User View', function () {
                 return done(err);
             }
             request(server_1.default)
-                .get('/users/username')
+                .get('/users/profile/username')
                 .expect(404 /* notFound */)
                 .end(function (err, response) {
                 if (err) {

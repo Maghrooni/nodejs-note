@@ -28,7 +28,7 @@ describe('User Crud', function () {
 
     it('updateUserData', function (done) {
         request(app)
-            .get('/users/maghrooni')
+            .get('/users/profile/maghrooni')
             .expect(statusCodes.ok)
             .end((err, response) => {
                 if (err) {
@@ -146,7 +146,7 @@ describe('User View', function () {
     });
     it('userProfileViewWithUsername', function (done) {
         request(app)
-            .get('/users/maghrooni')
+            .get('/users/profile/maghrooni')
             .expect(statusCodes.ok)
             .end(function (err, response) {
                 if (err) {
@@ -159,7 +159,7 @@ describe('User View', function () {
 
     it('shownUserInformationExcludesPasswordOnProfile', function (done) {
         request(app)
-            .get('/users/maghrooni')
+            .get('/users/profile/maghrooni')
             .expect(statusCodes.ok)
             .end(function (err, response) {
                 if (err) {
@@ -185,7 +185,7 @@ describe('User View', function () {
 
     it('invalidUserProfileView', function (done) {
         request(app)
-            .get('/users/maghrooni22')
+            .get('/users/profile/maghrooni22')
             .expect(statusCodes.notFound)
             .end(function (err, response) {
                 if (err) {
@@ -211,7 +211,7 @@ describe('User View', function () {
                     return done(err);
                 }
                 request(app)
-                    .get('/users/username')
+                    .get('/users/profile/username')
                     .expect(statusCodes.notFound)
                     .end(function (err, response) {
                         if (err) {

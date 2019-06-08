@@ -4,7 +4,7 @@ import {itemStatuses, configs} from "../config";
 import {request} from "http";
 
 class UserRepository extends BaseRepository {
-    excludeFields = '-password';
+    excludeFields = '-password -tokens';
 
     constructor() {
         super();
@@ -33,6 +33,21 @@ class UserRepository extends BaseRepository {
             .findOne({username: username, status: itemStatuses.active})
             .select(this.excludeFields)
             .populate('notes', 'title tags color type', {status: itemStatuses.active})
+            .then(doc => {
+                if (!doc) {
+                    return this.errorHandler.throwError('failed');
+                }
+                return doc;
+            })
+            .catch(err => {
+                return this.errorHandler.throwError(err);
+            });
+    }
+
+    getByToken(id: string, token: string, access: string) {
+        return User
+            .findOne({_id: id, 'tokens.token': token, status: itemStatuses.active})
+            .select(this.excludeFields)
             .then(doc => {
                 if (!doc) {
                     return this.errorHandler.throwError('failed');

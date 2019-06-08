@@ -6,7 +6,7 @@ const config_1 = require("../config");
 class UserRepository extends base_repository_1.BaseRepository {
     constructor() {
         super();
-        this.excludeFields = '-password';
+        this.excludeFields = '-password -tokens';
     }
     getAll(page = config_1.configs.pagination.initialPage, perPage = config_1.configs.pagination.perPage) {
         return user_model_1.User
@@ -30,6 +30,20 @@ class UserRepository extends base_repository_1.BaseRepository {
             .findOne({ username: username, status: 1 /* active */ })
             .select(this.excludeFields)
             .populate('notes', 'title tags color type', { status: 1 /* active */ })
+            .then(doc => {
+            if (!doc) {
+                return this.errorHandler.throwError('failed');
+            }
+            return doc;
+        })
+            .catch(err => {
+            return this.errorHandler.throwError(err);
+        });
+    }
+    getByToken(id, token, access) {
+        return user_model_1.User
+            .findOne({ _id: id, 'tokens.token': token, status: 1 /* active */ })
+            .select(this.excludeFields)
             .then(doc => {
             if (!doc) {
                 return this.errorHandler.throwError('failed');
