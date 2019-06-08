@@ -5,7 +5,6 @@ import {BaseService} from "./base.service";
 import {logPriorities} from "../config/log";
 import {iUser} from "../models/user.model";
 import userConfigs from "../config/user.config";
-import doc = Mocha.reporters.doc;
 
 const Jwt = require('jsonwebtoken');
 
@@ -94,7 +93,7 @@ class UserService extends BaseService {
             )
             .then(doc => {
                 if (!doc) {
-                    LogService.add({
+                    this.logger.add({
                         title: 'Login Failed', priority: logPriorities.high, data: {
                             error: e,
                             user: user
@@ -166,24 +165,40 @@ class UserService extends BaseService {
      * @returns {Promise<T>}
      */
     getByToken(token: string) {
-        try {
-            const decoded = Jwt.verify(token, userConfigs.auth.salt);
-            return UserRepository
-                .getByToken(decoded._id, token, userConfigs.auth.access)
-                .then(doc => {
-                    return doc;
-                })
-                .catch(err => {
-                    LogService.add({
-                        title: 'invalid auth', priority: logPriorities.high, data: {
-                            error: err,
-                            token: token
-                        }
-                    });
-                    return this.errorHandler.throwError(err);
+        return this.verifyJwt(token)
+            .then(decoded => {
+                return UserRepository
+                    .getByToken(decoded._id, token, userConfigs.auth.access);
+            })
+            .then(doc => {
+                return doc;
+            })
+            .catch(err => {
+                this.logger.add({
+                    title: 'invalid auth', priority: logPriorities.high, data: {
+                        error: err,
+                        token: token
+                    }
                 });
-        } catch (err) {
-            return this.errorHandler.throwError(err);
+                return this.errorHandler.throwError(err);
+            });
+    }
+
+    /**
+     * Verify JWT token
+     *
+     * @param {string} token
+     * @returns {any}
+     */
+    private verifyJwt(token: string) {
+        try {
+            return new Promise((resolve, reject) => {
+                return resolve(Jwt.verify(token, userConfigs.auth.salt));
+            });
+        } catch (e) {
+            return new Promise((resolve, reject) => {
+                return reject();
+            });
         }
     }
 

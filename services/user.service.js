@@ -83,7 +83,7 @@ class UserService extends base_service_1.BaseService {
             .getByUserPass(user.username, user.password)
             .then(doc => {
             if (!doc) {
-                LogService.add({
+                this.logger.add({
                     title: 'Login Failed', priority: 3 /* high */, data: {
                         error: e,
                         user: user
@@ -151,25 +151,40 @@ class UserService extends base_service_1.BaseService {
      * @returns {Promise<T>}
      */
     getByToken(token) {
-        try {
-            const decoded = Jwt.verify(token, user_config_1.default.auth.salt);
+        return this.verifyJwt(token)
+            .then(decoded => {
             return UserRepository
-                .getByToken(decoded._id, token, user_config_1.default.auth.access)
-                .then(doc => {
-                return doc;
-            })
-                .catch(err => {
-                LogService.add({
-                    title: 'invalid auth', priority: 3 /* high */, data: {
-                        error: err,
-                        token: token
-                    }
-                });
-                return this.errorHandler.throwError(err);
+                .getByToken(decoded._id, token, user_config_1.default.auth.access);
+        })
+            .then(doc => {
+            return doc;
+        })
+            .catch(err => {
+            this.logger.add({
+                title: 'invalid auth', priority: 3 /* high */, data: {
+                    error: err,
+                    token: token
+                }
+            });
+            return this.errorHandler.throwError(err);
+        });
+    }
+    /**
+     * Verify JWT token
+     *
+     * @param {string} token
+     * @returns {any}
+     */
+    verifyJwt(token) {
+        try {
+            return new Promise((resolve, reject) => {
+                return resolve(Jwt.verify(token, user_config_1.default.auth.salt));
             });
         }
-        catch (err) {
-            return this.errorHandler.throwError(err);
+        catch (e) {
+            return new Promise((resolve, reject) => {
+                return reject();
+            });
         }
     }
     /**
