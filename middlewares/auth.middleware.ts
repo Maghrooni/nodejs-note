@@ -8,6 +8,7 @@ export class AuthMiddleware implements ExpressMiddlewareInterface {
         UserService
             .getByToken(request.header(userConfigs.auth.header))
             .then(doc => {
+                response.locals.user = doc;
                 return next();
             })
             .catch(err => {

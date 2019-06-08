@@ -7,6 +7,7 @@ class AuthMiddleware {
         UserService
             .getByToken(request.header(user_config_1.default.auth.header))
             .then(doc => {
+            response.locals.user = doc;
             return next();
         })
             .catch(err => {

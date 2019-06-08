@@ -41,14 +41,15 @@ let UserController = class UserController extends base_controller_1.BaseControll
         });
     }
     getProfile(request, response) {
-        return UserService
-            .getByToken(request.header(user_config_1.default.auth.header))
-            .then(doc => {
-            return response.send(doc);
-        })
-            .catch(err => {
-            return response.status(404 /* notFound */).send({ message: 'user not valid' });
-        });
+        return response.send(response.locals.user);
+        // return UserService
+        //     .getByToken(request.header(userConfigs.auth.header))
+        //     .then(doc => {
+        //         return response.send(doc);
+        //     })
+        //     .catch(err => {
+        //         return response.status(statusCodes.notFound).send({message: 'user not valid'});
+        //     });
     }
     add(user, response) {
         return UserService

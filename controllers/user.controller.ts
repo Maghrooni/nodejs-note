@@ -60,14 +60,15 @@ export class UserController extends BaseController {
     @UseBefore(AuthMiddleware)
     @OnUndefined(statusCodes.notFound)
     getProfile(@Req() request: any, @Res() response: any) {
-        return UserService
-            .getByToken(request.header(userConfigs.auth.header))
-            .then(doc => {
-                return response.send(doc);
-            })
-            .catch(err => {
-                return response.status(statusCodes.notFound).send({message: 'user not valid'});
-            });
+        return response.send(response.locals.user);
+        // return UserService
+        //     .getByToken(request.header(userConfigs.auth.header))
+        //     .then(doc => {
+        //         return response.send(doc);
+        //     })
+        //     .catch(err => {
+        //         return response.status(statusCodes.notFound).send({message: 'user not valid'});
+        //     });
     }
 
     @Post()
