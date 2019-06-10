@@ -176,14 +176,10 @@ class UserService extends base_service_1.BaseService {
      */
     verifyJwt(token) {
         try {
-            return new Promise((resolve, reject) => {
-                return resolve(Jwt.verify(token, user_config_1.default.auth.salt));
-            });
+            return Promise.resolve(Jwt.verify(token, user_config_1.default.auth.salt));
         }
         catch (e) {
-            return new Promise((resolve, reject) => {
-                return reject();
-            });
+            return Promise.reject(e);
         }
     }
     /**

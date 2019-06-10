@@ -190,13 +190,9 @@ class UserService extends BaseService {
      */
     private verifyJwt(token: string) {
         try {
-            return new Promise((resolve, reject) => {
-                return resolve(Jwt.verify(token, userConfigs.auth.salt));
-            });
+            return Promise.resolve(Jwt.verify(token, userConfigs.auth.salt));
         } catch (e) {
-            return new Promise((resolve, reject) => {
-                return reject();
-            });
+            return Promise.reject(e);
         }
     }
 
