@@ -8,7 +8,7 @@ class ErrorHandlerService {
     constructor() {
     }
 
-    throwError(msg: string, log: iLog) {
+    throwError(msg: string, log: iLog, isPromise: boolean = true) {
         if (log && configs.global.saveLogs) {
             LogService.add(log);
         }
@@ -16,7 +16,10 @@ class ErrorHandlerService {
             // console.log();
             console.trace(`\n#########\n ${msg} \n########\n`);
         }
-        throw new Error(`${msg}`);
+        if (isPromise) {
+            return Promise.reject(msg);
+        }
+        throw new Error(msg);
     }
 
     consoleError(msg: string) {

@@ -5,7 +5,7 @@ let LogService = require('../services/log.service');
 class ErrorHandlerService {
     constructor() {
     }
-    throwError(msg, log) {
+    throwError(msg, log, isPromise = true) {
         if (log && config_1.default.global.saveLogs) {
             LogService.add(log);
         }
@@ -13,7 +13,10 @@ class ErrorHandlerService {
             // console.log();
             console.trace(`\n#########\n ${msg} \n########\n`);
         }
-        throw new Error(`${msg}`);
+        if (isPromise) {
+            return Promise.reject(msg);
+        }
+        throw new Error(msg);
     }
     consoleError(msg) {
         return console.log(msg);

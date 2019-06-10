@@ -8,8 +8,6 @@ import userConfigs from "../config/user.config";
 
 const Jwt = require('jsonwebtoken');
 
-const LogService = require('./log.service');
-
 const UserRepository = require('../repositories/user.repository');
 
 /**

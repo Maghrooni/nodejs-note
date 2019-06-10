@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_service_1 = require("./base.service");
 const user_config_1 = require("../config/user.config");
 const Jwt = require('jsonwebtoken');
-const LogService = require('./log.service');
 const UserRepository = require('../repositories/user.repository');
 /**
  *
